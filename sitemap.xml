@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://yourdomain.com/</loc>
+    <lastmod>2025-07-09</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://yourdomain.com/about.html</loc>
+    <lastmod>2025-07-09</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://yourdomain.com/contact.html</loc>
+    <lastmod>2025-07-09</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Tools -->
+  <url><loc>https://toolgenie.in/tools/image-compressor.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/jpg-to-png.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/png-to-jpg.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/mp4-to-mp3.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/pdf-merger.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/pdf-splitter.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/pdf-to-word-converter.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/word-to-pdf-converter.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/qr-code-generator.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/text-pdf-generator.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/time-zone-converter.html</loc></url>
+  <url><loc>https://toolgenie.in/tools/word-counter.html</loc></url>
+
+</urlset>
