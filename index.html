@@ -4,29 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ToolGenie - Free Online Tools</title>
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <header>
-    <h1>🔧 ToolGenie</h1>
-    <p>Simple, fast, free online tools — no signup, no watermark.</p>
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-600">ToolGenie</h1>
+    <nav>
+      <a href="#tools" class="text-gray-600 hover:text-blue-500 mx-2">Tools</a>
+      <a href="#about" class="text-gray-600 hover:text-blue-500 mx-2">About</a>
+      <a href="#contact" class="text-gray-600 hover:text-blue-500 mx-2">Contact</a>
+    </nav>
   </header>
 
-  <main>
-    <div class="tools-grid">
-      <a href="tools/png-to-jpeg.html">🖼️ PNG to JPEG</a>
-      <a href="tools/jpeg-to-png.html">📷 JPEG to PNG</a>
-      <a href="tools/image-resizer.html">📐 Image Size Resizer</a>
-      <a href="tools/image-to-pdf.html">🧾 Image to PDF</a>
-      <a href="tools/instagram-downloader.html">📥 Instagram Downloader</a>
-      <a href="tools/youtube-to-mp3.html">🎵 YouTube to MP3</a>
-      <a href="tools/mp4-to-mp3.html">🎬 MP4 to MP3</a>
-      <a href="tools/qr-code-generator.html">🔲 QR Code Generator</a>
-    </div>
-  </main>
+  <!-- Hero Section -->
+  <section class="text-center p-12">
+    <h2 class="text-3xl font-bold mb-2">Free Online Tools Made Simple</h2>
+    <p class="text-gray-600">Convert, compress, and download — all in one place.</p>
+  </section>
 
-  <footer>
-    <p>&copy; 2025 ToolGenie.in — All rights reserved</p>
+  <!-- Tools Section -->
+  <section id="tools" class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+    <div class="p-4 bg-white rounded-xl shadow text-center">
+      <h3 class="font-semibold text-lg">PNG to JPG</h3>
+      <p class="text-sm text-gray-500 mb-2">Convert your images in seconds</p>
+      <a href="png-to-jpg.html" class="text-blue-500 underline">Try Now</a>
+    </div>
+    <!-- Add more tools below this -->
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6">
+    © 2025 ToolGenie. All rights reserved.
   </footer>
+
 </body>
 </html>
+
