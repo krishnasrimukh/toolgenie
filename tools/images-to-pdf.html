@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Convert images (JPG, PNG) to a single PDF file instantly." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Convert multiple images to a single PDF – fast, free, and easy.">
   <title>Images to PDF - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="icon" type="image/png" href="../assets/favicon.png" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      padding: 2rem;
-      background: #f5f7fa;
+      background-color: #f5f7fa;
       color: #1a1a1a;
+      margin: 0;
+      padding: 2rem 1rem;
     }
 
     .container {
-      max-width: 700px;
-      margin: auto;
+      max-width: 600px;
+      margin: 0 auto;
       text-align: center;
     }
 
@@ -28,54 +29,59 @@
 
     p {
       color: #555;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
-    .upload-area {
-      border: 2px dashed #ccc;
-      padding: 2rem;
+    .upload-box {
+      border: 2px dashed #bbb;
       border-radius: 12px;
+      padding: 2rem;
       background: #fff;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: background 0.2s ease;
     }
 
-    .upload-area:hover {
+    .upload-box:hover {
       background: #f0f0f0;
     }
 
-    .upload-area input {
+    .upload-box input {
       display: none;
     }
 
     .preview {
+      margin-top: 1.5rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
-      margin-top: 1.5rem;
     }
 
     .preview img {
-      height: 100px;
-      border: 1px solid #ddd;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
       border-radius: 8px;
+      border: 1px solid #ddd;
     }
 
     .buttons {
       margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
     }
 
     .buttons button {
       background-color: #4a90e2;
       color: white;
       border: none;
-      padding: 0.8rem 1.5rem;
+      padding: 0.75rem 1.5rem;
       font-size: 1rem;
       border-radius: 8px;
       cursor: pointer;
-      margin: 0 0.5rem;
-      transition: 0.3s ease;
+      transition: background-color 0.3s ease;
     }
 
     .buttons button:hover {
@@ -84,16 +90,16 @@
 
     #loader {
       display: none;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
     }
 
     #loader span {
       display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 3px;
+      width: 8px;
+      height: 8px;
       background: #4a90e2;
       border-radius: 50%;
+      margin: 0 4px;
       animation: bounce 0.6s infinite alternate;
     }
 
@@ -110,48 +116,84 @@
         transform: translateY(-10px);
       }
     }
+
+    @media (max-width: 500px) {
+      .preview img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .buttons button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-
   <div class="container">
     <h1>🖼️ Images to PDF</h1>
-    <p>Select or drag multiple images (JPG, PNG) and convert them into a single PDF file.</p>
+    <p>Upload multiple images and convert them into a single PDF file.</p>
 
-    <label class="upload-area" id="upload-label">
+    <label class="upload-box" id="dropArea">
       <input type="file" id="imageInput" accept="image/*" multiple />
-      <strong>Click or Drag & Drop Images</strong>
+      <strong>Click or Drag & Drop Images Here</strong>
     </label>
 
     <div class="preview" id="previewArea"></div>
 
-    <div id="loader"><span></span><span></span><span></span></div>
-
     <div class="buttons">
       <button onclick="convertToPDF()">Convert to PDF</button>
-      <button id="downloadBtn" style="display:none;" onclick="downloadPDF()">Download PDF</button>
+      <a id="downloadBtn" style="display: none;" class="button" download="images-to-pdf.pdf">Download PDF</a>
+    </div>
+
+    <div id="loader">
+      <span></span><span></span><span></span>
     </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    const input = document.getElementById('imageInput');
-    const preview = document.getElementById('previewArea');
+    const imageInput = document.getElementById('imageInput');
+    const previewArea = document.getElementById('previewArea');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const loader = document.getElementById('loader');
+    const dropArea = document.getElementById('dropArea');
     let imageFiles = [];
 
-    input.addEventListener('change', (e) => {
-      preview.innerHTML = '';
-      imageFiles = Array.from(e.target.files);
+    dropArea.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropArea.style.background = "#e6f0ff";
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.style.background = "#fff";
+    });
+
+    dropArea.addEventListener("drop", e => {
+      e.preventDefault();
+      dropArea.style.background = "#fff";
+      const files = Array.from(e.dataTransfer.files);
+      handleFiles(files);
+    });
+
+    imageInput.addEventListener("change", () => {
+      const files = Array.from(imageInput.files);
+      handleFiles(files);
+    });
+
+    function handleFiles(files) {
+      imageFiles = files.filter(file => file.type.startsWith("image/"));
+      previewArea.innerHTML = '';
       imageFiles.forEach(file => {
         const reader = new FileReader();
         reader.onload = () => {
-          const img = document.createElement('img');
+          const img = document.createElement("img");
           img.src = reader.result;
-          preview.appendChild(img);
+          previewArea.appendChild(img);
         };
         reader.readAsDataURL(file);
       });
-    });
+    }
 
     async function convertToPDF() {
       if (imageFiles.length === 0) {
@@ -159,39 +201,36 @@
         return;
       }
 
-      document.getElementById("loader").style.display = "block";
+      loader.style.display = "flex";
+      downloadBtn.style.display = "none";
+
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF();
 
       for (let i = 0; i < imageFiles.length; i++) {
-        const img = await toDataURL(imageFiles[i]);
-        const imgProps = pdf.getImageProperties(img);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        const imageData = await readFileAsDataURL(imageFiles[i]);
+        const img = new Image();
+        img.src = imageData;
 
-        if (i > 0) pdf.addPage();
-        pdf.addImage(img, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        await new Promise(resolve => {
+          img.onload = () => {
+            const width = pdf.internal.pageSize.getWidth();
+            const height = (img.height * width) / img.width;
+            if (i > 0) pdf.addPage();
+            pdf.addImage(img, 'JPEG', 0, 0, width, height);
+            resolve();
+          };
+        });
       }
 
-      pdf.output('blob').then(blob => {
-        const blobUrl = URL.createObjectURL(blob);
-        const downloadBtn = document.getElementById('downloadBtn');
-        downloadBtn.href = blobUrl;
-        downloadBtn.style.display = 'inline-block';
-        downloadBtn.download = "images-to-pdf.pdf";
-        document.getElementById("loader").style.display = "none";
-      });
-
-      window.generatedPDF = pdf;
+      const pdfBlob = pdf.output("blob");
+      const blobUrl = URL.createObjectURL(pdfBlob);
+      downloadBtn.href = blobUrl;
+      downloadBtn.style.display = "inline-block";
+      loader.style.display = "none";
     }
 
-    function downloadPDF() {
-      if (window.generatedPDF) {
-        window.generatedPDF.save('images-to-pdf.pdf');
-      }
-    }
-
-    function toDataURL(file) {
+    function readFileAsDataURL(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
