@@ -1,1 +1,61 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator - ToolGenie</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+  <div class="tool-wrapper">
+    <h1 class="tool-title">QR Code Generator</h1>
+    <p class="tool-description">Generate QR codes for text, URLs, and more. Download and share with ease.</p>
+
+    <div class="input-group">
+      <textarea id="qrText" placeholder="Enter text or URL..." rows="4"></textarea>
+      <button id="generateBtn" class="btn">Generate QR Code</button>
+    </div>
+
+    <div id="previewContainer" class="preview-box" style="display: none;">
+      <h3 class="preview-title">QR Code Preview</h3>
+      <canvas id="qrCanvas"></canvas>
+      <a id="downloadLink" class="btn download-btn" href="#" download="qrcode.png">Download QR Code</a>
+    </div>
+
+    <div id="spinner" class="spinner" style="display: none;"></div>
+  </div>
+
+  <script>
+    const generateBtn = document.getElementById("generateBtn");
+    const qrText = document.getElementById("qrText");
+    const qrCanvas = document.getElementById("qrCanvas");
+    const previewContainer = document.getElementById("previewContainer");
+    const spinner = document.getElementById("spinner");
+    const downloadLink = document.getElementById("downloadLink");
+
+    generateBtn.addEventListener("click", () => {
+      const text = qrText.value.trim();
+      if (!text) return alert("Please enter text or a URL to generate the QR code.");
+
+      spinner.style.display = "block";
+      previewContainer.style.display = "none";
+
+      setTimeout(() => {
+        QRCode.toCanvas(qrCanvas, text, { width: 250 }, function (error) {
+          spinner.style.display = "none";
+          if (error) return alert("Error generating QR Code.");
+
+          const canvas = qrCanvas;
+          downloadLink.href = canvas.toDataURL("image/png");
+          previewContainer.style.display = "block";
+        });
+      }, 500);
+    });
+  </script>
+</body>
+
+</html>
