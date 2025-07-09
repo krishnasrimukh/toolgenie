@@ -5,149 +5,155 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF Splitter - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1 class="tool-title">PDF Splitter</h1>
-    <p class="tool-description">Upload a PDF and split it into smaller PDFs using your custom settings.</p>
+    <h1 class="heading">✂️ PDF Splitter</h1>
+    <p class="subheading">Split your PDF by page ranges or into equal parts</p>
 
-    <div class="upload-area" id="drop-area">
-      <p>Drag & drop your PDF file here or click to upload</p>
-      <input type="file" id="fileElem" accept="application/pdf" />
+    <div class="drop-area" id="drop-area">
+      <p>Drag & Drop PDF here or <label for="fileElem" class="browse-label">Browse</label></p>
+      <input type="file" id="fileElem" accept="application/pdf" style="display:none" />
     </div>
 
-    <div id="fileInfo" class="file-list"></div>
+    <div id="options" class="tool-card hidden">
+      <h3>Select Split Mode:</h3>
+      <label><input type="radio" name="mode" value="range" checked> By page ranges (e.g., 1-2,4-6)</label><br>
+      <label><input type="radio" name="mode" value="every"> Split every N pages</label><br>
+      <label><input type="radio" name="mode" value="per"> Pages per split (each file has N pages)</label>
 
-    <div class="options">
-      <label for="splitMode">Split Mode:</label>
-      <select id="splitMode">
-        <option value="byN">Split every N pages</option>
-        <option value="byRange">Split by specific page ranges</option>
-      </select>
-
-      <div id="byNPages">
-        <label for="nPages">Pages per split:</label>
-        <input type="number" id="nPages" min="1" value="1" />
+      <div id="rangeInput" class="input-group">
+        <label>Ranges (comma separated):</label>
+        <input type="text" id="rangeText" class="input" placeholder="e.g. 1-2,4-6" />
       </div>
 
-      <div id="byRangeInput" style="display: none;">
-        <label for="ranges">Enter page ranges (e.g. 1-3,4-6,7):</label>
-        <input type="text" id="ranges" placeholder="e.g. 1-3,4-6,7" />
+      <div id="everyInput" class="input-group hidden">
+        <label>Every N pages:</label>
+        <input type="number" id="everyN" class="input" min="1" placeholder="e.g. 3" />
+      </div>
+
+      <div id="perInput" class="input-group hidden">
+        <label>Pages per file:</label>
+        <input type="number" id="perN" class="input" min="1" placeholder="e.g. 5" />
+      </div>
+
+      <div class="controls">
+        <button class="button" onclick="splitPDF()">Split PDF</button>
       </div>
     </div>
 
-    <button class="action-btn" onclick="splitPDF()">Split PDF</button>
-    <div id="loader" class="loader" style="display: none;"></div>
-    <div id="output" class="output-links"></div>
+    <div id="downloadSection" class="preview-container hidden"></div>
   </div>
 
   <script>
-    const dropArea = document.getElementById("drop-area");
-    const fileElem = document.getElementById("fileElem");
-    const fileInfo = document.getElementById("fileInfo");
-    const output = document.getElementById("output");
-    const splitMode = document.getElementById("splitMode");
-    const byNPages = document.getElementById("byNPages");
-    const byRangeInput = document.getElementById("byRangeInput");
+    const { PDFDocument } = PDFLib;
+    let fileBytes = null;
 
-    let pdfFile = null;
-    let pageCount = 0;
+    const dropArea = document.getElementById('drop-area');
+    const fileElem = document.getElementById('fileElem');
+    const options = document.getElementById('options');
+    const downloadSection = document.getElementById('downloadSection');
 
-    splitMode.addEventListener("change", () => {
-      if (splitMode.value === "byN") {
-        byNPages.style.display = "block";
-        byRangeInput.style.display = "none";
-      } else {
-        byNPages.style.display = "none";
-        byRangeInput.style.display = "block";
-      }
-    });
+    dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('dragover'); });
+    dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+    dropArea.addEventListener('drop', e => { e.preventDefault(); dropArea.classList.remove('dragover'); handleFile(e.dataTransfer.files[0]); });
+    fileElem.addEventListener('change', () => handleFile(fileElem.files[0]));
 
-    dropArea.addEventListener("click", () => fileElem.click());
+    document.querySelector('.browse-label').addEventListener('click', () => fileElem.click());
 
-    fileElem.addEventListener("change", (e) => {
-      handleFile(e.target.files[0]);
-    });
-
-    dropArea.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      dropArea.classList.add("highlight");
-    });
-
-    dropArea.addEventListener("dragleave", () => {
-      dropArea.classList.remove("highlight");
-    });
-
-    dropArea.addEventListener("drop", (e) => {
-      e.preventDefault();
-      dropArea.classList.remove("highlight");
-      handleFile(e.dataTransfer.files[0]);
-    });
-
-    async function handleFile(file) {
-      if (file.type === "application/pdf") {
-        pdfFile = file;
-        const bytes = await file.arrayBuffer();
-        const doc = await PDFLib.PDFDocument.load(bytes);
-        pageCount = doc.getPageCount();
-        fileInfo.innerHTML = `<div>${file.name} (${pageCount} pages)</div>`;
-      } else {
-        alert("Please upload a valid PDF.");
-      }
+    function handleFile(file) {
+      if (!file || file.type !== "application/pdf") return alert("Upload a PDF.");
+      const reader = new FileReader();
+      reader.onload = e => {
+        fileBytes = e.target.result;
+        options.classList.remove('hidden');
+      };
+      reader.readAsArrayBuffer(file);
     }
+
+    // Toggle inputs
+    document.getElementsByName('mode').forEach(r => r.addEventListener('change', () => {
+      document.getElementById('rangeInput').classList.toggle('hidden', r.value !== 'range');
+      document.getElementById('everyInput').classList.toggle('hidden', r.value !== 'every');
+      document.getElementById('perInput').classList.toggle('hidden', r.value !== 'per');
+    }));
 
     async function splitPDF() {
-      if (!pdfFile) return alert("Upload a PDF first.");
-      document.getElementById("loader").style.display = "block";
-      output.innerHTML = "";
+      if (!fileBytes) return alert("No PDF loaded.");
+      const pdf = await PDFDocument.load(fileBytes);
+      const totalPages = pdf.getPageCount();
+      const mode = document.querySelector('input[name="mode"]:checked').value;
 
-      const bytes = await pdfFile.arrayBuffer();
-      const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+      let outputFiles = [];
 
-      let splitSets = [];
-
-      if (splitMode.value === "byN") {
-        const n = parseInt(document.getElementById("nPages").value);
-        for (let i = 0; i < pageCount; i += n) {
-          let range = [];
-          for (let j = i; j < i + n && j < pageCount; j++) {
-            range.push(j);
+      if (mode === 'range') {
+        const ranges = document.getElementById('rangeText').value.split(',').map(r => r.trim());
+        for (let r of ranges) {
+          const [s, e] = r.split('-').map(Number);
+          if (!s || !e || s>e || s<1 || e>totalPages) continue;
+          const doc = await PDFDocument.create();
+          for (let i=s-1; i<e; i++) {
+            const [pg] = await doc.copyPages(pdf, [i]);
+            doc.addPage(pg);
           }
-          splitSets.push(range);
+          outputFiles.push({ name:`pages-${s}-to-${e}.pdf`, bytes: await doc.save() });
         }
-      } else {
-        const rangeStr = document.getElementById("ranges").value;
-        const ranges = rangeStr.split(",").map(r => {
-          if (r.includes("-")) {
-            const [start, end] = r.split("-").map(Number);
-            return Array.from({length: end - start + 1}, (_, i) => start - 1 + i);
-          } else {
-            return [parseInt(r) - 1];
+
+      } else if (mode === 'every') {
+        const N = parseInt(document.getElementById('everyN').value);
+        if (!N || N < 1) return alert("Enter valid number.");
+        for (let i=0; i<totalPages; i+=N) {
+          const doc = await PDFDocument.create();
+          const end = Math.min(i+N, totalPages);
+          for (let j=i; j<end; j++) {
+            const [pg] = await doc.copyPages(pdf, [j]);
+            doc.addPage(pg);
           }
-        });
-        splitSets = ranges;
+          outputFiles.push({ name:`pages-${i+1}-to-${end}.pdf`, bytes: await doc.save() });
+        }
+
+      } else if (mode === 'per') {
+        const M = parseInt(document.getElementById('perN').value);
+        if (!M || M < 1) return alert("Enter valid number.");
+        let idx = 0, part = 1;
+        while (idx < totalPages) {
+          const doc = await PDFDocument.create();
+          const end = Math.min(idx + M, totalPages);
+          for (let j=idx; j<end; j++) {
+            const [pg] = await doc.copyPages(pdf, [j]);
+            doc.addPage(pg);
+          }
+          outputFiles.push({ name:`part-${part}.pdf`, bytes: await doc.save() });
+          idx = end; part++;
+        }
       }
 
-      for (let i = 0; i < splitSets.length; i++) {
-        const newPdf = await PDFLib.PDFDocument.create();
-        const copiedPages = await newPdf.copyPages(pdfDoc, splitSets[i]);
-        copiedPages.forEach(p => newPdf.addPage(p));
-        const newBytes = await newPdf.save();
-        const blob = new Blob([newBytes], { type: "application/pdf" });
+      if (!outputFiles.length) return alert("No valid file chunks created.");
+
+      downloadSection.innerHTML = '';
+      for (let f of outputFiles) {
+        const blob = new Blob([f.bytes], {type:'application/pdf'});
         const url = URL.createObjectURL(blob);
-
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `split-${i + 1}.pdf`;
-        link.textContent = `Download Split ${i + 1}`;
-        link.className = "download-btn";
-        output.appendChild(link);
+        const a = document.createElement('a');
+        a.href = url; a.download = f.name;
+        a.className = 'button blue-button';
+        a.textContent = `Download: ${f.name}`;
+        downloadSection.appendChild(a);
       }
-
-      document.getElementById("loader").style.display = "none";
+      downloadSection.classList.remove('hidden');
     }
   </script>
+
+  <style>
+    .hidden { display:none; }
+    .file-list, .input-group, .controls, .download-section {
+      margin:1rem 0; text-align:center;
+    }
+    .input-group label {
+      display:block; margin-bottom:6px; color:#333;
+    }
+    .browse-label { color: #007BFF; cursor:pointer; text-decoration:underline; }
+  </style>
 </body>
 </html>
-
