@@ -2,100 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Convert multiple images to a single PDF document easily and quickly online." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Convert multiple images into a single PDF with ToolGenie's free and fast Images to PDF converter." />
   <title>Images to PDF Converter - ToolGenie</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
+
 <body>
   <div class="container">
-    <h1 class="title">🖼️ Images to PDF Converter</h1>
-    <p class="description">Upload images and convert them into a single downloadable PDF document.</p>
+    <h1 class="heading">🖼️ Images to PDF</h1>
+    <p class="subheading">Upload multiple images and convert them into a single PDF file</p>
 
-    <div class="upload-area" id="drop-area">
-      <p>📂 Drag & Drop or <label for="imageInput" class="file-label">Browse Images</label></p>
-      <input type="file" id="imageInput" accept="image/*" multiple hidden />
+    <div class="tool-card">
+      <div class="drop-area" id="dropArea">
+        <p>Drag & drop images here or click to select</p>
+        <input type="file" id="imageInput" class="input" accept="image/*" multiple hidden />
+      </div>
+
+      <div id="preview" class="output"></div>
+
+      <button class="button" onclick="generatePDF()">Convert to PDF</button>
     </div>
-
-    <div id="preview" class="preview-grid"></div>
-
-    <button id="convertBtn" class="btn" disabled>Convert to PDF</button>
   </div>
 
+  <div id="loader" class="loader hidden"></div>
+
   <script>
-    const imageInput = document.getElementById('imageInput');
-    const dropArea = document.getElementById('drop-area');
-    const preview = document.getElementById('preview');
-    const convertBtn = document.getElementById('convertBtn');
-    let files = [];
+    const dropArea = document.getElementById("dropArea");
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+    const loader = document.getElementById("loader");
 
-    dropArea.addEventListener('dragover', (e) => {
+    dropArea.addEventListener("click", () => imageInput.click());
+
+    dropArea.addEventListener("dragover", (e) => {
       e.preventDefault();
-      dropArea.classList.add('dragging');
+      dropArea.classList.add("active");
     });
 
-    dropArea.addEventListener('dragleave', () => {
-      dropArea.classList.remove('dragging');
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("active");
     });
 
-    dropArea.addEventListener('drop', (e) => {
+    dropArea.addEventListener("drop", (e) => {
       e.preventDefault();
-      dropArea.classList.remove('dragging');
-      handleFiles(e.dataTransfer.files);
+      dropArea.classList.remove("active");
+      const files = Array.from(e.dataTransfer.files);
+      handleFiles(files);
     });
 
-    dropArea.addEventListener('click', () => imageInput.click());
-    imageInput.addEventListener('change', () => handleFiles(imageInput.files));
+    imageInput.addEventListener("change", () => {
+      handleFiles(Array.from(imageInput.files));
+    });
 
-    function handleFiles(selectedFiles) {
-      files = Array.from(selectedFiles);
-      preview.innerHTML = '';
+    let imageFiles = [];
 
-      files.forEach(file => {
+    function handleFiles(files) {
+      imageFiles = files.filter(file => file.type.startsWith("image/"));
+      preview.innerHTML = "";
+
+      if (imageFiles.length === 0) {
+        preview.innerHTML = "<p>No images selected.</p>";
+        return;
+      }
+
+      imageFiles.forEach((file) => {
         const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = document.createElement('img');
+        reader.onload = function (e) {
+          const img = document.createElement("img");
           img.src = e.target.result;
-          img.className = 'preview-image';
+          img.style.maxWidth = "100px";
+          img.style.margin = "5px";
+          img.style.borderRadius = "8px";
           preview.appendChild(img);
         };
         reader.readAsDataURL(file);
       });
-
-      if (files.length) convertBtn.disabled = false;
     }
 
-    convertBtn.addEventListener('click', async () => {
+    async function generatePDF() {
+      if (imageFiles.length === 0) {
+        alert("Please select at least one image.");
+        return;
+      }
+
+      loader.classList.remove("hidden");
+
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF();
 
-      for (let i = 0; i < files.length; i++) {
-        const imgData = await toDataURL(files[i]);
+      for (let i = 0; i < imageFiles.length; i++) {
+        const file = imageFiles[i];
+        const imgData = await fileToDataURL(file);
+
         const img = new Image();
         img.src = imgData;
-        await new Promise(resolve => img.onload = resolve);
 
-        const ratio = img.width / img.height;
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdfWidth / ratio;
-
-        if (i > 0) pdf.addPage();
-        pdf.addImage(img, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        await new Promise((resolve) => {
+          img.onload = () => {
+            const width = pdf.internal.pageSize.getWidth();
+            const height = (img.height * width) / img.width;
+            if (i !== 0) pdf.addPage();
+            pdf.addImage(img, "JPEG", 0, 0, width, height);
+            resolve();
+          };
+        });
       }
 
-      pdf.save('converted.pdf');
-    });
+      pdf.save("images-to-pdf.pdf");
+      loader.classList.add("hidden");
+    }
 
-    function toDataURL(file) {
-      return new Promise((resolve, reject) => {
+    function fileToDataURL(file) {
+      return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
         reader.readAsDataURL(file);
       });
     }
   </script>
 </body>
 </html>
-
