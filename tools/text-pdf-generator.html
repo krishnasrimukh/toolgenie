@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text to PDF Generator - ToolGenie</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Text to PDF Generator</h1>
+    <p class="description">Enter your text below to instantly generate and download a PDF document.</p>
+
+    <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+
+    <button id="generateBtn">Generate PDF</button>
+
+    <div id="preview" class="preview-box hidden">
+      <p><strong>Preview:</strong></p>
+      <div id="textPreview"></div>
+    </div>
+  </div>
+
+  <div id="spinner" class="spinner hidden"></div>
+
+  <script>
+    const { jsPDF } = window.jspdf;
+    const textInput = document.getElementById('textInput');
+    const generateBtn = document.getElementById('generateBtn');
+    const spinner = document.getElementById('spinner');
+    const preview = document.getElementById('preview');
+    const textPreview = document.getElementById('textPreview');
+
+    generateBtn.addEventListener('click', () => {
+      const text = textInput.value.trim();
+      if (!text) return alert('Please enter some text.');
+
+      spinner.classList.remove('hidden');
+      preview.classList.remove('hidden');
+      textPreview.textContent = text;
+
+      setTimeout(() => {
+        const doc = new jsPDF();
+        const lines = doc.splitTextToSize(text, 180);
+        doc.text(lines, 10, 20);
+        doc.save('document.pdf');
+        spinner.classList.add('hidden');
+      }, 1000);
+    });
+  </script>
+</body>
+
+</html>
 
