@@ -1,1 +1,80 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Convert time between different time zones instantly with ToolGenie Time Zone Converter." />
+  <title>Time Zone Converter - ToolGenie</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="heading">🕒 Time Zone Converter</h1>
+    <p class="subheading">Select your time and convert it to any time zone around the world</p>
+
+    <div class="tool-card">
+      <label for="fromTime">Select Time:</label>
+      <input type="datetime-local" id="fromTime" class="input" />
+
+      <label for="fromZone">From Time Zone:</label>
+      <select id="fromZone" class="input"></select>
+
+      <label for="toZone">To Time Zone:</label>
+      <select id="toZone" class="input"></select>
+
+      <button class="button" onclick="convertTime()">Convert</button>
+
+      <div id="result" class="output"></div>
+    </div>
+  </div>
+
+  <div id="loader" class="loader hidden"></div>
+
+  <script>
+    const DateTime = luxon.DateTime;
+    const zones = DateTime.local().zoneName.split(',');
+
+    const fromZoneSelect = document.getElementById('fromZone');
+    const toZoneSelect = document.getElementById('toZone');
+
+    const allZones = luxon.IANAZone.isValidZone;
+    const timeZones = Intl.supportedValuesOf('timeZone');
+
+    timeZones.forEach(zone => {
+      const opt1 = document.createElement('option');
+      const opt2 = document.createElement('option');
+      opt1.value = opt2.value = zone;
+      opt1.text = opt2.text = zone;
+      fromZoneSelect.appendChild(opt1);
+      toZoneSelect.appendChild(opt2);
+    });
+
+    const convertTime = () => {
+      const fromTime = document.getElementById("fromTime").value;
+      const fromZone = document.getElementById("fromZone").value;
+      const toZone = document.getElementById("toZone").value;
+      const loader = document.getElementById("loader");
+      const resultDiv = document.getElementById("result");
+
+      if (!fromTime || !fromZone || !toZone) {
+        resultDiv.textContent = "Please fill all fields.";
+        return;
+      }
+
+      loader.classList.remove("hidden");
+      setTimeout(() => {
+        const fromDateTime = DateTime.fromISO(fromTime, { zone: fromZone });
+        const toDateTime = fromDateTime.setZone(toZone);
+        resultDiv.textContent = `Converted Time: ${toDateTime.toFormat("ffff")}`;
+        loader.classList.add("hidden");
+      }, 500);
+    };
+  </script>
+</body>
+
+</html>
