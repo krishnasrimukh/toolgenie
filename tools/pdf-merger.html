@@ -5,92 +5,179 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF Merger - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1 class="tool-title">PDF Merger</h1>
-    <p class="tool-description">Upload multiple PDF files and merge them into a single document instantly.</p>
+    <h1 class="heading">📎 PDF Merger</h1>
+    <p class="subheading">Combine multiple PDFs into a single document</p>
 
-    <div class="upload-area" id="drop-area">
-      <p>Drag & drop PDF files here or click to upload</p>
-      <input type="file" id="fileElem" accept="application/pdf" multiple />
+    <div class="drop-area" id="drop-area">
+      <p>Drag & Drop PDF files or <label for="fileInput" class="browse-label">Browse</label></p>
+      <input type="file" id="fileInput" accept="application/pdf" multiple style="display: none;" />
     </div>
 
-    <div id="fileList" class="file-list"></div>
+    <ul id="fileList" class="file-list"></ul>
 
-    <button class="action-btn" onclick="mergePDFs()">Merge PDFs</button>
+    <div class="controls">
+      <button class="button" onclick="mergePDFs()">Merge PDFs</button>
+    </div>
 
-    <div id="loader" class="loader" style="display: none;"></div>
-    <a id="downloadLink" style="display:none;" class="download-btn" download="merged.pdf">Download Merged PDF</a>
+    <div class="download-section hidden" id="downloadSection">
+      <a id="downloadLink" class="button blue-button" download="merged.pdf">Download Merged PDF</a>
+    </div>
   </div>
 
   <script>
-    const dropArea = document.getElementById("drop-area");
-    const fileElem = document.getElementById("fileElem");
-    const fileList = document.getElementById("fileList");
-    let files = [];
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    const downloadLink = document.getElementById('downloadLink');
+    const downloadSection = document.getElementById('downloadSection');
 
-    dropArea.addEventListener("click", () => fileElem.click());
+    let selectedFiles = [];
 
-    fileElem.addEventListener("change", (e) => {
-      handleFiles(e.target.files);
-    });
-
-    dropArea.addEventListener("dragover", (e) => {
+    dropArea.addEventListener('dragover', e => {
       e.preventDefault();
-      dropArea.classList.add("highlight");
+      dropArea.classList.add('dragover');
     });
 
-    dropArea.addEventListener("dragleave", () => {
-      dropArea.classList.remove("highlight");
+    dropArea.addEventListener('dragleave', () => {
+      dropArea.classList.remove('dragover');
     });
 
-    dropArea.addEventListener("drop", (e) => {
+    dropArea.addEventListener('drop', e => {
       e.preventDefault();
-      dropArea.classList.remove("highlight");
+      dropArea.classList.remove('dragover');
       handleFiles(e.dataTransfer.files);
     });
 
-    function handleFiles(selectedFiles) {
-      for (const file of selectedFiles) {
-        if (file.type === "application/pdf") {
-          files.push(file);
-          const div = document.createElement("div");
-          div.textContent = file.name;
-          fileList.appendChild(div);
-        }
-      }
+    document.querySelector('.browse-label').addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+    function handleFiles(files) {
+      selectedFiles = [...files].filter(f => f.type === 'application/pdf');
+      fileList.innerHTML = '';
+      selectedFiles.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = file.name;
+        fileList.appendChild(li);
+      });
     }
 
     async function mergePDFs() {
-      if (files.length < 2) {
-        alert("Please upload at least two PDF files to merge.");
+      if (selectedFiles.length < 2) {
+        alert("Please select at least 2 PDF files.");
         return;
       }
 
-      document.getElementById("loader").style.display = "block";
-
       const mergedPdf = await PDFLib.PDFDocument.create();
 
-      for (const file of files) {
+      for (const file of selectedFiles) {
         const bytes = await file.arrayBuffer();
         const pdf = await PDFLib.PDFDocument.load(bytes);
         const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-        copiedPages.forEach((page) => mergedPdf.addPage(page));
+        copiedPages.forEach(page => mergedPdf.addPage(page));
       }
 
-      const mergedBytes = await mergedPdf.save();
-      const blob = new Blob([mergedBytes], { type: "application/pdf" });
+      const mergedPdfBytes = await mergedPdf.save();
+      const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
 
-      const link = document.getElementById("downloadLink");
-      link.href = url;
-      link.style.display = "inline-block";
-
-      document.getElementById("loader").style.display = "none";
+      downloadLink.href = url;
+      downloadSection.classList.remove('hidden');
     }
   </script>
+
+  <style>
+    .file-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 15px 0;
+      border-left: 3px solid #007BFF;
+      padding-left: 10px;
+      color: #333;
+    }
+
+    .file-list li {
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .drop-area {
+      border: 2px dashed #007BFF;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .drop-area.dragover {
+      background-color: #f0f8ff;
+    }
+
+    .browse-label {
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background-color: #666;
+    }
+
+    .blue-button {
+      background-color: #007BFF;
+      margin-top: 15px;
+    }
+
+    .blue-button:hover {
+      background-color: #0056b3;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .download-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .subheading {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+  </style>
 </body>
 </html>
-
