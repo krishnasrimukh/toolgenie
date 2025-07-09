@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Compressor - ToolGenie</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .compressor-container {
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    input[type="file"] {
+      margin: 1rem 0;
+    }
+    img {
+      max-width: 100%;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+    .btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      font-size: 1rem;
+      background-color: #2193b0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ToolGenie</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="compressor-container">
+    <h2>Image Compressor</h2>
+    <p>Select an image to compress (JPEG/PNG):</p>
+    <input type="file" id="upload" accept="image/*" />
+    <br />
+    <button class="btn" onclick="compressImage()">Compress</button>
+    <div id="preview"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 ToolGenie. All rights reserved.
+  </footer>
+
+  <script>
+    function compressImage() {
+      const fileInput = document.getElementById("upload");
+      const preview = document.getElementById("preview");
+      preview.innerHTML = "";
+
+      if (!fileInput.files.length) {
+        alert("Please upload an image first.");
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        const img = new Image();
+        img.src = event.target.result;
+
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const maxWidth = 800;
+          const scaleSize = maxWidth / img.width;
+          canvas.width = maxWidth;
+          canvas.height = img.height * scaleSize;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          canvas.toBlob(
+            (blob) => {
+              const url = URL.createObjectURL(blob);
+              const compressedImg = document.createElement("img");
+              compressedImg.src = url;
+
+              const downloadLink = document.createElement("a");
+              downloadLink.href = url;
+              downloadLink.download = "compressed-image.jpg";
+              downloadLink.innerText = "Download Compressed Image";
+              downloadLink.className = "btn";
+
+              preview.appendChild(compressedImg);
+              preview.appendChild(downloadLink);
+            },
+            "image/jpeg",
+            0.6
+          );
+        };
+      };
+
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
 
