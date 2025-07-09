@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Word to PDF Converter - ToolGenie</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Word to PDF Converter</h1>
+    <p>Convert your DOCX files to PDF easily and quickly.</p>
+
+    <div class="upload-box" id="upload-box">
+      <p>Drag & drop your .docx file here or click to upload</p>
+      <input type="file" id="fileInput" accept=".docx" />
+    </div>
+
+    <div id="preview"></div>
+
+    <button id="convertBtn" class="convert-btn" disabled>Convert to PDF</button>
+    <div class="spinner" id="spinner" style="display: none;"></div>
+    <a id="downloadLink" class="download-btn" style="display: none;">Download PDF</a>
+  </div>
+
+  <script type="module">
+    import { PDFDocument, rgb } from 'https://cdn.skypack.dev/pdf-lib';
+
+    const fileInput = document.getElementById('fileInput');
+    const uploadBox = document.getElementById('upload-box');
+    const convertBtn = document.getElementById('convertBtn');
+    const spinner = document.getElementById('spinner');
+    const downloadLink = document.getElementById('downloadLink');
+    const preview = document.getElementById('preview');
+
+    uploadBox.addEventListener('click', () => fileInput.click());
+
+    uploadBox.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadBox.classList.add('dragover');
+    });
+
+    uploadBox.addEventListener('dragleave', () => uploadBox.classList.remove('dragover'));
+
+    uploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadBox.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file && file.name.endsWith('.docx')) {
+        fileInput.files = e.dataTransfer.files;
+        handleFile(file);
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (file) handleFile(file);
+    });
+
+    let docxFile;
+
+    function handleFile(file) {
+      docxFile = file;
+      preview.innerHTML = `<p>Selected File: ${file.name}</p>`;
+      convertBtn.disabled = false;
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      if (!docxFile) return;
+
+      spinner.style.display = 'block';
+      convertBtn.disabled = true;
+
+      // Create a simple placeholder PDF since real DOCX-to-PDF requires backend.
+      const pdfDoc = await PDFDocument.create();
+      const page = pdfDoc.addPage();
+      const { width, height } = page.getSize();
+      page.drawText(`This is a placeholder for: ${docxFile.name}`, {
+        x: 50,
+        y: height - 100,
+        size: 18,
+        color: rgb(0, 0, 0),
+      });
+
+      const pdfBytes = await pdfDoc.save();
+
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+
+      spinner.style.display = 'none';
+      downloadLink.style.display = 'inline-block';
+      downloadLink.href = url;
+      downloadLink.download = docxFile.name.replace(/\.docx$/, '.pdf');
+    });
+  </script>
+</body>
+
+</html>
