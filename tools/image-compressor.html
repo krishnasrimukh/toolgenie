@@ -46,9 +46,12 @@
     <h2>Image Compressor</h2>
     <p>Select an image to compress (JPEG/PNG):</p>
     <input type="file" id="upload" accept="image/*" />
-    <br />
-    <button class="btn" onclick="compressImage()">Compress</button>
-    <div id="preview"></div>
+<p>Enter desired image size (in KB):</p>
+<input type="number" id="desiredSize" placeholder="e.g., 150" />
+<br />
+<button class="btn" onclick="compressImage()">Compress</button>
+<div id="preview"></div>
+
   </div>
 
   <footer>
