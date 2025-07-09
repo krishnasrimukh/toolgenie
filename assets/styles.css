@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  text-align: center;
+}
+
+header {
+  background: #4CAF50;
+  color: white;
+  padding: 40px 20px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.tools-grid a {
+  background: white;
+  padding: 20px;
+  text-decoration: none;
+  color: #4CAF50;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  font-weight: bold;
+}
+
+.tools-grid a:hover {
+  background: #4CAF50;
+  color: white;
+}
+
+footer {
+  padding: 20px;
+  background: #eee;
+  font-size: 0.9em;
+}
