@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDF Splitter - ToolGenie</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 class="tool-title">PDF Splitter</h1>
+    <p class="tool-description">Upload a PDF and split it into smaller PDFs using your custom settings.</p>
+
+    <div class="upload-area" id="drop-area">
+      <p>Drag & drop your PDF file here or click to upload</p>
+      <input type="file" id="fileElem" accept="application/pdf" />
+    </div>
+
+    <div id="fileInfo" class="file-list"></div>
+
+    <div class="options">
+      <label for="splitMode">Split Mode:</label>
+      <select id="splitMode">
+        <option value="byN">Split every N pages</option>
+        <option value="byRange">Split by specific page ranges</option>
+      </select>
+
+      <div id="byNPages">
+        <label for="nPages">Pages per split:</label>
+        <input type="number" id="nPages" min="1" value="1" />
+      </div>
+
+      <div id="byRangeInput" style="display: none;">
+        <label for="ranges">Enter page ranges (e.g. 1-3,4-6,7):</label>
+        <input type="text" id="ranges" placeholder="e.g. 1-3,4-6,7" />
+      </div>
+    </div>
+
+    <button class="action-btn" onclick="splitPDF()">Split PDF</button>
+    <div id="loader" class="loader" style="display: none;"></div>
+    <div id="output" class="output-links"></div>
+  </div>
+
+  <script>
+    const dropArea = document.getElementById("drop-area");
+    const fileElem = document.getElementById("fileElem");
+    const fileInfo = document.getElementById("fileInfo");
+    const output = document.getElementById("output");
+    const splitMode = document.getElementById("splitMode");
+    const byNPages = document.getElementById("byNPages");
+    const byRangeInput = document.getElementById("byRangeInput");
+
+    let pdfFile = null;
+    let pageCount = 0;
+
+    splitMode.addEventListener("change", () => {
+      if (splitMode.value === "byN") {
+        byNPages.style.display = "block";
+        byRangeInput.style.display = "none";
+      } else {
+        byNPages.style.display = "none";
+        byRangeInput.style.display = "block";
+      }
+    });
+
+    dropArea.addEventListener("click", () => fileElem.click());
+
+    fileElem.addEventListener("change", (e) => {
+      handleFile(e.target.files[0]);
+    });
+
+    dropArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropArea.classList.add("highlight");
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("highlight");
+    });
+
+    dropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropArea.classList.remove("highlight");
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    async function handleFile(file) {
+      if (file.type === "application/pdf") {
+        pdfFile = file;
+        const bytes = await file.arrayBuffer();
+        const doc = await PDFLib.PDFDocument.load(bytes);
+        pageCount = doc.getPageCount();
+        fileInfo.innerHTML = `<div>${file.name} (${pageCount} pages)</div>`;
+      } else {
+        alert("Please upload a valid PDF.");
+      }
+    }
+
+    async function splitPDF() {
+      if (!pdfFile) return alert("Upload a PDF first.");
+      document.getElementById("loader").style.display = "block";
+      output.innerHTML = "";
+
+      const bytes = await pdfFile.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+
+      let splitSets = [];
+
+      if (splitMode.value === "byN") {
+        const n = parseInt(document.getElementById("nPages").value);
+        for (let i = 0; i < pageCount; i += n) {
+          let range = [];
+          for (let j = i; j < i + n && j < pageCount; j++) {
+            range.push(j);
+          }
+          splitSets.push(range);
+        }
+      } else {
+        const rangeStr = document.getElementById("ranges").value;
+        const ranges = rangeStr.split(",").map(r => {
+          if (r.includes("-")) {
+            const [start, end] = r.split("-").map(Number);
+            return Array.from({length: end - start + 1}, (_, i) => start - 1 + i);
+          } else {
+            return [parseInt(r) - 1];
+          }
+        });
+        splitSets = ranges;
+      }
+
+      for (let i = 0; i < splitSets.length; i++) {
+        const newPdf = await PDFLib.PDFDocument.create();
+        const copiedPages = await newPdf.copyPages(pdfDoc, splitSets[i]);
+        copiedPages.forEach(p => newPdf.addPage(p));
+        const newBytes = await newPdf.save();
+        const blob = new Blob([newBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `split-${i + 1}.pdf`;
+        link.textContent = `Download Split ${i + 1}`;
+        link.className = "download-btn";
+        output.appendChild(link);
+      }
+
+      document.getElementById("loader").style.display = "none";
+    }
+  </script>
+</body>
+</html>
 
