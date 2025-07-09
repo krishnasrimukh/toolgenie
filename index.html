@@ -1,64 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ToolGenie – Free Online Tools to Convert, Compress, and Optimize</title>
-  <meta name="description" content="ToolGenie.in offers free online tools to convert, compress, merge, and optimize files like PDFs, images, audio, and more." />
-  <meta name="keywords" content="ToolGenie, PDF tools, image compressor, convert files, MP4 to MP3, Word to PDF, online utilities" />
-  <meta name="author" content="ToolGenie" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://toolgenie.in/" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="ToolGenie – Free Online File Tools" />
-  <meta property="og:description" content="Compress, convert, and optimize PDFs, images, audio, and more — all in one place." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://toolgenie.in/" />
-  <meta property="og:image" content="https://toolgenie.in/assets/social-preview.png" />
-
-  <!-- Favicon and CSS -->
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <meta name="description" content="ToolGenie – Convert, compress, and optimize your files with ease." />
+  <title>ToolGenie - Free Online Tools</title>
   <link rel="stylesheet" href="css/style.css" />
-</head>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <style>
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
 
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .tool-card-link {
+      background: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      text-decoration: none;
+      color: #1a1a1a;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: 0.3s ease;
+    }
+
+    .tool-card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-card-link span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
 <body>
 
-  <header class="hero">
+  <div class="hero">
     <h1>🔧 ToolGenie</h1>
     <p>Convert, compress, merge, and optimize your files — all in one place. Simple, fast, and free.</p>
-    <nav>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-    </nav>
-  </header>
+  </div>
 
-  <main>
-    <section class="tools-grid">
-      <a href="tools/image-compressor.html" class="tool-card-link"><span>🗜️</span>Image Compressor</a>
-      <a href="tools/jpg-to-png.html" class="tool-card-link"><span>🖼️</span>JPG to PNG</a>
-      <a href="tools/png-to-jpg.html" class="tool-card-link"><span>🖼️</span>PNG to JPG</a>
-      <a href="tools/mp4-to-mp3.html" class="tool-card-link"><span>🎵</span>MP4 to MP3</a>
-      <a href="tools/pdf-merger.html" class="tool-card-link"><span>📎</span>PDF Merger</a>
-      <a href="tools/pdf-splitter.html" class="tool-card-link"><span>✂️</span>PDF Splitter</a>
-      <a href="tools/pdf-to-word-converter.html" class="tool-card-link"><span>🔤</span>PDF to Word Converter</a>
-      <a href="tools/word-to-pdf-converter.html" class="tool-card-link"><span>📄</span>Word to PDF Converter</a>
-      <a href="tools/qr-code-generator.html" class="tool-card-link"><span>🔗</span>QR Code Generator</a>
-      <a href="tools/text-pdf-generator.html" class="tool-card-link"><span>📝</span>Text to PDF Generator</a>
-      <a href="tools/time-zone-converter.html" class="tool-card-link"><span>🌍</span>Time Zone Converter</a>
-      <a href="tools/word-counter.html" class="tool-card-link"><span>🔢</span>Word Counter</a>
-    </section>
-  </main>
+  <section class="tools-grid">
+    <a href="tools/image-compressor.html" class="tool-card-link"><span>🗜️</span>Image Compressor</a>
+    <a href="tools/jpg-to-png.html" class="tool-card-link"><span>🖼️</span>JPG to PNG</a>
+    <a href="tools/png-to-jpg.html" class="tool-card-link"><span>🖼️</span>PNG to JPG</a>
+    <a href="tools/mp4-to-mp3.html" class="tool-card-link"><span>🎵</span>MP4 to MP3</a>
+    <a href="tools/pdf-merger.html" class="tool-card-link"><span>📎</span>PDF Merger</a>
+    <a href="tools/pdf-splitter.html" class="tool-card-link"><span>✂️</span>PDF Splitter</a>
+    <a href="tools/pdf-to-images.html" class="tool-card-link"><span>🖼️</span>PDF to Images</a>
+    <a href="tools/images-to-pdf.html" class="tool-card-link"><span>📄</span>Images to PDF</a>
+    <a href="tools/pdf-to-word.html" class="tool-card-link"><span>🔤</span>PDF to Word</a>
+    <a href="tools/word-to-pdf.html" class="tool-card-link"><span>📄</span>Word to PDF</a>
+    <a href="tools/qr-code-generator.html" class="tool-card-link"><span>🔗</span>QR Code Generator</a>
+    <a href="tools/text-to-pdf.html" class="tool-card-link"><span>📝</span>Text to PDF</a>
+    <a href="tools/time-zone-converter.html" class="tool-card-link"><span>🌍</span>Time Zone Converter</a>
+    <a href="tools/word-counter.html" class="tool-card-link"><span>🔢</span>Word Counter</a>
+  </section>
 
   <footer>
-    <p>&copy; 2025 ToolGenie – All tools are free forever.</p>
-    <p>
-      <a href="about.html">About</a> |
-      <a href="contact.html">Contact</a> |
-      <a href="privacy.html">Privacy Policy</a>
-    </p>
+    &copy; 2025 ToolGenie – All tools are free forever.
   </footer>
 
 </body>
