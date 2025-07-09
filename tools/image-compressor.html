@@ -55,58 +55,71 @@
     &copy; 2025 ToolGenie. All rights reserved.
   </footer>
 
-  <script>
-    function compressImage() {
-      const fileInput = document.getElementById("upload");
-      const preview = document.getElementById("preview");
-      preview.innerHTML = "";
+ <script>
+  async function compressImage() {
+    const fileInput = document.getElementById("upload");
+    const desiredSizeInput = document.getElementById("desiredSize");
+    const preview = document.getElementById("preview");
+    preview.innerHTML = "";
 
-      if (!fileInput.files.length) {
-        alert("Please upload an image first.");
-        return;
-      }
-
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-
-      reader.onload = function (event) {
-        const img = new Image();
-        img.src = event.target.result;
-
-        img.onload = function () {
-          const canvas = document.createElement("canvas");
-          const maxWidth = 800;
-          const scaleSize = maxWidth / img.width;
-          canvas.width = maxWidth;
-          canvas.height = img.height * scaleSize;
-
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-          canvas.toBlob(
-            (blob) => {
-              const url = URL.createObjectURL(blob);
-              const compressedImg = document.createElement("img");
-              compressedImg.src = url;
-
-              const downloadLink = document.createElement("a");
-              downloadLink.href = url;
-              downloadLink.download = "compressed-image.jpg";
-              downloadLink.innerText = "Download Compressed Image";
-              downloadLink.className = "btn";
-
-              preview.appendChild(compressedImg);
-              preview.appendChild(downloadLink);
-            },
-            "image/jpeg",
-            0.6
-          );
-        };
-      };
-
-      reader.readAsDataURL(file);
+    if (!fileInput.files.length || !desiredSizeInput.value) {
+      alert("Please upload an image and enter desired size.");
+      return;
     }
-  </script>
+
+    const desiredSizeKB = parseInt(desiredSizeInput.value);
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      const img = new Image();
+      img.src = event.target.result;
+
+      img.onload = async function () {
+        const canvas = document.createElement("canvas");
+        const maxWidth = 800;
+        const scaleSize = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * scaleSize;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        let quality = 0.9;
+        let blob;
+
+        while (quality > 0.05) {
+          blob = await new Promise((resolve) =>
+            canvas.toBlob(resolve, "image/jpeg", quality)
+          );
+          if (blob.size / 1024 <= desiredSizeKB) break;
+          quality -= 0.05;
+        }
+
+        if (!blob || blob.size / 1024 > desiredSizeKB) {
+          preview.innerHTML =
+            "<p>⚠️ Could not compress below desired size. Showing best effort:</p>";
+        }
+
+        const url = URL.createObjectURL(blob);
+        const compressedImg = document.createElement("img");
+        compressedImg.src = url;
+
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = "compressed-image.jpg";
+        downloadLink.innerText = "Download Compressed Image";
+        downloadLink.className = "btn";
+
+        preview.appendChild(compressedImg);
+        preview.appendChild(downloadLink);
+      };
+    };
+
+    reader.readAsDataURL(file);
+  }
+</script>
+
 </body>
 </html>
 
