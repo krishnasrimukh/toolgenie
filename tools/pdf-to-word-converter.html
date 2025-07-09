@@ -3,79 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF to Word Converter - ToolGenie</title>
+  <title>PDF to Word - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.4.0/docx.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 </head>
 <body>
-  <div class="container fade-in">
-    <h1 class="tool-title">PDF to Word Converter</h1>
-    <p class="tool-description">Convert PDF documents into editable Word files (DOCX) quickly and easily.</p>
-    <label for="pdfInput" class="upload-box">
-      <span class="upload-icon">📄</span>
-      <span>Select or drag & drop a PDF file</span>
-      <input type="file" id="pdfInput" accept="application/pdf" hidden />
-    </label>
-    <div id="pdfPreview" class="preview-area"></div>
-    <button id="convertBtn" class="convert-btn" disabled>Convert to Word</button>
-    <div id="loader" class="loader" style="display:none;"></div>
-    <div id="downloadSection" style="display: none;" class="download-section">
-      <a id="downloadLink" class="download-btn" download="converted.docx">Download Word File</a>
-    </div>
+  <div class="container">
+    <h1>PDF to Word</h1>
+    <input type="file" id="pdfInput" accept="application/pdf" />
+    <button onclick="extractText()">Extract</button>
+    <textarea id="outputText" rows="10" placeholder="Extracted text will appear here..."></textarea>
   </div>
 
   <script>
-    const pdfInput = document.getElementById('pdfInput');
-    const convertBtn = document.getElementById('convertBtn');
-    const loader = document.getElementById('loader');
-    const pdfPreview = document.getElementById('pdfPreview');
-    const downloadSection = document.getElementById('downloadSection');
-    const downloadLink = document.getElementById('downloadLink');
+    async function extractText() {
+      const file = document.getElementById("pdfInput").files[0];
+      if (!file) return alert("Please select a PDF file.");
 
-    pdfInput.addEventListener('change', () => {
-      if (pdfInput.files.length > 0) {
-        convertBtn.disabled = false;
-        pdfPreview.textContent = `Selected file: ${pdfInput.files[0].name}`;
-      }
-    });
+      const reader = new FileReader();
+      reader.onload = async function () {
+        const typedArray = new Uint8Array(reader.result);
+        const pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
 
-    convertBtn.addEventListener('click', async () => {
-      const file = pdfInput.files[0];
-      if (!file) return;
+        let fullText = "";
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          const textItems = content.items.map(item => item.str);
+          fullText += textItems.join(" ") + "\n\n";
+        }
 
-      loader.style.display = 'block';
-      convertBtn.disabled = true;
-
-      try {
-        const reader = new FileReader();
-        reader.onload = async function (event) {
-          const uint8Array = new Uint8Array(event.target.result);
-          const pdfDoc = await PDFLib.PDFDocument.load(uint8Array);
-          const doc = new docx.Document();
-
-          for (let i = 0; i < pdfDoc.getPageCount(); i++) {
-            const textContent = await pdfDoc.getPages()[i].getTextContent();
-            const textItems = textContent.items.map(item => item.str).join(' ');
-            doc.addSection({ children: [new docx.Paragraph(textItems)] });
-          }
-
-          const blob = await docx.Packer.toBlob(doc);
-          const url = URL.createObjectURL(blob);
-          downloadLink.href = url;
-          loader.style.display = 'none';
-          downloadSection.style.display = 'block';
-        };
-
-        reader.readAsArrayBuffer(file);
-      } catch (error) {
-        alert('Conversion failed. Please try another file.');
-        console.error(error);
-        loader.style.display = 'none';
-        convertBtn.disabled = false;
-      }
-    });
+        document.getElementById("outputText").value = fullText;
+      };
+      reader.readAsArrayBuffer(file);
+    }
   </script>
 </body>
 </html>
-
