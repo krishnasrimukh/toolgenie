@@ -1,61 +1,138 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>QR Code Generator - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
-
 <body>
-  <div class="tool-wrapper">
-    <h1 class="tool-title">QR Code Generator</h1>
-    <p class="tool-description">Generate QR codes for text, URLs, and more. Download and share with ease.</p>
+  <div class="container">
+    <h1 class="heading">🔳 QR Code Generator</h1>
+    <p class="subheading">Enter any text, URL, or data to instantly generate a QR Code</p>
 
-    <div class="input-group">
-      <textarea id="qrText" placeholder="Enter text or URL..." rows="4"></textarea>
-      <button id="generateBtn" class="btn">Generate QR Code</button>
+    <div class="drop-area">
+      <textarea id="qrInput" placeholder="Type or paste your data here..." oninput="generateQRCode()"></textarea>
     </div>
 
-    <div id="previewContainer" class="preview-box" style="display: none;">
-      <h3 class="preview-title">QR Code Preview</h3>
-      <canvas id="qrCanvas"></canvas>
-      <a id="downloadLink" class="btn download-btn" href="#" download="qrcode.png">Download QR Code</a>
+    <div class="controls">
+      <button class="button" onclick="generateQRCode()">Generate QR</button>
     </div>
 
-    <div id="spinner" class="spinner" style="display: none;"></div>
+    <div id="previewContainer" class="preview-container hidden">
+      <canvas id="qrCanvas" width="256" height="256"></canvas>
+      <a id="downloadBtn" class="button blue-button" download="qr-code.png">Download QR Code</a>
+    </div>
   </div>
 
   <script>
-    const generateBtn = document.getElementById("generateBtn");
-    const qrText = document.getElementById("qrText");
-    const qrCanvas = document.getElementById("qrCanvas");
-    const previewContainer = document.getElementById("previewContainer");
-    const spinner = document.getElementById("spinner");
-    const downloadLink = document.getElementById("downloadLink");
-
-    generateBtn.addEventListener("click", () => {
-      const text = qrText.value.trim();
-      if (!text) return alert("Please enter text or a URL to generate the QR code.");
-
-      spinner.style.display = "block";
-      previewContainer.style.display = "none";
-
-      setTimeout(() => {
-        QRCode.toCanvas(qrCanvas, text, { width: 250 }, function (error) {
-          spinner.style.display = "none";
-          if (error) return alert("Error generating QR Code.");
-
-          const canvas = qrCanvas;
-          downloadLink.href = canvas.toDataURL("image/png");
-          previewContainer.style.display = "block";
-        });
-      }, 500);
+    const qr = new QRious({
+      element: document.getElementById('qrCanvas'),
+      size: 256,
+      value: ''
     });
-  </script>
-</body>
 
+    function generateQRCode() {
+      const input = document.getElementById("qrInput").value.trim();
+      if (!input) {
+        alert("Please enter something to generate QR.");
+        return;
+      }
+
+      qr.value = input;
+      document.getElementById("previewContainer").classList.remove("hidden");
+
+      // Generate data URL for download
+      const downloadBtn = document.getElementById("downloadBtn");
+      downloadBtn.href = qr.toDataURL("image/png");
+    }
+  </script>
+
+  <style>
+    .drop-area {
+      border: 2px dashed #007BFF;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #qrInput {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 14px;
+      font-family: monospace;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background-color: #666;
+    }
+
+    .blue-button {
+      background-color: #007BFF;
+      margin-top: 15px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .blue-button:hover {
+      background-color: #0056b3;
+    }
+
+    .preview-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    canvas#qrCanvas {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background-color: #fff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .subheading {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+  </style>
+</body>
 </html>
