@@ -2,36 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Convert PNG images to JPG instantly with ToolGenie. Simple, fast & free." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PNG to JPG Converter - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
   <div class="container">
     <h1 class="heading">🖼️ PNG to JPG Converter</h1>
-    <p class="subheading">Convert your PNG images to high-quality JPG format</p>
+    <p class="subheading">Easily convert your PNG images to high-quality JPG format</p>
 
-    <div class="tool-card">
-      <div class="drag-drop-area" id="drop-area">
-        <p>Drag & drop PNG files here or <label for="fileElem" style="color: #007bff; cursor: pointer;">Browse</label></p>
-        <input type="file" id="fileElem" accept="image/png" multiple hidden />
-      </div>
+    <div class="drop-area" id="drop-area">
+      <p>Drag & Drop PNG files or <label for="fileInput" class="browse-label">Browse</label></p>
+      <input type="file" id="fileInput" accept="image/png" style="display: none;" />
+    </div>
 
-      <div id="spinner" class="loader hidden"></div>
+    <div class="controls">
+      <button class="button" onclick="convertToJPG()">Convert to JPG</button>
+    </div>
 
-      <div id="preview" class="preview-area"></div>
-      <div id="downloadLinks" class="output"></div>
+    <div id="previewContainer" class="preview-container hidden">
+      <img id="previewImg" src="" alt="Preview" />
+      <a id="downloadBtn" class="button blue-button" download="converted-image.jpg">Download JPG</a>
     </div>
   </div>
 
   <script>
+    let selectedFile = null;
+    const fileInput = document.getElementById('fileInput');
     const dropArea = document.getElementById('drop-area');
-    const fileElem = document.getElementById('fileElem');
-    const preview = document.getElementById('preview');
-    const downloadLinks = document.getElementById('downloadLinks');
-    const spinner = document.getElementById('spinner');
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImg = document.getElementById('previewImg');
+    const downloadBtn = document.getElementById('downloadBtn');
 
+    // Drag & Drop support
     dropArea.addEventListener('dragover', (e) => {
       e.preventDefault();
       dropArea.classList.add('dragover');
@@ -44,53 +47,128 @@
     dropArea.addEventListener('drop', (e) => {
       e.preventDefault();
       dropArea.classList.remove('dragover');
-      handleFiles(e.dataTransfer.files);
+      handleFile(e.dataTransfer.files[0]);
     });
 
-    fileElem.addEventListener('change', () => {
-      handleFiles(fileElem.files);
-    });
+    document.querySelector('.browse-label').addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
 
-    function handleFiles(files) {
-      preview.innerHTML = '';
-      downloadLinks.innerHTML = '';
-      spinner.classList.remove('hidden');
+    function handleFile(file) {
+      if (!file || file.type !== "image/png") {
+        alert("Please upload a valid PNG image.");
+        return;
+      }
+      selectedFile = file;
+      previewImg.src = URL.createObjectURL(file);
+      previewContainer.classList.remove("hidden");
+    }
 
-      Array.from(files).forEach(file => {
-        if (file.type === 'image/png') {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const img = new Image();
-            img.src = e.target.result;
-            img.onload = function () {
-              const canvas = document.createElement('canvas');
-              canvas.width = img.width;
-              canvas.height = img.height;
-              const ctx = canvas.getContext('2d');
-              ctx.drawImage(img, 0, 0);
-              canvas.toBlob(blob => {
-                const url = URL.createObjectURL(blob);
+    function convertToJPG() {
+      if (!selectedFile) return alert("Select a PNG image first.");
 
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = file.name.replace(/\.png$/, '.jpg');
-                a.className = 'button';
-                a.textContent = `Download ${a.download}`;
-                downloadLinks.appendChild(a);
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
 
-                const thumb = document.createElement('img');
-                thumb.src = url;
-                thumb.classList.add('thumbnail');
-                preview.appendChild(thumb);
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height); // Background for transparency
+        ctx.drawImage(img, 0, 0);
 
-                spinner.classList.add('hidden');
-              }, 'image/jpeg', 0.9);
-            };
-          };
-          reader.readAsDataURL(file);
-        }
-      });
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          downloadBtn.href = url;
+          previewImg.src = url;
+        }, "image/jpeg", 0.9);
+      };
     }
   </script>
+
+  <style>
+    .drop-area {
+      border: 2px dashed #007BFF;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .browse-label {
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .controls {
+      text-align: center;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background-color: #666;
+    }
+
+    .blue-button {
+      background-color: #007BFF;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .blue-button:hover {
+      background-color: #0056b3;
+    }
+
+    .preview-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .preview-container img {
+      max-width: 300px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .subheading {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+  </style>
 </body>
 </html>
