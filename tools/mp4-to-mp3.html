@@ -5,163 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MP4 to MP3 Converter - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1 class="heading">🎵 MP4 to MP3 Converter</h1>
-    <p class="subheading">Extract high-quality audio from your video files</p>
-
-    <div class="drop-area" id="drop-area">
-      <p>Drag & Drop MP4 files or <label for="fileInput" class="browse-label">Browse</label></p>
-      <input type="file" id="fileInput" accept="video/mp4" style="display: none;" />
-    </div>
-
-    <div class="controls">
-      <button class="button" onclick="convertToMP3()">Convert to MP3</button>
-    </div>
-
-    <div id="previewContainer" class="preview-container hidden">
-      <audio id="audioPreview" controls></audio>
-      <a id="downloadBtn" class="button blue-button" download="converted-audio.mp3">Download MP3</a>
-    </div>
-  </div>
-
-  <script>
-    let selectedFile = null;
-    const fileInput = document.getElementById('fileInput');
-    const dropArea = document.getElementById('drop-area');
-    const previewContainer = document.getElementById('previewContainer');
-    const audioPreview = document.getElementById('audioPreview');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    // Drag & Drop
-    dropArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropArea.classList.add('dragover');
-    });
-
-    dropArea.addEventListener('dragleave', () => {
-      dropArea.classList.remove('dragover');
-    });
-
-    dropArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropArea.classList.remove('dragover');
-      handleFile(e.dataTransfer.files[0]);
-    });
-
-    document.querySelector('.browse-label').addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
-
-    function handleFile(file) {
-      if (!file || file.type !== "video/mp4") {
-        alert("Please upload a valid MP4 video.");
-        return;
-      }
-      selectedFile = file;
-    }
-
-    function convertToMP3() {
-      if (!selectedFile) return alert("Select an MP4 video first.");
-
-      const video = document.createElement("video");
-      video.src = URL.createObjectURL(selectedFile);
-      video.crossOrigin = "anonymous";
-
-      video.onloadeddata = () => {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const source = audioCtx.createMediaElementSource(video);
-        const dest = audioCtx.createMediaStreamDestination();
-        source.connect(dest);
-        source.connect(audioCtx.destination);
-
-        const recorder = new MediaRecorder(dest.stream);
-        const chunks = [];
-
-        recorder.ondataavailable = (e) => {
-          chunks.push(e.data);
-        };
-
-        recorder.onstop = () => {
-          const audioBlob = new Blob(chunks, { type: "audio/mp3" });
-          const url = URL.createObjectURL(audioBlob);
-          audioPreview.src = url;
-          downloadBtn.href = url;
-          previewContainer.classList.remove("hidden");
-        };
-
-        recorder.start();
-        video.play();
-
-        // Stop recording after video finishes
-        video.onended = () => recorder.stop();
-      };
-    }
-  </script>
-
   <style>
-    .drop-area {
-      border: 2px dashed #007BFF;
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      color: #333;
+      margin: 0;
       padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-
-    .browse-label {
-      color: var(--primary-color);
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    .controls {
-      text-align: center;
-    }
-
-    .button {
-      padding: 10px 20px;
-      background-color: #444;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .button:hover {
-      background-color: #666;
-    }
-
-    .blue-button {
-      background-color: #007BFF;
-      display: inline-block;
-      margin-top: 15px;
-    }
-
-    .blue-button:hover {
-      background-color: #0056b3;
-    }
-
-    .preview-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .preview-container audio {
-      width: 100%;
-      max-width: 500px;
-      margin-bottom: 10px;
-    }
-
-    .hidden {
-      display: none;
     }
 
     .container {
       max-width: 700px;
       margin: auto;
-      padding: 30px 20px;
+      padding: 20px;
     }
 
     .heading {
@@ -172,10 +28,189 @@
 
     .subheading {
       text-align: center;
-      font-size: 16px;
       color: #555;
+      font-size: 16px;
       margin-bottom: 30px;
     }
+
+    .drop-area {
+      border: 2px dashed #007BFF;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .drop-area.dragover {
+      background-color: #f0f8ff;
+    }
+
+    .browse-label {
+      color: #007BFF;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    video, audio {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .preview-section {
+      margin-top: 30px;
+      text-align: center;
+    }
   </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="heading">🎵 MP4 to MP3 Converter</h1>
+    <p class="subheading">Extract audio from your video files easily</p>
+
+    <div class="drop-area" id="drop-area">
+      <p>Drag & Drop MP4 file here or <label for="fileInput" class="browse-label">Browse</label></p>
+      <input type="file" id="fileInput" accept="video/mp4" hidden />
+    </div>
+
+    <div class="preview-section" id="previewSection" style="display: none;">
+      <h3>Video Preview</h3>
+      <video id="videoPreview" controls></video>
+
+      <button class="button" onclick="convertToMP3()">Convert to MP3</button>
+
+      <div id="audioSection" style="display: none;">
+        <h3>MP3 Preview</h3>
+        <audio id="audioPreview" controls></audio>
+        <a id="downloadBtn" class="button" download="converted-audio.mp3">Download MP3</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const dropArea = document.getElementById("drop-area");
+    const videoPreview = document.getElementById("videoPreview");
+    const audioPreview = document.getElementById("audioPreview");
+    const previewSection = document.getElementById("previewSection");
+    const audioSection = document.getElementById("audioSection");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    let selectedFile;
+
+    dropArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropArea.classList.add("dragover");
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("dragover");
+    });
+
+    dropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropArea.classList.remove("dragover");
+      const file = e.dataTransfer.files[0];
+      handleFile(file);
+    });
+
+    document.querySelector(".browse-label").addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
+
+    function handleFile(file) {
+      if (!file || file.type !== "video/mp4") return alert("Please upload a valid MP4 video file.");
+      selectedFile = file;
+      videoPreview.src = URL.createObjectURL(file);
+      previewSection.style.display = "block";
+      audioSection.style.display = "none";
+    }
+
+    function convertToMP3() {
+      if (!selectedFile) return alert("Please upload a video first.");
+
+      const video = document.createElement("video");
+      video.src = URL.createObjectURL(selectedFile);
+
+      // Create audio context to extract audio
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(selectedFile);
+
+      reader.onload = async function () {
+        const context = new AudioContext();
+        const buffer = await context.decodeAudioData(reader.result);
+
+        const offlineCtx = new OfflineAudioContext(1, buffer.length, buffer.sampleRate);
+        const source = offlineCtx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(offlineCtx.destination);
+        source.start();
+
+        const renderedBuffer = await offlineCtx.startRendering();
+        const wavBlob = bufferToWavBlob(renderedBuffer);
+        const mp3Url = URL.createObjectURL(wavBlob);
+
+        audioPreview.src = mp3Url;
+        downloadBtn.href = mp3Url;
+        audioSection.style.display = "block";
+      };
+    }
+
+    function bufferToWavBlob(buffer) {
+      const length = buffer.length * buffer.numberOfChannels * 2 + 44;
+      const bufferArray = new ArrayBuffer(length);
+      const view = new DataView(bufferArray);
+
+      function writeString(view, offset, string) {
+        for (let i = 0; i < string.length; i++) {
+          view.setUint8(offset + i, string.charCodeAt(i));
+        }
+      }
+
+      let offset = 0;
+
+      writeString(view, offset, "RIFF"); offset += 4;
+      view.setUint32(offset, 36 + buffer.length * 2, true); offset += 4;
+      writeString(view, offset, "WAVE"); offset += 4;
+      writeString(view, offset, "fmt "); offset += 4;
+      view.setUint32(offset, 16, true); offset += 4;
+      view.setUint16(offset, 1, true); offset += 2;
+      view.setUint16(offset, buffer.numberOfChannels, true); offset += 2;
+      view.setUint32(offset, buffer.sampleRate, true); offset += 4;
+      view.setUint32(offset, buffer.sampleRate * buffer.numberOfChannels * 2, true); offset += 4;
+      view.setUint16(offset, buffer.numberOfChannels * 2, true); offset += 2;
+      view.setUint16(offset, 16, true); offset += 2;
+      writeString(view, offset, "data"); offset += 4;
+      view.setUint32(offset, buffer.length * 2, true); offset += 4;
+
+      for (let i = 0; i < buffer.length; i++) {
+        for (let ch = 0; ch < buffer.numberOfChannels; ch++) {
+          const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
+          view.setInt16(offset, sample * 0x7FFF, true);
+          offset += 2;
+        }
+      }
+
+      return new Blob([view], { type: "audio/wav" });
+    }
+  </script>
 </body>
 </html>
