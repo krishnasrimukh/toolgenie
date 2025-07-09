@@ -5,124 +5,195 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Image Compressor - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="heading">🗜️ Image Compressor</h1>
+    <p class="subheading">Compress JPG or PNG images easily and choose your target file size</p>
+
+    <div class="drop-area" id="drop-area">
+      <p>Drag & Drop images or <label for="fileInput" class="browse-label">Browse</label></p>
+      <input type="file" id="fileInput" accept="image/png, image/jpeg" style="display: none;" />
+    </div>
+
+    <div class="input-group">
+      <label for="targetSize">Target Size (KB):</label>
+      <input type="number" id="targetSize" placeholder="e.g. 200" min="10" />
+    </div>
+
+    <div class="controls">
+      <button class="button" onclick="compressImage()">Compress Image</button>
+    </div>
+
+    <div id="previewContainer" class="preview-container hidden">
+      <img id="previewImg" src="" alt="Preview" />
+      <a id="downloadBtn" class="button blue-button" download="compressed-image.jpg">Download</a>
+    </div>
+  </div>
+
+  <script>
+    let selectedFile = null;
+    const fileInput = document.getElementById('fileInput');
+    const dropArea = document.getElementById('drop-area');
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImg = document.getElementById('previewImg');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    // Drag & Drop
+    dropArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropArea.classList.add('dragover');
+    });
+
+    dropArea.addEventListener('dragleave', () => {
+      dropArea.classList.remove('dragover');
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropArea.classList.remove('dragover');
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    document.querySelector('.browse-label').addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+    function handleFile(file) {
+      if (!file || !file.type.startsWith("image/")) return;
+      selectedFile = file;
+      previewImg.src = URL.createObjectURL(file);
+      previewContainer.classList.remove("hidden");
+    }
+
+    function compressImage() {
+      if (!selectedFile) return alert("Please select an image first.");
+      const targetKB = parseInt(document.getElementById("targetSize").value);
+      if (!targetKB || targetKB < 10) return alert("Please enter a valid target size in KB.");
+
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
+
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        // Compress loop to meet target size
+        let quality = 0.9;
+        function tryCompress() {
+          const blob = canvas.toDataURL("image/jpeg", quality);
+          const sizeKB = Math.round((blob.length * (3/4)) / 1024);
+          if (sizeKB > targetKB && quality > 0.1) {
+            quality -= 0.05;
+            tryCompress();
+          } else {
+            previewImg.src = blob;
+            downloadBtn.href = blob;
+          }
+        }
+        tryCompress();
+      };
+    }
+  </script>
+
   <style>
-    .compressor-container {
-      padding: 2rem;
-      max-width: 600px;
-      margin: auto;
+    .drop-area {
+      border: 2px dashed #007BFF;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .input-group {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 120px;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       text-align: center;
     }
-    input[type="file"] {
-      margin: 1rem 0;
+
+    .browse-label {
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: underline;
     }
-    img {
-      max-width: 100%;
-      margin-top: 1rem;
-      border-radius: 8px;
+
+    .controls {
+      text-align: center;
     }
-    .btn {
-      margin-top: 1rem;
-      padding: 0.5rem 1.2rem;
-      font-size: 1rem;
-      background-color: #2193b0;
+
+    .button {
+      padding: 10px 20px;
+      background-color: #444;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background-color: #666;
+    }
+
+    .blue-button {
+      background-color: #007BFF;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .blue-button:hover {
+      background-color: #0056b3;
+    }
+
+    .preview-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .preview-container img {
+      max-width: 300px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .subheading {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
     }
   </style>
-</head>
-<body>
-  <header>
-    <div class="logo">ToolGenie</div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="../about.html">About</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
-  </header>
-
-  <div class="compressor-container">
-    <h2>Image Compressor</h2>
-    <p>Select an image to compress (JPEG/PNG):</p>
-    <input type="file" id="upload" accept="image/*" />
-<p>Enter desired image size (in KB):</p>
-<input type="number" id="desiredSize" placeholder="e.g., 150" />
-<br />
-<button class="btn" onclick="compressImage()">Compress</button>
-<div id="preview"></div>
-
-  </div>
-
-  <footer>
-    &copy; 2025 ToolGenie. All rights reserved.
-  </footer>
-
- <script>
-  async function compressImage() {
-    const fileInput = document.getElementById("upload");
-    const desiredSizeInput = document.getElementById("desiredSize");
-    const preview = document.getElementById("preview");
-    preview.innerHTML = "";
-
-    if (!fileInput.files.length || !desiredSizeInput.value) {
-      alert("Please upload an image and enter desired size.");
-      return;
-    }
-
-    const desiredSizeKB = parseInt(desiredSizeInput.value);
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-      const img = new Image();
-      img.src = event.target.result;
-
-      img.onload = async function () {
-        const canvas = document.createElement("canvas");
-        const maxWidth = 800;
-        const scaleSize = maxWidth / img.width;
-        canvas.width = maxWidth;
-        canvas.height = img.height * scaleSize;
-
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        let quality = 0.9;
-        let blob;
-
-        while (quality > 0.05) {
-          blob = await new Promise((resolve) =>
-            canvas.toBlob(resolve, "image/jpeg", quality)
-          );
-          if (blob.size / 1024 <= desiredSizeKB) break;
-          quality -= 0.05;
-        }
-
-        if (!blob || blob.size / 1024 > desiredSizeKB) {
-          preview.innerHTML =
-            "<p>⚠️ Could not compress below desired size. Showing best effort:</p>";
-        }
-
-        const url = URL.createObjectURL(blob);
-        const compressedImg = document.createElement("img");
-        compressedImg.src = url;
-
-        const downloadLink = document.createElement("a");
-        downloadLink.href = url;
-        downloadLink.download = "compressed-image.jpg";
-        downloadLink.innerText = "Download Compressed Image";
-        downloadLink.className = "btn";
-
-        preview.appendChild(compressedImg);
-        preview.appendChild(downloadLink);
-      };
-    };
-
-    reader.readAsDataURL(file);
-  }
-</script>
-
 </body>
 </html>
-
