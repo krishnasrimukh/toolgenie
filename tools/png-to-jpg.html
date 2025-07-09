@@ -5,156 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PNG to JPG Converter - ToolGenie</title>
   <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1 class="heading">🖼️ PNG to JPG Converter</h1>
-    <p class="subheading">Easily convert your PNG images to high-quality JPG format</p>
-
-    <div class="drop-area" id="drop-area">
-      <p>Drag & Drop PNG files or <label for="fileInput" class="browse-label">Browse</label></p>
-      <input type="file" id="fileInput" accept="image/png" style="display: none;" />
-    </div>
-
-    <div class="controls">
-      <button class="button" onclick="convertToJPG()">Convert to JPG</button>
-    </div>
-
-    <div id="previewContainer" class="preview-container hidden">
-      <img id="previewImg" src="" alt="Preview" />
-      <a id="downloadBtn" class="button blue-button" download="converted-image.jpg">Download JPG</a>
-    </div>
-  </div>
-
-  <script>
-    let selectedFile = null;
-    const fileInput = document.getElementById('fileInput');
-    const dropArea = document.getElementById('drop-area');
-    const previewContainer = document.getElementById('previewContainer');
-    const previewImg = document.getElementById('previewImg');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    // Drag & Drop support
-    dropArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropArea.classList.add('dragover');
-    });
-
-    dropArea.addEventListener('dragleave', () => {
-      dropArea.classList.remove('dragover');
-    });
-
-    dropArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropArea.classList.remove('dragover');
-      handleFile(e.dataTransfer.files[0]);
-    });
-
-    document.querySelector('.browse-label').addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
-
-    function handleFile(file) {
-      if (!file || file.type !== "image/png") {
-        alert("Please upload a valid PNG image.");
-        return;
-      }
-      selectedFile = file;
-      previewImg.src = URL.createObjectURL(file);
-      previewContainer.classList.remove("hidden");
-    }
-
-    function convertToJPG() {
-      if (!selectedFile) return alert("Select a PNG image first.");
-
-      const img = new Image();
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(selectedFile);
-
-      img.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height); // Background for transparency
-        ctx.drawImage(img, 0, 0);
-
-        canvas.toBlob((blob) => {
-          const url = URL.createObjectURL(blob);
-          downloadBtn.href = url;
-          previewImg.src = url;
-        }, "image/jpeg", 0.9);
-      };
-    }
-  </script>
-
   <style>
-    .drop-area {
-      border: 2px dashed #007BFF;
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      color: #333;
+      margin: 0;
       padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-
-    .browse-label {
-      color: var(--primary-color);
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    .controls {
-      text-align: center;
-    }
-
-    .button {
-      padding: 10px 20px;
-      background-color: #444;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .button:hover {
-      background-color: #666;
-    }
-
-    .blue-button {
-      background-color: #007BFF;
-      display: inline-block;
-      margin-top: 15px;
-    }
-
-    .blue-button:hover {
-      background-color: #0056b3;
-    }
-
-    .preview-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .preview-container img {
-      max-width: 300px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .hidden {
-      display: none;
     }
 
     .container {
       max-width: 700px;
       margin: auto;
-      padding: 30px 20px;
+      padding: 20px;
     }
 
     .heading {
@@ -165,10 +28,159 @@
 
     .subheading {
       text-align: center;
-      font-size: 16px;
       color: #555;
+      font-size: 16px;
       margin-bottom: 30px;
     }
+
+    .drop-area {
+      border: 2px dashed #007BFF;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .drop-area.dragover {
+      background-color: #f0f8ff;
+    }
+
+    .browse-label {
+      color: #007BFF;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .preview {
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .preview-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    a.button {
+      text-decoration: none;
+      display: inline-block;
+    }
   </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="heading">🖼️ PNG to JPG Converter</h1>
+    <p class="subheading">Convert PNG images to high-quality JPG format</p>
+
+    <div class="drop-area" id="drop-area">
+      <p>Drag & Drop PNG file here or <label for="fileInput" class="browse-label">Browse</label></p>
+      <input type="file" id="fileInput" accept="image/png" hidden />
+    </div>
+
+    <div class="preview-section" id="previewSection" style="display: none;">
+      <h3>PNG Preview</h3>
+      <img id="pngPreview" class="preview" src="#" alt="PNG Preview" />
+
+      <button class="button" onclick="convertToJPG()">Convert to JPG</button>
+
+      <div id="jpgSection" style="display: none;">
+        <h3>JPG Preview</h3>
+        <img id="jpgPreview" class="preview" src="#" alt="JPG Preview" />
+        <a id="downloadBtn" class="button" download="converted.jpg">Download JPG</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const dropArea = document.getElementById("drop-area");
+    const pngPreview = document.getElementById("pngPreview");
+    const jpgPreview = document.getElementById("jpgPreview");
+    const previewSection = document.getElementById("previewSection");
+    const jpgSection = document.getElementById("jpgSection");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    let imageFile;
+
+    dropArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropArea.classList.add("dragover");
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("dragover");
+    });
+
+    dropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropArea.classList.remove("dragover");
+      const file = e.dataTransfer.files[0];
+      handleFile(file);
+    });
+
+    document.querySelector(".browse-label").addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
+
+    function handleFile(file) {
+      if (!file || file.type !== "image/png") {
+        alert("Please upload a valid PNG image.");
+        return;
+      }
+      imageFile = file;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        pngPreview.src = e.target.result;
+        previewSection.style.display = "block";
+        jpgSection.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function convertToJPG() {
+      if (!imageFile) {
+        alert("Please upload a PNG image first.");
+        return;
+      }
+
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff"; // Fill white background for JPG
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        const jpgDataURL = canvas.toDataURL("image/jpeg", 0.95);
+        jpgPreview.src = jpgDataURL;
+        downloadBtn.href = jpgDataURL;
+        jpgSection.style.display = "block";
+      };
+      img.src = URL.createObjectURL(imageFile);
+    }
+  </script>
 </body>
 </html>
