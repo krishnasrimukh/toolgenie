@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://toolgenie.com/sitemap.xml
+Sitemap: https://toolgenie.in/sitemap.xml
