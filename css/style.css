@@ -1,3 +1,13 @@
+@import url('/assets/styles/variables.css');
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
 /* ====== RESET & BASE ====== */
 * {
   margin: 0;
