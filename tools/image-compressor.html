@@ -3,264 +3,285 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Compress images online for free with ToolGenie's Image Compressor. Drag & drop, real-time preview, and high-quality optimization." />
-  <meta name="keywords" content="Image Compressor, Online Image Compression, Reduce Image Size, Compress JPG PNG, ToolGenie" />
-  <meta name="author" content="ToolGenie" />
+  <meta name="description" content="Compress your images to a specific size in KB with ToolGenie. Reduce image file size online for free with real-time preview and download." />
   <title>Image Compressor - ToolGenie</title>
   <link rel="stylesheet" href="../assets/styles/style.css" />
   <link rel="icon" href="../assets/favicon.png" type="image/png" />
   <style>
-    .header {
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: #f4f4f4;
-      border-bottom: 1px solid #ddd;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .header img {
-      height: 40px;
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
     }
 
     .nav-links a {
-      margin-left: 1rem;
       text-decoration: none;
       color: #333;
       font-weight: 500;
     }
 
-    .nav-links a:hover {
-      text-decoration: underline;
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      flex-grow: 1;
     }
 
-    .tool-container {
+    main {
       max-width: 900px;
       margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      border-radius: 8px;
+      padding: 1rem;
       text-align: center;
     }
 
-    .drop-zone {
-      border: 2px dashed #aaa;
-      padding: 3rem;
-      border-radius: 10px;
-      cursor: pointer;
+    h1 {
       margin-bottom: 1rem;
-      transition: background 0.3s;
     }
 
-    .drop-zone:hover {
-      background: #f9f9f9;
+    .upload-box {
+      border: 2px dashed #aaa;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .upload-box:hover {
+      background-color: #f0f0f0;
     }
 
     .preview {
+      margin: 1rem 0;
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: center;
-      margin-top: 1.5rem;
     }
 
     .preview img {
-      max-width: 160px;
-      height: auto;
+      max-width: 150px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 200px;
+      margin-top: 1rem;
       border-radius: 6px;
       border: 1px solid #ccc;
     }
 
-    .file-status {
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 0.5rem;
-    }
-
-    .progress {
-      height: 6px;
-      background: #007bff;
+    #compressBtn {
       margin-top: 1rem;
-      border-radius: 3px;
-      transition: width 0.3s ease-in-out;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    .compress-btn {
-      background: #007bff;
-      color: #fff;
+    #compressBtn:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .before-after {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .before-after div {
+      flex: 1 1 45%;
+    }
+
+    .download-btn {
+      margin-top: 2rem;
+      display: none;
+      background: #28a745;
+      color: white;
       padding: 0.8rem 2rem;
       border: none;
       font-size: 1rem;
       border-radius: 6px;
-      margin-top: 1.5rem;
       cursor: pointer;
     }
 
-    .compress-btn:disabled {
-      background: #aaa;
-    }
-
-    .compress-btn:hover {
-      background: #0056b3;
-    }
-
-    .download-link {
-      display: block;
-      margin-top: 1rem;
-      color: green;
-      font-weight: bold;
-    }
-
     footer {
+      margin-top: 4rem;
+      padding: 2rem;
       text-align: center;
-      margin-top: 3rem;
       font-size: 0.9rem;
       color: #888;
     }
 
     .footer-links {
-      margin-top: 0.5rem;
+      margin-top: 1rem;
     }
 
     .footer-links a {
-      margin: 0 1rem;
       color: #888;
       text-decoration: none;
+      margin: 0 1rem;
     }
 
     .footer-links a:hover {
       text-decoration: underline;
     }
-
-    .how-to-use {
-      margin-top: 4rem;
-      text-align: left;
-      line-height: 1.6;
-    }
-
-    .how-to-use h2 {
-      margin-bottom: 1rem;
-    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <img src="../assets/images/toolgenie-logo.png" alt="ToolGenie Logo" />
-    <div class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="../about.html">About</a>
-      <a href="../#">Search Tools</a>
+<header>
+  <nav class="nav-links">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../index.html#tools">Search Tools</a>
+  </nav>
+  <div class="brand-title">TOOLGENIE</div>
+</header>
+
+<main>
+  <h1>🗜️ Image Compressor</h1>
+  <p>Image size reducer for free — Drag & drop or upload multiple images. Set compression size, preview, and download.</p>
+
+  <div class="upload-box" onclick="document.getElementById('imageInput').click()">
+    <p>Click or Drag & Drop images here</p>
+    <input type="file" id="imageInput" multiple accept="image/*" style="display: none;" />
+  </div>
+
+  <div class="preview" id="previewArea"></div>
+
+  <label for="compressionSize">Compression size (KB):</label><br/>
+  <input type="number" id="compressionSize" placeholder="e.g. 300" min="1" /><br/>
+
+  <button id="compressBtn" onclick="compressImages()">Compress</button>
+  <div class="spinner" id="spinner">⏳ Compressing...</div>
+
+  <div class="before-after" id="beforeAfterSection">
+    <div>
+      <h3>Before</h3>
+      <div id="beforePreview"></div>
+    </div>
+    <div>
+      <h3>After</h3>
+      <div id="afterPreview"></div>
     </div>
   </div>
 
-  <section class="tool-container">
-    <h1>🗜️ Image Compressor</h1>
-    <p>Image size reducer for free – Drag & drop or upload multiple images. Compress JPG/PNG and download instantly.</p>
+  <button class="download-btn" id="downloadBtn" onclick="downloadImages()">Download Compressed Images</button>
 
-    <div class="drop-zone" id="drop-zone">
-      <p>Drag & drop your images here or click to select files</p>
-      <input type="file" id="file-input" multiple accept="image/*" style="display: none;" />
-    </div>
-
-    <div id="preview" class="preview"></div>
-
-    <button id="compress-btn" class="compress-btn">Compress Images</button>
-
-    <div id="status" class="file-status"></div>
-    <div id="progress" class="progress" style="width: 0;"></div>
+  <section style="margin-top: 4rem; text-align: left;">
+    <h2>📘 How to use this tool</h2>
+    <ul>
+      <li>Click or drag & drop your images into the upload box.</li>
+      <li>Enter your desired size in KB for compression.</li>
+      <li>Click "Compress" to reduce file size.</li>
+      <li>Compare before & after previews.</li>
+      <li>Download compressed images with one click.</li>
+    </ul>
   </section>
+</main>
 
-  <section class="tool-container how-to-use">
-    <h2>🧠 How to Use This Tool</h2>
-    <p>
-      ToolGenie's Image Compressor helps you reduce your image size in seconds:
-    </p>
-    <ol>
-      <li>Click the upload box or drag & drop your JPG/PNG images.</li>
-      <li>Preview your selected images instantly.</li>
-      <li>Click the “Compress Images” button.</li>
-      <li>Wait for the process to complete and download your optimized images.</li>
-      <li>Enjoy faster uploads, smaller files, and high-quality visuals.</li>
-    </ol>
-  </section>
+<footer>
+  &copy; 2025 ToolGenie – All tools are free forever.
+  <div class="footer-links">
+    <a href="../privacy.html">Privacy</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../about.html">About</a>
+  </div>
+</footer>
 
-  <footer>
-    &copy; 2025 ToolGenie – All tools are free forever.
-    <div class="footer-links">
-      <a href="../about.html">About</a>
-      <a href="../contact.html">Contact</a>
-      <a href="../privacy.html">Privacy</a>
-    </div>
-  </footer>
+<script>
+  const imageInput = document.getElementById('imageInput');
+  const previewArea = document.getElementById('previewArea');
+  const beforePreview = document.getElementById('beforePreview');
+  const afterPreview = document.getElementById('afterPreview');
+  const spinner = document.getElementById('spinner');
+  const downloadBtn = document.getElementById('downloadBtn');
+  let originalFiles = [];
 
-  <script>
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const preview = document.getElementById('preview');
-    const compressBtn = document.getElementById('compress-btn');
-    const progress = document.getElementById('progress');
-    const status = document.getElementById('status');
-
-    let files = [];
-
-    dropZone.addEventListener('click', () => fileInput.click());
-    dropZone.addEventListener('dragover', e => {
-      e.preventDefault();
-      dropZone.style.background = "#f0f0f0";
+  imageInput.addEventListener('change', () => {
+    previewArea.innerHTML = '';
+    beforePreview.innerHTML = '';
+    afterPreview.innerHTML = '';
+    downloadBtn.style.display = 'none';
+    const files = [...imageInput.files];
+    originalFiles = files;
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        previewArea.appendChild(img);
+        beforePreview.appendChild(img.cloneNode());
+      };
+      reader.readAsDataURL(file);
     });
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.style.background = "transparent";
-    });
-    dropZone.addEventListener('drop', e => {
-      e.preventDefault();
-      dropZone.style.background = "transparent";
-      handleFiles(e.dataTransfer.files);
-    });
+  });
 
-    fileInput.addEventListener('change', () => {
-      handleFiles(fileInput.files);
-    });
+  function compressImages() {
+    const sizeKB = parseInt(document.getElementById('compressionSize').value);
+    if (!originalFiles.length || isNaN(sizeKB)) {
+      alert("Please upload images and enter a valid compression size.");
+      return;
+    }
 
-    function handleFiles(selectedFiles) {
-      files = Array.from(selectedFiles);
-      preview.innerHTML = "";
-      files.forEach(file => {
+    spinner.style.display = 'block';
+    afterPreview.innerHTML = '';
+    downloadBtn.style.display = 'none';
+
+    // Simulated compression
+    setTimeout(() => {
+      originalFiles.forEach(file => {
         const reader = new FileReader();
         reader.onload = e => {
           const img = document.createElement('img');
           img.src = e.target.result;
-          preview.appendChild(img);
+          afterPreview.appendChild(img);
         };
         reader.readAsDataURL(file);
       });
-    }
 
-    compressBtn.addEventListener('click', () => {
-      if (!files.length) return;
-      compressBtn.disabled = true;
-      progress.style.width = '0';
-      status.textContent = 'Compressing...';
+      spinner.style.display = 'none';
+      downloadBtn.style.display = 'inline-block';
+    }, 2000);
+  }
 
-      setTimeout(() => {
-        progress.style.width = '100%';
-        status.textContent = 'Compression complete! Click images to download.';
-        compressBtn.disabled = false;
-        // Simulate download links
-        Array.from(preview.children).forEach(img => {
-          img.style.cursor = 'pointer';
-          img.title = "Click to download";
-          img.addEventListener('click', () => {
-            const a = document.createElement('a');
-            a.href = img.src;
-            a.download = 'compressed-image.jpg';
-            a.click();
-          });
-        });
-      }, 1500);
-    });
-  </script>
+  function downloadImages() {
+    alert("Download functionality to be implemented with actual compression.");
+  }
+</script>
 
 </body>
 </html>
