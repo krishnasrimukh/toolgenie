@@ -1,23 +1,96 @@
-:root {
-  /* Brand Colors */
-  --primary-color: #3f51b5;
-  --secondary-color: #ff4081;
-  --background-color: #f9f9f9;
-  --text-color: #333;
-  --border-color: #e0e0e0;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f7f9fb;
+  color: #1a1a1a;
+}
 
-  /* Gradients and Effects */
-  --primary-gradient: linear-gradient(to right, #3f51b5, #5c6bc0);
-  --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
-  /* Typography */
-  --font-family: 'Poppins', sans-serif;
-  --heading-font-size: 2rem;
-  --text-font-size: 1rem;
+.logo {
+  display: flex;
+  align-items: center;
+}
 
-  /* Spacing */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 32px;
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1rem;
+  color: #555;
+}
+
+#searchBar {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.tool-card-link {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #1a1a1a;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.tool-card-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.tool-card-link span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+  background: #fff;
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.footer-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #666;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }
