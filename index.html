@@ -1,88 +1,2670 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TOOLGENIE - All-in-One PDF Editor with modern features. Merge, split, compress, convert and edit PDFs online for free.">
+    <meta name="keywords" content="PDF editor, PDF tools, merge PDF, split PDF, compress PDF, PDF to Word, PDF to JPG">
+    <title>TOOLGENIE - All-in-One PDF Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --text-color: #2d3436;
+            --light-text: #636e72;
+            --bg-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
 
-  <title>ToolGenie - Free Online File Tools</title>
-  <meta name="description" content="Convert, compress, merge, and optimize files online. ToolGenie offers powerful free tools — all in one place!" />
-  <meta name="keywords" content="ToolGenie, online tools, file converter, image to pdf, pdf merger, word to pdf, mp4 to mp3, compress images" />
-  <meta name="author" content="ToolGenie Team" />
-  <meta name="robots" content="index, follow" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Open Graph for SEO and social media -->
-  <meta property="og:title" content="ToolGenie - Free Online File Tools" />
-  <meta property="og:description" content="Convert, compress, and optimize your files with ToolGenie – fast and free." />
-  <meta property="og:image" content="https://toolgenie.in/assets/icons/android-chrome-512x512.png" />
-  <meta property="og:url" content="https://toolgenie.in/" />
-  <meta property="og:type" content="website" />
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 10% 20%, hsla(252, 100%, 94%, 0.2) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, hsla(340, 100%, 94%, 0.2) 0px, transparent 50%);
+            min-height: 100vh;
+        }
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/icons/favicon-32x32.png" />
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/styles/style.css" />
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+            background-color: var(--card-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(31, 38, 135, 0.15);
+        }
+
+        .tool-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tool-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .tool-card p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        /* Main Editor Section */
+        .editor-container {
+            display: none;
+            margin: 40px 0;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .editor-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn i {
+            transition: var(--transition);
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+        }
+
+        .upload-area i {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .upload-area h3 {
+            margin-bottom: 10px;
+        }
+
+        .upload-area p {
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        #file-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-preview {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(108, 92, 231, 0.1);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        .file-icon {
+            font-size: 30px;
+            color: var(--primary-color);
+        }
+
+        .file-details h4 {
+            margin-bottom: 5px;
+        }
+
+        .file-details p {
+            font-size: 0.8rem;
+            color: var(--light-text);
+        }
+
+        .remove-file {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: #ff7675;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .options-container {
+            margin-top: 30px;
+        }
+
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-group h4 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .radio-options, .checkbox-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input, .checkbox-option input {
+            accent-color: var(--primary-color);
+        }
+
+        .range-slider {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .range-value {
+            text-align: center;
+            margin-top: 5px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .primary-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .secondary-btn {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .secondary-btn:hover {
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: rgba(248, 249, 250, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .section-header p {
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(31, 38, 135, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        /* Privacy Section */
+        .privacy {
+            padding: 80px 0;
+        }
+
+        .privacy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .privacy-content h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .privacy-content h3 {
+            margin: 25px 0 15px;
+            color: var(--text-color);
+        }
+
+        .privacy-content p {
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 50px 0 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-newsletter p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Ad Container */
+        .ad-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ad-container p {
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: var(--shadow);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                z-index: 99;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .editor-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .back-btn {
+                align-self: flex-end;
+            }
+
+            .upload-area {
+                padding: 30px 20px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-btn {
+                padding: 12px 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        .toast.success i {
+            color: #00b894;
+        }
+
+        .toast.error i {
+            color: #d63031;
+        }
+
+        /* Tool specific styles */
+        .page-range-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .page-range-inputs input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 60px;
+            text-align: center;
+        }
+
+        .page-range-divider {
+            color: var(--light-text);
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .color-option.selected {
+            border-color: var(--text-color);
+            transform: scale(1.1);
+        }
+
+        .preview-container {
+            margin-top: 30px;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            display: none;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Watermark options */
+        .watermark-position {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .position-btn {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .position-btn.selected {
+            border-color: var(--primary-color);
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        /* Results section */
+        .results-container {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .download-btn {
+            background: linear-gradient(to right, #00b894, #55efc4);
+            color: white;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(to right, #00b894, #55efc4);
+            box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4);
+        }
+
+        /* Responsive iframe */
+        .responsive-iframe-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+            margin-top: 20px;
+            border-radius: var(--border-radius);
+        }
+
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-magic logo-icon"></i>
+                <span class="logo-text">TOOLGENIE</span>
+            </a>
+            <nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#privacy">Privacy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <!-- Header with logo and search -->
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1000px; margin: auto;">
-    <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
-      <img src="assets/images/toolgenie-logo.png" alt="ToolGenie Logo" style="height: 40px; margin-right: 0.75rem;" />
-      <h1 style="font-size: 1.6rem; color: #1a1a1a;">ToolGenie</h1>
-    </a>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Your All-in-One PDF Solution</h1>
+            <p>Edit, convert, merge, split, compress and more - all your PDF needs in one place with TOOLGENIE. Fast, secure, and completely free to use.</p>
+            
+            <!-- Ad Container -->
+            <div class="ad-container">
+                <p>Advertisement</p>
+                <div id="ad-slot-1">
+                    <!-- AdSense or other ad code will go here -->
+                    <img src="https://via.placeholder.com/728x90?text=Advertisement" alt="Ad" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+            
+            <div class="tools-grid" id="tools">
+                <!-- PDF Merge -->
+                <div class="tool-card" data-tool="merge">
+                    <i class="fas fa-object-group tool-icon"></i>
+                    <h3>Merge PDF</h3>
+                    <p>Combine multiple PDF files into a single document in seconds.</p>
+                </div>
+                
+                <!-- PDF Split -->
+                <div class="tool-card" data-tool="split">
+                    <i class="fas fa-cut tool-icon"></i>
+                    <h3>Split PDF</h3>
+                    <p>Extract pages or split PDF into multiple files by page ranges.</p>
+                </div>
+                
+                <!-- PDF Compress -->
+                <div class="tool-card" data-tool="compress">
+                    <i class="fas fa-compress-alt tool-icon"></i>
+                    <h3>Compress PDF</h3>
+                    <p>Reduce PDF file size while maintaining quality.</p>
+                </div>
+                
+                <!-- PDF to Word -->
+                <div class="tool-card" data-tool="pdf-to-word">
+                    <i class="fas fa-file-word tool-icon"></i>
+                    <h3>PDF to Word</h3>
+                    <p>Convert PDF files to editable Word documents.</p>
+                </div>
+                
+                <!-- Word to PDF -->
+                <div class="tool-card" data-tool="word-to-pdf">
+                    <i class="fas fa-file-pdf tool-icon"></i>
+                    <h3>Word to PDF</h3>
+                    <p>Convert Word documents to PDF files.</p>
+                </div>
+                
+                <!-- PDF to JPG -->
+                <div class="tool-card" data-tool="pdf-to-jpg">
+                    <i class="fas fa-file-image tool-icon"></i>
+                    <h3>PDF to JPG</h3>
+                    <p>Convert PDF pages to high-quality JPG images.</p>
+                </div>
+                
+                <!-- JPG to PDF -->
+                <div class="tool-card" data-tool="jpg-to-pdf">
+                    <i class="fas fa-file-pdf tool-icon"></i>
+                    <h3>JPG to PDF</h3>
+                    <p>Convert JPG images to a PDF document.</p>
+                </div>
+                
+                <!-- PDF to PPT -->
+                <div class="tool-card" data-tool="pdf-to-ppt">
+                    <i class="fas fa-file-powerpoint tool-icon"></i>
+                    <h3>PDF to PowerPoint</h3>
+                    <p>Convert PDF files to editable PowerPoint presentations.</p>
+                </div>
+                
+                <!-- PPT to PDF -->
+                <div class="tool-card" data-tool="ppt-to-pdf">
+                    <i class="fas fa-file-pdf tool-icon"></i>
+                    <h3>PowerPoint to PDF</h3>
+                    <p>Convert PowerPoint files to PDF documents.</p>
+                </div>
+                
+                <!-- PDF to Excel -->
+                <div class="tool-card" data-tool="pdf-to-excel">
+                    <i class="fas fa-file-excel tool-icon"></i>
+                    <h3>PDF to Excel</h3>
+                    <p>Convert PDF tables to editable Excel spreadsheets.</p>
+                </div>
+                
+                <!-- Excel to PDF -->
+                <div class="tool-card" data-tool="excel-to-pdf">
+                    <i class="fas fa-file-pdf tool-icon"></i>
+                    <h3>Excel to PDF</h3>
+                    <p>Convert Excel files to PDF documents.</p>
+                </div>
+                
+                <!-- PDF Edit -->
+                <div class="tool-card" data-tool="edit">
+                    <i class="fas fa-edit tool-icon"></i>
+                    <h3>Edit PDF</h3>
+                    <p>Edit text, images, and pages in your PDF files.</p>
+                </div>
+                
+                <!-- PDF Protect -->
+                <div class="tool-card" data-tool="protect">
+                    <i class="fas fa-lock tool-icon"></i>
+                    <h3>Protect PDF</h3>
+                    <p>Add passwords and permissions to your PDF files.</p>
+                </div>
+                
+                <!-- PDF Unlock -->
+                <div class="tool-card" data-tool="unlock">
+                    <i class="fas fa-unlock tool-icon"></i>
+                    <h3>Unlock PDF</h3>
+                    <p>Remove password protection from PDF files.</p>
+                </div>
+                
+                <!-- PDF Rotate -->
+                <div class="tool-card" data-tool="rotate">
+                    <i class="fas fa-redo tool-icon"></i>
+                    <h3>Rotate PDF</h3>
+                    <p>Rotate PDF pages and save the new orientation.</p>
+                </div>
+                
+                <!-- PDF Watermark -->
+                <div class="tool-card" data-tool="watermark">
+                    <i class="fas fa-stamp tool-icon"></i>
+                    <h3>Watermark PDF</h3>
+                    <p>Add text or image watermarks to your PDF files.</p>
+                </div>
+                
+                <!-- PDF OCR -->
+                <div class="tool-card" data-tool="ocr">
+                    <i class="fas fa-eye tool-icon"></i>
+                    <h3>OCR PDF</h3>
+                    <p>Extract text from scanned PDFs and images.</p>
+                </div>
+                
+                <!-- PDF Sign -->
+                <div class="tool-card" data-tool="sign">
+                    <i class="fas fa-signature tool-icon"></i>
+                    <h3>Sign PDF</h3>
+                    <p>Add digital signatures to your PDF documents.</p>
+                </div>
+                
+                <!-- PDF Repair -->
+                <div class="tool-card" data-tool="repair">
+                    <i class="fas fa-wrench tool-icon"></i>
+                    <h3>Repair PDF</h3>
+                    <p>Fix corrupted or damaged PDF files.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Search bar -->
-    <input type="text" id="searchInput" placeholder="Search tools..." class="input" style="max-width: 250px;" />
-  </header>
-
-  <!-- Hero section -->
-  <div class="hero">
-    <h2>Convert, compress, merge, and optimize your files — all in one place.</h2>
-    <p>Simple, fast, and free tools to solve your daily file problems.</p>
-  </div>
-
-  <!-- Tool grid -->
-  <section class="tools-grid" id="toolList">
-    <a href="tools/image-compressor.html" class="tool-card-link"><span>🗜️</span>Image Compressor</a>
-    <a href="tools/jpg-to-png.html" class="tool-card-link"><span>🖼️</span>JPG to PNG</a>
-    <a href="tools/png-to-jpg.html" class="tool-card-link"><span>🖼️</span>PNG to JPG</a>
-    <a href="tools/mp4-to-mp3.html" class="tool-card-link"><span>🎵</span>MP4 to MP3</a>
-    <a href="tools/pdf-merger.html" class="tool-card-link"><span>📎</span>PDF Merger</a>
-    <a href="tools/pdf-splitter.html" class="tool-card-link"><span>✂️</span>PDF Splitter</a>
-    <a href="tools/pdf-to-images.html" class="tool-card-link"><span>🖼️</span>PDF to Images</a>
-    <a href="tools/images-to-pdf.html" class="tool-card-link"><span>📄</span>Images to PDF</a>
-    <a href="tools/pdf-to-word-converter.html" class="tool-card-link"><span>🔤</span>PDF to Word</a>
-    <a href="tools/word-to-pdf-converter.html" class="tool-card-link"><span>📄</span>Word to PDF</a>
-    <a href="tools/qr-code-generator.html" class="tool-card-link"><span>🔗</span>QR Code Generator</a>
-    <a href="tools/text-pdf-generator.html" class="tool-card-link"><span>📝</span>Text to PDF</a>
-    <a href="tools/time-zone-converter.html" class="tool-card-link"><span>🌍</span>Time Zone Converter</a>
-    <a href="tools/word-counter.html" class="tool-card-link"><span>🔢</span>Word Counter</a>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 ToolGenie – All tools are free forever.
-    <div class="footer-links">
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
+    <!-- PDF Editor Container -->
+    <div class="container">
+        <div class="editor-container" id="editorContainer">
+            <div class="editor-header">
+                <h2 id="editorTitle">Merge PDF Files</h2>
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i> Back to Tools
+                </button>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Your Files</h3>
+                <p>Drag & drop your files here or click to browse</p>
+                <button class="upload-btn">Select Files</button>
+                <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png">
+            </div>
+            
+            <div class="file-preview" id="filePreview">
+                <!-- Files will be displayed here -->
+            </div>
+            
+            <div class="options-container" id="optionsContainer">
+                <!-- Tool-specific options will be inserted here -->
+            </div>
+            
+            <div class="preview-container" id="previewContainer">
+                <div class="preview-header">
+                    <h4>Preview</h4>
+                    <button class="secondary-btn" id="closePreviewBtn">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+                <iframe class="preview-iframe" id="previewIframe"></iframe>
+            </div>
+            
+            <div class="results-container" id="resultsContainer">
+                <h3>Your file is ready!</h3>
+                <p>Processing completed successfully. Click below to download your file.</p>
+                <div class="action-buttons">
+                    <button class="action-btn download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button class="action-btn secondary-btn" id="newFileBtn">
+                        <i class="fas fa-plus"></i> Process New File
+                    </button>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn primary-btn" id="processBtn" disabled>
+                    <i class="fas fa-cog"></i> Process
+                </button>
+                <button class="action-btn secondary-btn" id="previewBtn" disabled>
+                    <i class="fas fa-eye"></i> Preview
+                </button>
+                <button class="action-btn secondary-btn" id="resetBtn">
+                    <i class="fas fa-trash"></i> Reset
+                </button>
+            </div>
+        </div>
+        
+        <!-- Ad Container -->
+        <div class="ad-container">
+            <p>Advertisement</p>
+            <div id="ad-slot-2">
+                <!-- AdSense or other ad code will go here -->
+                <img src="https://via.placeholder.com/728x90?text=Advertisement" alt="Ad" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
     </div>
-  </footer>
 
-  <!-- Search filtering script -->
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const tools = document.querySelectorAll('.tool-card-link');
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose TOOLGENIE?</h2>
+                <p>Our platform offers everything you need to work with PDF files efficiently and securely.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>Privacy Focused</h3>
+                    <p>All files are processed in your browser and never uploaded to our servers. Your documents stay private and secure.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-bolt feature-icon"></i>
+                    <h3>Lightning Fast</h3>
+                    <p>Our tools use advanced browser technologies to process files quickly without waiting for server responses.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3>Fully Responsive</h3>
+                    <p>Works perfectly on all devices from desktop computers to smartphones and tablets.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-tools feature-icon"></i>
+                    <h3>All-in-One Solution</h3>
+                    <p>No need to use multiple tools - everything you need for PDF manipulation in one place.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-euro-sign feature-icon"></i>
+                    <h3>Completely Free</h3>
+                    <p>All features are available for free with no hidden costs or premium paywalls.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-cloud feature-icon"></i>
+                    <h3>No Installation</h3>
+                    <p>Works directly in your browser with no software to download or install.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    searchInput.addEventListener('input', function () {
-      const keyword = this.value.toLowerCase();
-      tools.forEach(tool => {
-        const text = tool.textContent.toLowerCase();
-        tool.style.display = text.includes(keyword) ? 'block' : 'none';
-      });
-    });
-  </script>
+    <!-- Privacy Section -->
+    <section class="privacy" id="privacy">
+        <div class="container">
+            <div class="privacy-content">
+                <h2>Your Privacy Matters</h2>
+                
+                <h3>How We Handle Your Files</h3>
+                <p>TOOLGENIE is designed with privacy as a core principle. All file processing happens directly in your browser using modern web technologies. Your files are never uploaded to our servers or any third-party services.</p>
+                
+                <h3>No Data Retention</h3>
+                <p>We don't store, track, or log any information about the files you process. Once you close the browser tab, all file data is permanently deleted from memory.</p>
+                
+                <h3>Secure Processing</h3>
+                <p>Our tools use the latest web standards to ensure your files are processed securely. All operations are performed locally in your browser's sandboxed environment.</p>
+                
+                <h3>No Tracking</h3>
+                <p>We use minimal analytics to understand usage patterns without compromising your privacy. We don't use invasive tracking technologies or sell data to third parties.</p>
+            </div>
+            
+            <!-- Ad Container -->
+            <div class="ad-container">
+                <p>Advertisement</p>
+                <div id="ad-slot-3">
+                    <!-- AdSense or other ad code will go here -->
+                    <img src="https://via.placeholder.com/728x90?text=Advertisement" alt="Ad" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-magic footer-logo-icon"></i>
+                        <span class="footer-logo-text">TOOLGENIE</span>
+                    </div>
+                    <p>Your all-in-one solution for PDF editing and conversion. Fast, secure, and completely free to use.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Popular Tools</h3>
+                    <ul>
+                        <li><a href="#" data-tool="merge">Merge PDF</a></li>
+                        <li><a href="#" data-tool="split">Split PDF</a></li>
+                        <li><a href="#" data-tool="compress">Compress PDF</a></li>
+                        <li><a href="#" data-tool="pdf-to-word">PDF to Word</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on new features and tools.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TOOLGENIE. All rights reserved. <a href="#" style="color: rgba(255,255,255,0.7);">Terms of Service</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-container" id="loadingContainer" style="display: none;">
+        <div class="loader"></div>
+        <p id="loadingText">Processing your file...</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('show');
+                const icon = this.querySelector('i');
+                if (navMenu.classList.contains('show')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('#navMenu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('show');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                });
+            });
+            
+            // Tool cards functionality
+            const toolCards = document.querySelectorAll('.tool-card');
+            const editorContainer = document.getElementById('editorContainer');
+            const editorTitle = document.getElementById('editorTitle');
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('file-input');
+            const filePreview = document.getElementById('filePreview');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const processBtn = document.getElementById('processBtn');
+            const previewBtn = document.getElementById('previewBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const backBtn = document.getElementById('backBtn');
+            const previewContainer = document.getElementById('previewContainer');
+            const closePreviewBtn = document.getElementById('closePreviewBtn');
+            const previewIframe = document.getElementById('previewIframe');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const newFileBtn = document.getElementById('newFileBtn');
+            const loadingContainer = document.getElementById('loadingContainer');
+            const loadingText = document.getElementById('loadingText');
+            const toast = document.getElementById('toast');
+            const newsletterForm = document.getElementById('newsletterForm');
+            
+            let currentTool = null;
+            let uploadedFiles = [];
+            let processedFile = null;
+            
+            // Show tool editor when a tool card is clicked
+            toolCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    currentTool = this.getAttribute('data-tool');
+                    const toolName = this.querySelector('h3').textContent;
+                    editorTitle.textContent = toolName;
+                    
+                    // Hide main content and show editor
+                    document.querySelector('.hero').style.display = 'none';
+                    document.querySelector('.features').style.display = 'none';
+                    document.querySelector('.privacy').style.display = 'none';
+                    editorContainer.style.display = 'block';
+                    
+                    // Reset UI
+                    filePreview.style.display = 'none';
+                    filePreview.innerHTML = '';
+                    uploadedFiles = [];
+                    processBtn.disabled = true;
+                    previewBtn.disabled = true;
+                    previewContainer.style.display = 'none';
+                    resultsContainer.style.display = 'none';
+                    
+                    // Load tool-specific options
+                    loadToolOptions(currentTool);
+                    
+                    // Scroll to editor
+                    editorContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Back button to return to tools list
+            backBtn.addEventListener('click', function() {
+                document.querySelector('.hero').style.display = 'block';
+                document.querySelector('.features').style.display = 'block';
+                document.querySelector('.privacy').style.display = 'block';
+                editorContainer.style.display = 'none';
+                
+                // Reset file input
+                fileInput.value = '';
+            });
+            
+            // File upload handling
+            uploadArea.addEventListener('click', function(e) {
+                if (e.target !== fileInput && e.target !== this) {
+                    fileInput.click();
+                }
+            });
+            
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'var(--primary-color)';
+                this.style.backgroundColor = 'rgba(108, 92, 231, 0.05)';
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                this.style.borderColor = '#ccc';
+                this.style.backgroundColor = 'transparent';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#ccc';
+                this.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length > 0) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    handleFiles(this.files);
+                }
+            });
+            
+            function handleFiles(files) {
+                // Clear previous files
+                uploadedFiles = [];
+                filePreview.innerHTML = '';
+                
+                // Validate files based on tool
+                const validFiles = Array.from(files).filter(file => {
+                    if (currentTool === 'jpg-to-pdf' || currentTool === 'pdf-to-jpg') {
+                        return file.type.startsWith('image/') || file.name.toLowerCase().endsWith('.pdf');
+                    } else if (currentTool === 'pdf-to-word') {
+                        return file.name.toLowerCase().endsWith('.pdf');
+                    } else if (currentTool === 'word-to-pdf') {
+                        return file.name.toLowerCase().endsWith('.doc') || file.name.toLowerCase().endsWith('.docx');
+                    } else if (currentTool === 'pdf-to-ppt') {
+                        return file.name.toLowerCase().endsWith('.pdf');
+                    } else if (currentTool === 'ppt-to-pdf') {
+                        return file.name.toLowerCase().endsWith('.ppt') || file.name.toLowerCase().endsWith('.pptx');
+                    } else if (currentTool === 'pdf-to-excel') {
+                        return file.name.toLowerCase().endsWith('.pdf');
+                    } else if (currentTool === 'excel-to-pdf') {
+                        return file.name.toLowerCase().endsWith('.xls') || file.name.toLowerCase().endsWith('.xlsx');
+                    } else {
+                        // Default to PDF for other tools
+                        return file.name.toLowerCase().endsWith('.pdf');
+                    }
+                });
+                
+                if (validFiles.length === 0) {
+                    showToast('Please upload valid files for this tool', 'error');
+                    return;
+                }
+                
+                // Check if merge tool and more than one file is required
+                if (currentTool === 'merge' && validFiles.length < 2) {
+                    showToast('Please upload at least 2 PDF files to merge', 'error');
+                    return;
+                }
+                
+                // Add files to preview
+                validFiles.forEach((file, index) => {
+                    uploadedFiles.push(file);
+                    
+                    const fileElement = document.createElement('div');
+                    fileElement.className = 'file-info';
+                    
+                    let iconClass = 'fa-file-pdf';
+                    if (file.type.startsWith('image/')) {
+                        iconClass = 'fa-file-image';
+                    } else if (file.name.toLowerCase().endsWith('.doc') || file.name.toLowerCase().endsWith('.docx')) {
+                        iconClass = 'fa-file-word';
+                    } else if (file.name.toLowerCase().endsWith('.xls') || file.name.toLowerCase().endsWith('.xlsx')) {
+                        iconClass = 'fa-file-excel';
+                    } else if (file.name.toLowerCase().endsWith('.ppt') || file.name.toLowerCase().endsWith('.pptx')) {
+                        iconClass = 'fa-file-powerpoint';
+                    }
+                    
+                    fileElement.innerHTML = `
+                        <i class="fas ${iconClass} file-icon"></i>
+                        <div class="file-details">
+                            <h4>${file.name}</h4>
+                            <p>${formatFileSize(file.size)}</p>
+                        </div>
+                        <button class="remove-file" data-index="${index}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    
+                    filePreview.appendChild(fileElement);
+                });
+                
+                // Show file preview
+                filePreview.style.display = 'block';
+                
+                // Enable process button if files are valid
+                processBtn.disabled = false;
+                previewBtn.disabled = false;
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-file').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        uploadedFiles.splice(index, 1);
+                        
+                        // Rebuild preview
+                        filePreview.innerHTML = '';
+                        uploadedFiles.forEach((file, newIndex) => {
+                            let iconClass = 'fa-file-pdf';
+                            if (file.type.startsWith('image/')) {
+                                iconClass = 'fa-file-image';
+                            } else if (file.name.toLowerCase().endsWith('.doc') || file.name.toLowerCase().endsWith('.docx')) {
+                                iconClass = 'fa-file-word';
+                            } else if (file.name.toLowerCase().endsWith('.xls') || file.name.toLowerCase().endsWith('.xlsx')) {
+                                iconClass = 'fa-file-excel';
+                            } else if (file.name.toLowerCase().endsWith('.ppt') || file.name.toLowerCase().endsWith('.pptx')) {
+                                iconClass = 'fa-file-powerpoint';
+                            }
+                            
+                            const fileElement = document.createElement('div');
+                            fileElement.className = 'file-info';
+                            fileElement.innerHTML = `
+                                <i class="fas ${iconClass} file-icon"></i>
+                                <div class="file-details">
+                                    <h4>${file.name}</h4>
+                                    <p>${formatFileSize(file.size)}</p>
+                                </div>
+                                <button class="remove-file" data-index="${newIndex}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            `;
+                            
+                            filePreview.appendChild(fileElement);
+                        });
+                        
+                        // Add event listeners to new remove buttons
+                        document.querySelectorAll('.remove-file').forEach(newBtn => {
+                            newBtn.addEventListener('click', function() {
+                                const newIndex = parseInt(this.getAttribute('data-index'));
+                                uploadedFiles.splice(newIndex, 1);
+                                
+                                // Rebuild preview
+                                filePreview.innerHTML = '';
+                                uploadedFiles.forEach((file, idx) => {
+                                    let iconClass = 'fa-file-pdf';
+                                    if (file.type.startsWith('image/')) {
+                                        iconClass = 'fa-file-image';
+                                    } else if (file.name.toLowerCase().endsWith('.doc') || file.name.toLowerCase().endsWith('.docx')) {
+                                        iconClass = 'fa-file-word';
+                                    } else if (file.name.toLowerCase().endsWith('.xls') || file.name.toLowerCase().endsWith('.xlsx')) {
+                                        iconClass = 'fa-file-excel';
+                                    } else if (file.name.toLowerCase().endsWith('.ppt') || file.name.toLowerCase().endsWith('.pptx')) {
+                                        iconClass = 'fa-file-powerpoint';
+                                    }
+                                    
+                                    const fileElement = document.createElement('div');
+                                    fileElement.className = 'file-info';
+                                    fileElement.innerHTML = `
+                                        <i class="fas ${iconClass} file-icon"></i>
+                                        <div class="file-details">
+                                            <h4>${file.name}</h4>
+                                            <p>${formatFileSize(file.size)}</p>
+                                        </div>
+                                        <button class="remove-file" data-index="${idx}">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    `;
+                                    
+                                    filePreview.appendChild(fileElement);
+                                });
+                                
+                                // Update remove buttons again
+                                document.querySelectorAll('.remove-file').forEach(btn => {
+                                    btn.addEventListener('click', function() {
+                                        const idx = parseInt(this.getAttribute('data-index'));
+                                        uploadedFiles.splice(idx, 1);
+                                        this.parentElement.remove();
+                                        
+                                        if (uploadedFiles.length === 0) {
+                                            filePreview.style.display = 'none';
+                                            processBtn.disabled = true;
+                                            previewBtn.disabled = true;
+                                        }
+                                    });
+                                });
+                                
+                                if (uploadedFiles.length === 0) {
+                                    filePreview.style.display = 'none';
+                                    processBtn.disabled = true;
+                                    previewBtn.disabled = true;
+                                }
+                            });
+                        });
+                        
+                        if (uploadedFiles.length === 0) {
+                            filePreview.style.display = 'none';
+                            processBtn.disabled = true;
+                            previewBtn.disabled = true;
+                        }
+                    });
+                });
+            }
+            
+            // Format file size
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+            }
+            
+            // Load tool-specific options
+            function loadToolOptions(tool) {
+                let optionsHTML = '';
+                
+                switch(tool) {
+                    case 'merge':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Merge Options</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="merge-order-upload" name="merge-order" value="upload" checked>
+                                        <label for="merge-order-upload">Merge in upload order</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="merge-order-alphabetical" name="merge-order" value="alphabetical">
+                                        <label for="merge-order-alphabetical">Merge in alphabetical order</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'split':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Split Options</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="split-method-range" name="split-method" value="range" checked>
+                                        <label for="split-method-range">Extract page range</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="split-method-every" name="split-method" value="every">
+                                        <label for="split-method-every">Split every page</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="split-method-even" name="split-method" value="even">
+                                        <label for="split-method-even">Split odd/even pages</label>
+                                    </div>
+                                </div>
+                                
+                                <div id="split-range-options" style="margin-top: 15px;">
+                                    <label for="page-range">Page range (e.g., 1-5, 8, 11-13)</label>
+                                    <input type="text" id="page-range" class="form-control" placeholder="1-5, 8, 11-13" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'compress':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Compression Level</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="compress-low" name="compress-level" value="low" checked>
+                                        <label for="compress-low">Low (better quality)</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="compress-medium" name="compress-level" value="medium">
+                                        <label for="compress-medium">Medium (balanced)</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="compress-high" name="compress-level" value="high">
+                                        <label for="compress-high">High (smaller file)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Additional Options</h4>
+                                <div class="checkbox-options">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="compress-optimize" name="compress-optimize" checked>
+                                        <label for="compress-optimize">Optimize images</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="compress-remove" name="compress-remove">
+                                        <label for="compress-remove">Remove metadata</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'pdf-to-word':
+                    case 'pdf-to-ppt':
+                    case 'pdf-to-excel':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Conversion Options</h4>
+                                <div class="checkbox-options">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="convert-ocr" name="convert-ocr">
+                                        <label for="convert-ocr">Use OCR for scanned documents</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="convert-preserve" name="convert-preserve" checked>
+                                        <label for="convert-preserve">Preserve layout</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'word-to-pdf':
+                    case 'ppt-to-pdf':
+                    case 'excel-to-pdf':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>PDF Options</h4>
+                                <div class="checkbox-options">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="pdf-optimize" name="pdf-optimize" checked>
+                                        <label for="pdf-optimize">Optimize for web</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="pdf-bookmarks" name="pdf-bookmarks">
+                                        <label for="pdf-bookmarks">Include bookmarks</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'pdf-to-jpg':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Image Options</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="jpg-quality-high" name="jpg-quality" value="high" checked>
+                                        <label for="jpg-quality-high">High quality</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="jpg-quality-medium" name="jpg-quality" value="medium">
+                                        <label for="jpg-quality-medium">Medium quality</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="jpg-quality-low" name="jpg-quality" value="low">
+                                        <label for="jpg-quality-low">Low quality</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Pages to Convert</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="jpg-pages-all" name="jpg-pages" value="all" checked>
+                                        <label for="jpg-pages-all">All pages</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="jpg-pages-range" name="jpg-pages" value="range">
+                                        <label for="jpg-pages-range">Specific pages</label>
+                                    </div>
+                                </div>
+                                
+                                <div id="jpg-range-options" style="margin-top: 15px; display: none;">
+                                    <label for="jpg-page-range">Page numbers (e.g., 1,3,5-8)</label>
+                                    <input type="text" id="jpg-page-range" class="form-control" placeholder="1,3,5-8" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Output Format</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="output-single" name="output-format" value="single" checked>
+                                        <label for="output-single">Single ZIP file</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="output-multiple" name="output-format" value="multiple">
+                                        <label for="output-multiple">Multiple JPG files</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'jpg-to-pdf':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>PDF Options</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="pdf-orientation-portrait" name="pdf-orientation" value="portrait" checked>
+                                        <label for="pdf-orientation-portrait">Portrait</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="pdf-orientation-landscape" name="pdf-orientation" value="landscape">
+                                        <label for="pdf-orientation-landscape">Landscape</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="pdf-orientation-auto" name="pdf-orientation" value="auto">
+                                        <label for="pdf-orientation-auto">Auto-detect</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Page Size</h4>
+                                <select id="pdf-page-size" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                    <option value="a4">A4 (210 × 297 mm)</option>
+                                    <option value="letter">Letter (8.5 × 11 in)</option>
+                                    <option value="legal">Legal (8.5 × 14 in)</option>
+                                    <option value="auto">Auto-fit to images</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Margins</h4>
+                                <input type="range" id="pdf-margins" min="0" max="50" value="10" class="range-slider">
+                                <div class="range-value" id="margins-value">10 mm</div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'edit':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Edit Options</h4>
+                                <div class="checkbox-options">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="edit-text" name="edit-text">
+                                        <label for="edit-text">Edit text</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="edit-images" name="edit-images">
+                                        <label for="edit-images">Edit images</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="edit-pages" name="edit-pages">
+                                        <label for="edit-pages">Rearrange pages</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'protect':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Password Protection</h4>
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label for="user-password">User Password (to open file)</label>
+                                    <input type="password" id="user-password" class="form-control" placeholder="Optional" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label for="owner-password">Owner Password (to restrict editing)</label>
+                                    <input type="password" id="owner-password" class="form-control" placeholder="Optional" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Permissions</h4>
+                                <div class="checkbox-options">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="perm-print" name="perm-print">
+                                        <label for="perm-print">Allow printing</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="perm-modify" name="perm-modify">
+                                        <label for="perm-modify">Allow modifications</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="perm-copy" name="perm-copy">
+                                        <label for="perm-copy">Allow copying</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="perm-annotate" name="perm-annotate">
+                                        <label for="perm-annotate">Allow annotations</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'rotate':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Rotation Options</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="rotate-all" name="rotate-pages" value="all" checked>
+                                        <label for="rotate-all">Rotate all pages</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="rotate-range" name="rotate-pages" value="range">
+                                        <label for="rotate-range">Rotate specific pages</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="rotate-even" name="rotate-pages" value="even">
+                                        <label for="rotate-even">Rotate even pages</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="rotate-odd" name="rotate-pages" value="odd">
+                                        <label for="rotate-odd">Rotate odd pages</label>
+                                    </div>
+                                </div>
+                                
+                                <div id="rotate-range-options" style="margin-top: 15px; display: none;">
+                                    <label for="rotate-page-range">Page numbers (e.g., 1,3,5-8)</label>
+                                    <input type="text" id="rotate-page-range" class="form-control" placeholder="1,3,5-8" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Rotation Angle</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="rotate-90" name="rotate-angle" value="90" checked>
+                                        <label for="rotate-90">90° clockwise</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="rotate-180" name="rotate-angle" value="180">
+                                        <label for="rotate-180">180°</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="rotate-270" name="rotate-angle" value="270">
+                                        <label for="rotate-270">90° counter-clockwise</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'watermark':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Watermark Type</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="watermark-text" name="watermark-type" value="text" checked>
+                                        <label for="watermark-text">Text</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="watermark-image" name="watermark-type" value="image">
+                                        <label for="watermark-image">Image</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="watermark-text-options">
+                                <div class="option-group">
+                                    <label for="watermark-content">Watermark Text</label>
+                                    <input type="text" id="watermark-content" class="form-control" placeholder="Enter watermark text" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                
+                                <div class="option-group">
+                                    <h4>Text Style</h4>
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="watermark-font">Font</label>
+                                        <select id="watermark-font" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                            <option value="Arial">Arial</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Courier New">Courier New</option>
+                                            <option value="Verdana">Verdana</option>
+                                            <option value="Georgia">Georgia</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="watermark-size">Size</label>
+                                        <input type="range" id="watermark-size" min="10" max="72" value="36" class="range-slider">
+                                        <div class="range-value" id="watermark-size-value">36 pt</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <div class="color-picker">
+                                            <div class="color-option selected" style="background-color: #000000;" data-color="#000000"></div>
+                                            <div class="color-option" style="background-color: #333333;" data-color="#333333"></div>
+                                            <div class="color-option" style="background-color: #666666;" data-color="#666666"></div>
+                                            <div class="color-option" style="background-color: #999999;" data-color="#999999"></div>
+                                            <div class="color-option" style="background-color: #cccccc;" data-color="#cccccc"></div>
+                                            <div class="color-option" style="background-color: #ff0000;" data-color="#ff0000"></div>
+                                            <div class="color-option" style="background-color: #0000ff;" data-color="#0000ff"></div>
+                                            <div class="color-option" style="background-color: #008000;" data-color="#008000"></div>
+                                        </div>
+                                        <input type="hidden" id="watermark-color" value="#000000">
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-top: 15px;">
+                                        <label for="watermark-opacity">Opacity</label>
+                                        <input type="range" id="watermark-opacity" min="10" max="100" value="50" class="range-slider">
+                                        <div class="range-value" id="watermark-opacity-value">50%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="watermark-image-options" style="display: none;">
+                                <div class="option-group">
+                                    <label for="watermark-image-upload">Upload Watermark Image</label>
+                                    <input type="file" id="watermark-image-upload" class="form-control" accept="image/*" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                
+                                <div class="option-group">
+                                    <h4>Image Options</h4>
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="watermark-scale">Scale</label>
+                                        <input type="range" id="watermark-scale" min="10" max="200" value="50" class="range-slider">
+                                        <div class="range-value" id="watermark-scale-value">50%</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="watermark-image-opacity">Opacity</label>
+                                        <input type="range" id="watermark-image-opacity" min="10" max="100" value="50" class="range-slider">
+                                        <div class="range-value" id="watermark-image-opacity-value">50%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Position</h4>
+                                <div class="watermark-position">
+                                    <div class="position-btn selected" data-position="top-left">Top Left</div>
+                                    <div class="position-btn" data-position="top-center">Top Center</div>
+                                    <div class="position-btn" data-position="top-right">Top Right</div>
+                                    <div class="position-btn" data-position="middle-left">Middle Left</div>
+                                    <div class="position-btn" data-position="middle-center">Middle Center</div>
+                                    <div class="position-btn" data-position="middle-right">Middle Right</div>
+                                    <div class="position-btn" data-position="bottom-left">Bottom Left</div>
+                                    <div class="position-btn" data-position="bottom-center">Bottom Center</div>
+                                    <div class="position-btn" data-position="bottom-right">Bottom Right</div>
+                                </div>
+                                <input type="hidden" id="watermark-position" value="middle-center">
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Pages to Watermark</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="watermark-pages-all" name="watermark-pages" value="all" checked>
+                                        <label for="watermark-pages-all">All pages</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="watermark-pages-range" name="watermark-pages" value="range">
+                                        <label for="watermark-pages-range">Specific pages</label>
+                                    </div>
+                                </div>
+                                
+                                <div id="watermark-range-options" style="margin-top: 15px; display: none;">
+                                    <label for="watermark-page-range">Page numbers (e.g., 1,3,5-8)</label>
+                                    <input type="text" id="watermark-page-range" class="form-control" placeholder="1,3,5-8" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'ocr':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>OCR Options</h4>
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label for="ocr-language">Language</label>
+                                    <select id="ocr-language" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                        <option value="eng">English</option>
+                                        <option value="spa">Spanish</option>
+                                        <option value="fra">French</option>
+                                        <option value="deu">German</option>
+                                        <option value="ita">Italian</option>
+                                        <option value="por">Portuguese</option>
+                                        <option value="rus">Russian</option>
+                                        <option value="chi_sim">Chinese (Simplified)</option>
+                                        <option value="jpn">Japanese</option>
+                                        <option value="kor">Korean</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="checkbox-options">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="ocr-preserve" name="ocr-preserve" checked>
+                                        <label for="ocr-preserve">Preserve original layout</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="ocr-searchable" name="ocr-searchable">
+                                        <label for="ocr-searchable">Create searchable PDF</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'sign':
+                        optionsHTML = `
+                            <div class="option-group">
+                                <h4>Signature Options</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-type-draw" name="sign-type" value="draw" checked>
+                                        <label for="sign-type-draw">Draw signature</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-type-upload" name="sign-type" value="upload">
+                                        <label for="sign-type-upload">Upload signature image</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-type-text" name="sign-type" value="text">
+                                        <label for="sign-type-text">Type signature</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="sign-draw-options">
+                                <div class="option-group">
+                                    <label>Draw Your Signature</label>
+                                    <canvas id="signature-canvas" width="400" height="200" style="border: 1px solid #ddd; border-radius: 4px; background: white; cursor: crosshair;"></canvas>
+                                    <div style="margin-top: 10px;">
+                                        <button id="clear-signature" class="secondary-btn" style="padding: 8px 15px;">
+                                            <i class="fas fa-eraser"></i> Clear
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="option-group">
+                                    <h4>Signature Style</h4>
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="signature-color">Color</label>
+                                        <select id="signature-color" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                            <option value="black">Black</option>
+                                            <option value="blue">Blue</option>
+                                            <option value="red">Red</option>
+                                            <option value="green">Green</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="signature-thickness">Thickness</label>
+                                        <input type="range" id="signature-thickness" min="1" max="10" value="3" class="range-slider">
+                                        <div class="range-value" id="signature-thickness-value">3 px</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="sign-upload-options" style="display: none;">
+                                <div class="option-group">
+                                    <label for="signature-upload">Upload Signature Image</label>
+                                    <input type="file" id="signature-upload" class="form-control" accept="image/*" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                            
+                            <div id="sign-text-options" style="display: none;">
+                                <div class="option-group">
+                                    <label for="signature-text">Signature Text</label>
+                                    <input type="text" id="signature-text" class="form-control" placeholder="Your name" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                
+                                <div class="option-group">
+                                    <h4>Text Style</h4>
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="signature-font">Font</label>
+                                        <select id="signature-font" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                            <option value="Brush Script MT">Brush Script</option>
+                                            <option value="Lucida Handwriting">Lucida Handwriting</option>
+                                            <option value="Comic Sans MS">Comic Sans</option>
+                                            <option value="Segoe Script">Segoe Script</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="signature-text-color">Color</label>
+                                        <select id="signature-text-color" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                            <option value="black">Black</option>
+                                            <option value="blue">Blue</option>
+                                            <option value="red">Red</option>
+                                            <option value="green">Green</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="signature-text-size">Size</label>
+                                        <input type="range" id="signature-text-size" min="10" max="36" value="20" class="range-slider">
+                                        <div class="range-value" id="signature-text-size-value">20 pt</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Position on Page</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-position-bottom-right" name="sign-position" value="bottom-right" checked>
+                                        <label for="sign-position-bottom-right">Bottom Right</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-position-bottom-left" name="sign-position" value="bottom-left">
+                                        <label for="sign-position-bottom-left">Bottom Left</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-position-custom" name="sign-position" value="custom">
+                                        <label for="sign-position-custom">Custom Position</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4>Pages to Sign</h4>
+                                <div class="radio-options">
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-pages-first" name="sign-pages" value="first" checked>
+                                        <label for="sign-pages-first">First page only</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-pages-all" name="sign-pages" value="all">
+                                        <label for="sign-pages-all">All pages</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="sign-pages-range" name="sign-pages" value="range">
+                                        <label for="sign-pages-range">Specific pages</label>
+                                    </div>
+                                </div>
+                                
+                                <div id="sign-range-options" style="margin-top: 15px; display: none;">
+                                    <label for="sign-page-range">Page numbers (e.g., 1,3,5-8)</label>
+                                    <input type="text" id="sign-page-range" class="form-control" placeholder="1,3,5-8" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    default:
+                        optionsHTML = '<p>Select files to begin processing.</p>';
+                }
+                
+                optionsContainer.innerHTML = optionsHTML;
+                
+                // Add event listeners for dynamic options
+                setupDynamicOptions();
+            }
+            
+            // Set up dynamic option interactions
+            function setupDynamicOptions() {
+                // Range slider value displays
+                document.querySelectorAll('.range-slider').forEach(slider => {
+                    const valueDisplay = document.getElementById(slider.id + '-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = slider.value + (slider.id.includes('size') ? ' pt' : 
+                                            slider.id.includes('opacity') ? '%' : 
+                                            slider.id.includes('margins') ? ' mm' : 
+                                            slider.id.includes('thickness') ? ' px' : 
+                                            slider.id.includes('scale') ? '%' : '');
+                                            
+                        slider.addEventListener('input', function() {
+                            valueDisplay.textContent = this.value + (this.id.includes('size') ? ' pt' : 
+                                                    this.id.includes('opacity') ? '%' : 
+                                                    this.id.includes('margins') ? ' mm' : 
+                                                    this.id.includes('thickness') ? ' px' : 
+                                                    this.id.includes('scale') ? '%' : '');
+                        });
+                    }
+                });
+                
+                // Color picker
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+                        document.getElementById('watermark-color').value = this.getAttribute('data-color');
+                    });
+                });
+                
+                // Watermark position buttons
+                document.querySelectorAll('.position-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.position-btn').forEach(b => b.classList.remove('selected'));
+                        this.classList.add('selected');
+                        document.getElementById('watermark-position').value = this.getAttribute('data-position');
+                    });
+                });
+                
+                // Watermark type toggle
+                if (document.getElementById('watermark-text')) {
+                    document.getElementById('watermark-text').addEventListener('change', function() {
+                        document.getElementById('watermark-text-options').style.display = 'block';
+                        document.getElementById('watermark-image-options').style.display = 'none';
+                    });
+                    
+                    document.getElementById('watermark-image').addEventListener('change', function() {
+                        document.getElementById('watermark-text-options').style.display = 'none';
+                        document.getElementById('watermark-image-options').style.display = 'block';
+                    });
+                }
+                
+                // Signature type toggle
+                if (document.getElementById('sign-type-draw')) {
+                    document.getElementById('sign-type-draw').addEventListener('change', function() {
+                        document.getElementById('sign-draw-options').style.display = 'block';
+                        document.getElementById('sign-upload-options').style.display = 'none';
+                        document.getElementById('sign-text-options').style.display = 'none';
+                    });
+                    
+                    document.getElementById('sign-type-upload').addEventListener('change', function() {
+                        document.getElementById('sign-draw-options').style.display = 'none';
+                        document.getElementById('sign-upload-options').style.display = 'block';
+                        document.getElementById('sign-text-options').style.display = 'none';
+                    });
+                    
+                    document.getElementById('sign-type-text').addEventListener('change', function() {
+                        document.getElementById('sign-draw-options').style.display = 'none';
+                        document.getElementById('sign-upload-options').style.display = 'none';
+                        document.getElementById('sign-text-options').style.display = 'block';
+                    });
+                }
+                
+                // Signature canvas
+                if (document.getElementById('signature-canvas')) {
+                    const canvas = document.getElementById('signature-canvas');
+                    const ctx = canvas.getContext('2d');
+                    let isDrawing = false;
+                    let lastX = 0;
+                    let lastY = 0;
+                    
+                    // Set canvas background to white
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    canvas.addEventListener('mousedown', startDrawing);
+                    canvas.addEventListener('touchstart', startDrawing);
+                    
+                    canvas.addEventListener('mousemove', draw);
+                    canvas.addEventListener('touchmove', draw);
+                    
+                    canvas.addEventListener('mouseup', stopDrawing);
+                    canvas.addEventListener('touchend', stopDrawing);
+                    canvas.addEventListener('mouseout', stopDrawing);
+                    
+                    document.getElementById('clear-signature').addEventListener('click', function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.fillStyle = 'white';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    });
+                    
+                    function startDrawing(e) {
+                        isDrawing = true;
+                        const pos = getPosition(e);
+                        lastX = pos.x;
+                        lastY = pos.y;
+                    }
+                    
+                    function draw(e) {
+                        if (!isDrawing) return;
+                        
+                        const pos = getPosition(e);
+                        const color = document.getElementById('signature-color').value;
+                        const thickness = document.getElementById('signature-thickness').value;
+                        
+                        ctx.strokeStyle = color;
+                        ctx.lineJoin = 'round';
+                        ctx.lineCap = 'round';
+                        ctx.lineWidth = thickness;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(lastX, lastY);
+                        ctx.lineTo(pos.x, pos.y);
+                        ctx.stroke();
+                        
+                        lastX = pos.x;
+                        lastY = pos.y;
+                    }
+                    
+                    function stopDrawing() {
+                        isDrawing = false;
+                    }
+                    
+                    function getPosition(e) {
+                        let x, y;
+                        if (e.type.includes('touch')) {
+                            const rect = canvas.getBoundingClientRect();
+                            x = e.touches[0].clientX - rect.left;
+                            y = e.touches[0].clientY - rect.top;
+                        } else {
+                            x = e.offsetX;
+                            y = e.offsetY;
+                        }
+                        return { x, y };
+                    }
+                }
+                
+                // Page range options toggles
+                if (document.getElementById('split-method-range')) {
+                    document.getElementById('split-method-range').addEventListener('change', function() {
+                        document.getElementById('split-range-options').style.display = this.checked ? 'block' : 'none';
+                    });
+                    
+                    document.getElementById('split-method-every').addEventListener('change', function() {
+                        document.getElementById('split-range-options').style.display = 'none';
+                    });
+                    
+                    document.getElementById('split-method-even').addEventListener('change', function() {
+                        document.getElementById('split-range-options').style.display = 'none';
+                    });
+                }
+                
+                if (document.getElementById('jpg-pages-range')) {
+                    document.getElementById('jpg-pages-range').addEventListener('change', function() {
+                        document.getElementById('jpg-range-options').style.display = this.checked ? 'block' : 'none';
+                    });
+                    
+                    document.getElementById('jpg-pages-all').addEventListener('change', function() {
+                        document.getElementById('jpg-range-options').style.display = 'none';
+                    });
+                }
+                
+                if (document.getElementById('watermark-pages-range')) {
+                    document.getElementById('watermark-pages-range').addEventListener('change', function() {
+                        document.getElementById('watermark-range-options').style.display = this.checked ? 'block' : 'none';
+                    });
+                    
+                    document.getElementById('watermark-pages-all').addEventListener('change', function() {
+                        document.getElementById('watermark-range-options').style.display = 'none';
+                    });
+                }
+                
+                if (document.getElementById('rotate-range')) {
+                    document.getElementById('rotate-range').addEventListener('change', function() {
+                        document.getElementById('rotate-range-options').style.display = this.checked ? 'block' : 'none';
+                    });
+                    
+                    document.getElementById('rotate-all').addEventListener('change', function() {
+                        document.getElementById('rotate-range-options').style.display = 'none';
+                    });
+                    
+                    document.getElementById('rotate-even').addEventListener('change', function() {
+                        document.getElementById('rotate-range-options').style.display = 'none';
+                    });
+                    
+                    document.getElementById('rotate-odd').addEventListener('change', function() {
+                        document.getElementById('rotate-range-options').style.display = 'none';
+                    });
+                }
+                
+                if (document.getElementById('sign-pages-range')) {
+                    document.getElementById('sign-pages-range').addEventListener('change', function() {
+                        document.getElementById('sign-range-options').style.display = this.checked ? 'block' : 'none';
+                    });
+                    
+                    document.getElementById('sign-pages-first').addEventListener('change', function() {
+                        document.getElementById('sign-range-options').style.display = 'none';
+                    });
+                    
+                    document.getElementById('sign-pages-all').addEventListener('change', function() {
+                        document.getElementById('sign-range-options').style.display = 'none';
+                    });
+                }
+            }
+            
+            // Process button click
+            processBtn.addEventListener('click', function() {
+                if (uploadedFiles.length === 0) {
+                    showToast('Please upload files first', 'error');
+                    return;
+                }
+                
+                // Show loading
+                loadingContainer.style.display = 'flex';
+                loadingText.textContent = 'Processing your file...';
+                
+                // Simulate processing (in a real app, this would be actual file processing)
+                setTimeout(() => {
+                    // Hide loading
+                    loadingContainer.style.display = 'none';
+                    
+                    // Show results
+                    resultsContainer.style.display = 'block';
+                    
+                    // Scroll to results
+                    resultsContainer.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Show success toast
+                    showToast('File processed successfully!', 'success');
+                    
+                    // For demo purposes, we'll just show a placeholder for the processed file
+                    processedFile = {
+                        name: `processed_${currentTool}_${Date.now()}.${currentTool.includes('pdf-to') ? 
+                              currentTool.split('-')[2] : 'pdf'}`,
+                        size: Math.floor(uploadedFiles[0].size * (currentTool === 'compress' ? 0.7 : 1.1))
+                    };
+                    
+                    // Set download button
+                    downloadBtn.onclick = function() {
+                        // In a real app, this would download the actual processed file
+                        showToast('Download started', 'success');
+                        
+                        // For demo, create a dummy download
+                        const blob = new Blob(['This is a demo file. In a real application, this would be your processed document.'], { type: 'application/octet-stream' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = processedFile.name;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    };
+                }, 2000);
+            });
+            
+            // Preview button click
+            previewBtn.addEventListener('click', function() {
+                if (uploadedFiles.length === 0) {
+                    showToast('Please upload files first', 'error');
+                    return;
+                }
+                
+                // Show loading
+                loadingContainer.style.display = 'flex';
+                loadingText.textContent = 'Generating preview...';
+                
+                // Simulate preview generation
+                setTimeout(() => {
+                    // Hide loading
+                    loadingContainer.style.display = 'none';
+                    
+                    // Show preview
+                    previewContainer.style.display = 'block';
+                    
+                    // For demo purposes, we'll show a sample PDF
+                    previewIframe.src = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf';
+                    
+                    // Scroll to preview
+                    previewContainer.scrollIntoView({ behavior: 'smooth' });
+                }, 1500);
+            });
+            
+            // Close preview button
+            closePreviewBtn.addEventListener('click', function() {
+                previewContainer.style.display = 'none';
+                previewIframe.src = '';
+            });
+            
+            // Reset button
+            resetBtn.addEventListener('click', function() {
+                fileInput.value = '';
+                uploadedFiles = [];
+                filePreview.style.display = 'none';
+                filePreview.innerHTML = '';
+                processBtn.disabled = true;
+                previewBtn.disabled = true;
+                previewContainer.style.display = 'none';
+                resultsContainer.style.display = 'none';
+                
+                // Reset options if needed
+                if (currentTool === 'sign' && document.getElementById('signature-canvas')) {
+                    const canvas = document.getElementById('signature-canvas');
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+            });
+            
+            // New file button
+            newFileBtn.addEventListener('click', function() {
+                fileInput.value = '';
+                uploadedFiles = [];
+                filePreview.style.display = 'none';
+                filePreview.innerHTML = '';
+                processBtn.disabled = true;
+                previewBtn.disabled = true;
+                previewContainer.style.display = 'none';
+                resultsContainer.style.display = 'none';
+                
+                // Reset options if needed
+                if (currentTool === 'sign' && document.getElementById('signature-canvas')) {
+                    const canvas = document.getElementById('signature-canvas');
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+            });
+            
+            // Newsletter form
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input').value;
+                
+                // Simulate subscription
+                showToast('Thank you for subscribing!', 'success');
+                this.querySelector('input').value = '';
+            });
+            
+            // Show toast notification
+            function showToast(message, type) {
+                toast.textContent = message;
+                toast.className = 'toast ' + type;
+                toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Tool links in footer
+            document.querySelectorAll('.footer-links a[data-tool]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tool = this.getAttribute('data-tool');
+                    const toolCard = document.querySelector(`.tool-card[data-tool="${tool}"]`);
+                    if (toolCard) {
+                        toolCard.click();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
