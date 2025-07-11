@@ -1,822 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Picker & Converter - RGB, HEX, HSL Online Tool | TOOLGENIE</title>
-    <meta name="description" content="Free online color picker and converter. Convert between HEX, RGB, HSL color formats. Create color palettes and get color codes for web design.">
-    <meta name="keywords" content="color picker, color converter, hex to rgb, rgb to hsl, color palette, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/color-picker-&-converter.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/color-picker-&-converter.html">
-    <meta property="og:title" content="Color Picker & Converter - RGB, HEX, HSL Online Tool | TOOLGENIE">
-    <meta property="og:description" content="Free online color picker and converter. Convert between HEX, RGB, HSL color formats. Create color palettes and get color codes for web design.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/color-picker-&-converter.html">
-    <meta property="twitter:title" content="Color Picker & Converter - RGB, HEX, HSL Online Tool | TOOLGENIE">
-    <meta property="twitter:description" content="Free online color picker and converter. Convert between HEX, RGB, HSL color formats. Create color palettes and get color codes for web design.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Pick any color and convert it to HEX, RGB, or HSL format using TOOLGENIE's free Color Picker & Converter tool." />
+  <meta name="keywords" content="Color Picker, HEX to RGB, Color Converter, RGB to HSL, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Color Picker & Converter | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f8fafc, #e2ecf5);
+      color: #333;
+    }
+
+    header, footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    input[type="color"] {
+      width: 100%;
+      height: 80px;
+      border: none;
+      border-radius: 10px;
+      margin: 1rem 0;
+      cursor: pointer;
+    }
+
+    .output-box {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .output-box span {
+      font-weight: bold;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #eee;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 1rem auto;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    article ul {
+      padding-left: 1.2rem;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
     </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <main class="container">
+    <h1>Color Picker & Converter</h1>
+    <p>Select a color and instantly view its HEX, RGB, and HSL values.</p>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>Color Picker & Converter</h1>
-            <p class="tool-description">Pick colors visually or enter color values to convert between HEX, RGB, and HSL formats. Perfect for web design, graphic design, and digital art.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="color-tool">
-                    <div class="color-picker-section">
-                        <h3>Color Picker</h3>
-                        <div class="color-picker-container">
-                            <div class="color-spectrum" id="colorSpectrum">
-                                <div class="color-cursor" id="colorCursor"></div>
-                            </div>
-                            <div class="hue-slider-container">
-                                <input type="range" id="hueSlider" min="0" max="360" value="0">
-                            </div>
-                            <div class="color-preview-container">
-                                <div class="color-preview" id="colorPreview"></div>
-                                <div class="color-values">
-                                    <div class="color-value-display" id="hexValue">#FF0000</div>
-                                    <div class="color-value-display" id="rgbValue">rgb(255, 0, 0)</div>
-                                    <div class="color-value-display" id="hslValue">hsl(0, 100%, 50%)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="color-converter-section">
-                        <h3>Color Converter</h3>
-                        <div class="converter-tabs">
-                            <button id="hexTab" class="converter-tab active">HEX</button>
-                            <button id="rgbTab" class="converter-tab">RGB</button>
-                            <button id="hslTab" class="converter-tab">HSL</button>
-                        </div>
-                        
-                        <div class="converter-content">
-                            <div id="hexContent" class="converter-panel active">
-                                <div class="input-group">
-                                    <label for="hexInput">HEX Color:</label>
-                                    <div class="hex-input-container">
-                                        <span>#</span>
-                                        <input type="text" id="hexInput" value="FF0000" maxlength="6">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id="rgbContent" class="converter-panel">
-                                <div class="input-group">
-                                    <label for="redInput">Red:</label>
-                                    <input type="range" id="redInput" min="0" max="255" value="255">
-                                    <input type="number" id="redValue" min="0" max="255" value="255">
-                                </div>
-                                <div class="input-group">
-                                    <label for="greenInput">Green:</label>
-                                    <input type="range" id="greenInput" min="0" max="255" value="0">
-                                    <input type="number" id="greenValue" min="0" max="255" value="0">
-                                </div>
-                                <div class="input-group">
-                                    <label for="blueInput">Blue:</label>
-                                    <input type="range" id="blueInput" min="0" max="255" value="0">
-                                    <input type="number" id="blueValue" min="0" max="255" value="0">
-                                </div>
-                            </div>
-                            
-                            <div id="hslContent" class="converter-panel">
-                                <div class="input-group">
-                                    <label for="hueInput">Hue:</label>
-                                    <input type="range" id="hueInput" min="0" max="360" value="0">
-                                    <input type="number" id="hueValue" min="0" max="360" value="0">
-                                    <span>°</span>
-                                </div>
-                                <div class="input-group">
-                                    <label for="saturationInput">Saturation:</label>
-                                    <input type="range" id="saturationInput" min="0" max="100" value="100">
-                                    <input type="number" id="saturationValue" min="0" max="100" value="100">
-                                    <span>%</span>
-                                </div>
-                                <div class="input-group">
-                                    <label for="lightnessInput">Lightness:</label>
-                                    <input type="range" id="lightnessInput" min="0" max="100" value="50">
-                                    <input type="number" id="lightnessValue" min="0" max="100" value="50">
-                                    <span>%</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button id="convertColorBtn" class="action-btn">Convert Color</button>
-                    </div>
-                    
-                    <div class="color-palette-section">
-                        <h3>Color Palette</h3>
-                        <div class="palette-options">
-                            <div class="input-group">
-                                <label for="paletteType">Palette Type:</label>
-                                <select id="paletteType">
-                                    <option value="monochromatic">Monochromatic</option>
-                                    <option value="analogous">Analogous</option>
-                                    <option value="complementary">Complementary</option>
-                                    <option value="splitComplementary">Split-Complementary</option>
-                                    <option value="triadic">Triadic</option>
-                                    <option value="tetradic">Tetradic</option>
-                                    <option value="square">Square</option>
-                                </select>
-                            </div>
-                            <button id="generatePaletteBtn" class="action-btn">Generate Palette</button>
-                        </div>
-                        <div class="palette-colors" id="paletteColors">
-                            <div class="palette-color">
-                                <div class="color-swatch" style="background-color: #FF0000;"></div>
-                                <div class="color-info">#FF0000</div>
-                            </div>
-                            <div class="palette-color">
-                                <div class="color-swatch" style="background-color: #FF3333;"></div>
-                                <div class="color-info">#FF3333</div>
-                            </div>
-                            <div class="palette-color">
-                                <div class="color-swatch" style="background-color: #FF6666;"></div>
-                                <div class="color-info">#FF6666</div>
-                            </div>
-                            <div class="palette-color">
-                                <div class="color-swatch" style="background-color: #FF9999;"></div>
-                                <div class="color-info">#FF9999</div>
-                            </div>
-                            <div class="palette-color">
-                                <div class="color-swatch" style="background-color: #FFCCCC;"></div>
-                                <div class="color-info">#FFCCCC</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <input type="color" id="colorPicker" value="#3498db" onchange="convertColor()" />
 
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Visual Picker:</strong> Select colors from a spectrum with hue control</li>
-                    <li><strong>Multiple Formats:</strong> Convert between HEX, RGB, and HSL color codes</li>
-                    <li><strong>Color Palettes:</strong> Generate harmonious color schemes</li>
-                    <li><strong>Real-time Preview:</strong> See your selected color immediately</li>
-                    <li><strong>Design Friendly:</strong> Perfect for web and graphic design</li>
-                </ul>
-            </div>
-        </section>
+    <div class="output-box">
+      <span>HEX:</span> <span id="hexValue">#3498db</span>
+      <button class="copy-btn" onclick="copyText('hexValue')">Copy</button>
+    </div>
 
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+    <div class="output-box">
+      <span>RGB:</span> <span id="rgbValue">rgb(52, 152, 219)</span>
+      <button class="copy-btn" onclick="copyText('rgbValue')">Copy</button>
+    </div>
 
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Use The Color Tool</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Pick or Enter Color</h3>
-                    <p>Use the color picker or enter values in HEX, RGB, or HSL format.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: Convert Formats</h3>
-                    <p>Switch between color formats or let the tool automatically convert.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Generate Palette</h3>
-                    <p>Create a color palette based on your selected color.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: Copy Values</h3>
-                    <p>Copy the color codes you need for your project.</p>
-                </div>
-            </div>
-        </section>
+    <div class="output-box">
+      <span>HSL:</span> <span id="hslValue">hsl(204, 70%, 53%)</span>
+      <button class="copy-btn" onclick="copyText('hslValue')">Copy</button>
+    </div>
 
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">What's the difference between HEX, RGB, and HSL?</h3>
-                <div class="faq-answer">
-                    <p><strong>HEX:</strong> 6-digit hexadecimal code (e.g., #FF0000 for red) used in web design
-                    <br><strong>RGB:</strong> Red, Green, Blue values (e.g., rgb(255, 0, 0)) representing color through light
-                    <br><strong>HSL:</strong> Hue, Saturation, Lightness (e.g., hsl(0, 100%, 50%)) representing color in a more human-friendly way</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Which color format should I use?</h3>
-                <div class="faq-answer">
-                    <p>For web design, HEX is most common. RGB is useful for programming color manipulation. HSL is often easiest for designers to understand and adjust colors intuitively.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">What are the different palette types?</h3>
-                <div class="faq-answer">
-                    <p><strong>Monochromatic:</strong> Variations of a single hue
-                    <br><strong>Analogous:</strong> Colors adjacent on the color wheel
-                    <br><strong>Complementary:</strong> Opposite colors on the wheel
-                    <br><strong>Split-Complementary:</strong> A color plus the two adjacent to its complement
-                    <br><strong>Triadic:</strong> Three evenly spaced colors
-                    <br><strong>Tetradic:</strong> Two complementary pairs (4 colors)
-                    <br><strong>Square:</strong> Four colors evenly spaced</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Can I save my favorite colors?</h3>
-                <div class="faq-answer">
-                    <p>Currently this tool doesn't have a save feature, but you can copy the color codes and save them elsewhere. A favorites feature may be added in the future.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">How accurate is the color conversion?</h3>
-                <div class="faq-answer">
-                    <p>The conversions are mathematically precise between the color models. However, actual color appearance may vary slightly between devices due to screen calibration differences.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Use the color picker to choose any color.</li>
+        <li>Instantly view its HEX, RGB, and HSL codes.</li>
+        <li>Click the "Copy" button beside any code to copy it to your clipboard.</li>
+        <li>Useful for designers, developers, and anyone working with colors!</li>
+      </ul>
+    </article>
+  </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-    <script src="../js/main.js"></script>
-    <script>
-        // DOM Elements
-        const colorSpectrum = document.getElementById('colorSpectrum');
-        const colorCursor = document.getElementById('colorCursor');
-        const hueSlider = document.getElementById('hueSlider');
-        const colorPreview = document.getElementById('colorPreview');
-        const hexValue = document.getElementById('hexValue');
-        const rgbValue = document.getElementById('rgbValue');
-        const hslValue = document.getElementById('hslValue');
-        
-        // Converter elements
-        const hexTab = document.getElementById('hexTab');
-        const rgbTab = document.getElementById('rgbTab');
-        const hslTab = document.getElementById('hslTab');
-        const hexContent = document.getElementById('hexContent');
-        const rgbContent = document.getElementById('rgbContent');
-        const hslContent = document.getElementById('hslContent');
-        const hexInput = document.getElementById('hexInput');
-        const redInput = document.getElementById('redInput');
-        const greenInput = document.getElementById('greenInput');
-        const blueInput = document.getElementById('blueInput');
-        const redValue = document.getElementById('redValue');
-        const greenValue = document.getElementById('greenValue');
-        const blueValue = document.getElementById('blueValue');
-        const hueInput = document.getElementById('hueInput');
-        const saturationInput = document.getElementById('saturationInput');
-        const lightnessInput = document.getElementById('lightnessInput');
-        const hueValue = document.getElementById('hueValue');
-        const saturationValue = document.getElementById('saturationValue');
-        const lightnessValue = document.getElementById('lightnessValue');
-        const convertColorBtn = document.getElementById('convertColorBtn');
-        
-        // Palette elements
-        const paletteType = document.getElementById('paletteType');
-        const generatePaletteBtn = document.getElementById('generatePaletteBtn');
-        const paletteColors = document.getElementById('paletteColors');
-        
-        // Current color state
-        let currentHue = 0;
-        let currentSaturation = 100;
-        let currentLightness = 50;
-        let isDragging = false;
+  <script>
+    function convertColor() {
+      const hex = document.getElementById("colorPicker").value;
+      document.getElementById("hexValue").textContent = hex;
 
-        // Event Listeners
-        colorSpectrum.addEventListener('mousedown', startDragging);
-        document.addEventListener('mousemove', handleDragging);
-        document.addEventListener('mouseup', stopDragging);
-        hueSlider.addEventListener('input', updateHue);
-        
-        // Converter events
-        hexTab.addEventListener('click', () => switchConverterTab('hex'));
-        rgbTab.addEventListener('click', () => switchConverterTab('rgb'));
-        hslTab.addEventListener('click', () => switchConverterTab('hsl'));
-        hexInput.addEventListener('input', validateHexInput);
-        redInput.addEventListener('input', () => updateRgbValue('red'));
-        greenInput.addEventListener('input', () => updateRgbValue('green'));
-        blueInput.addEventListener('input', () => updateRgbValue('blue'));
-        redValue.addEventListener('input', () => updateRgbSlider('red'));
-        greenValue.addEventListener('input', () => updateRgbSlider('green'));
-        blueValue.addEventListener('input', () => updateRgbSlider('blue'));
-        hueInput.addEventListener('input', () => updateHslValue('hue'));
-        saturationInput.addEventListener('input', () => updateHslValue('saturation'));
-        lightnessInput.addEventListener('input', () => updateHslValue('lightness'));
-        hueValue.addEventListener('input', () => updateHslSlider('hue'));
-        saturationValue.addEventListener('input', () => updateHslSlider('saturation'));
-        lightnessValue.addEventListener('input', () => updateHslSlider('lightness'));
-        convertColorBtn.addEventListener('click', convertColor);
-        
-        // Palette events
-        generatePaletteBtn.addEventListener('click', generateColorPalette);
-        
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
+      const r = parseInt(hex.substr(1, 2), 16);
+      const g = parseInt(hex.substr(3, 2), 16);
+      const b = parseInt(hex.substr(5, 2), 16);
+      const rgb = `rgb(${r}, ${g}, ${b})`;
+      document.getElementById("rgbValue").textContent = rgb;
 
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Initialize
-        updateColorDisplay();
-        createColorSpectrum();
-        
-        // Functions
-        function startDragging(e) {
-            isDragging = true;
-            updateCursorPosition(e);
+      const hsl = rgbToHsl(r, g, b);
+      document.getElementById("hslValue").textContent = hsl;
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
         }
-        
-        function handleDragging(e) {
-            if (isDragging) {
-                updateCursorPosition(e);
-            }
-        }
-        
-        function stopDragging() {
-            isDragging = false;
-        }
-        
-        function updateCursorPosition(e) {
-            const rect = colorSpectrum.getBoundingClientRect();
-            let x = e.clientX - rect.left;
-            let y = e.clientY - rect.top;
-            
-            // Constrain to spectrum bounds
-            x = Math.max(0, Math.min(x, rect.width));
-            y = Math.max(0, Math.min(y, rect.height));
-            
-            // Update cursor position
-            colorCursor.style.left = `${x}px`;
-            colorCursor.style.top = `${y}px`;
-            
-            // Calculate saturation and lightness
-            currentSaturation = Math.round((x / rect.width) * 100);
-            currentLightness = 100 - Math.round((y / rect.height) * 100);
-            
-            updateColorDisplay();
-        }
-        
-        function updateHue() {
-            currentHue = parseInt(hueSlider.value);
-            createColorSpectrum();
-            updateColorDisplay();
-        }
-        
-        function createColorSpectrum() {
-            // Create gradient for the current hue
-            colorSpectrum.style.background = `
-                linear-gradient(to right, white, hsl(${currentHue}, 100%, 50%)),
-                linear-gradient(to top, black, transparent)
-            `;
-        }
-        
-        function updateColorDisplay() {
-            // Update color preview
-            const color = hslToRgb(currentHue, currentSaturation, currentLightness);
-            const hex = rgbToHex(color.r, color.g, color.b);
-            const hsl = `hsl(${currentHue}, ${currentSaturation}%, ${currentLightness}%)`;
-            
-            colorPreview.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
-            hexValue.textContent = `#${hex}`;
-            rgbValue.textContent = `rgb(${color.r}, ${color.g}, ${color.b})`;
-            hslValue.textContent = hsl;
-            
-            // Update converter inputs to match
-            hexInput.value = hex;
-            redValue.value = color.r;
-            greenValue.value = color.g;
-            blueValue.value = color.b;
-            redInput.value = color.r;
-            greenInput.value = color.g;
-            blueInput.value = color.b;
-            hueValue.value = currentHue;
-            saturationValue.value = currentSaturation;
-            lightnessValue.value = currentLightness;
-            hueInput.value = currentHue;
-            saturationInput.value = currentSaturation;
-            lightnessInput.value = currentLightness;
-        }
-        
-        function switchConverterTab(tab) {
-            hexTab.classList.remove('active');
-            rgbTab.classList.remove('active');
-            hslTab.classList.remove('active');
-            hexContent.style.display = 'none';
-            rgbContent.style.display = 'none';
-            hslContent.style.display = 'none';
-            
-            if (tab === 'hex') {
-                hexTab.classList.add('active');
-                hexContent.style.display = 'block';
-            } else if (tab === 'rgb') {
-                rgbTab.classList.add('active');
-                rgbContent.style.display = 'block';
-            } else {
-                hslTab.classList.add('active');
-                hslContent.style.display = 'block';
-            }
-        }
-        
-        function validateHexInput() {
-            let hex = hexInput.value.replace(/[^0-9a-f]/gi, '').toUpperCase();
-            if (hex.length > 6) hex = hex.substring(0, 6);
-            hexInput.value = hex;
-        }
-        
-        function updateRgbValue(channel) {
-            const value = parseInt(document.getElementById(`${channel}Input`).value);
-            document.getElementById(`${channel}Value`).value = value;
-        }
-        
-        function updateRgbSlider(channel) {
-            let value = parseInt(document.getElementById(`${channel}Value`).value);
-            value = Math.max(0, Math.min(255, value));
-            document.getElementById(`${channel}Value`).value = value;
-            document.getElementById(`${channel}Input`).value = value;
-        }
-        
-        function updateHslValue(channel) {
-            const value = parseInt(document.getElementById(`${channel}Input`).value);
-            document.getElementById(`${channel}Value`).value = value;
-        }
-        
-        function updateHslSlider(channel) {
-            let max = channel === 'hue' ? 360 : 100;
-            let value = parseInt(document.getElementById(`${channel}Value`).value);
-            value = Math.max(0, Math.min(max, value));
-            document.getElementById(`${channel}Value`).value = value;
-            document.getElementById(`${channel}Input`).value = value;
-        }
-        
-        function convertColor() {
-            if (hexTab.classList.contains('active')) {
-                // Convert HEX to others
-                const hex = hexInput.value.padEnd(6, '0');
-                if (hex.length !== 6) {
-                    alert('Please enter a valid 6-digit HEX color (without #)');
-                    return;
-                }
-                
-                const rgb = hexToRgb(hex);
-                const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-                
-                // Update current color
-                currentHue = hsl.h;
-                currentSaturation = hsl.s;
-                currentLightness = hsl.l;
-                
-                // Update picker
-                hueSlider.value = currentHue;
-                createColorSpectrum();
-                updateCursorFromHsl();
-                
-            } else if (rgbTab.classList.contains('active')) {
-                // Convert RGB to others
-                const r = parseInt(redValue.value);
-                const g = parseInt(greenValue.value);
-                const b = parseInt(blueValue.value);
-                
-                if (isNaN(r) || isNaN(g) || isNaN(b) || r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
-                    alert('Please enter valid RGB values (0-255)');
-                    return;
-                }
-                
-                const hex = rgbToHex(r, g, b);
-                const hsl = rgbToHsl(r, g, b);
-                
-                // Update current color
-                currentHue = hsl.h;
-                currentSaturation = hsl.s;
-                currentLightness = hsl.l;
-                
-                // Update picker and inputs
-                hueSlider.value = currentHue;
-                hexInput.value = hex;
-                hueValue.value = currentHue;
-                saturationValue.value = currentSaturation;
-                lightnessValue.value = currentLightness;
-                hueInput.value = currentHue;
-                saturationInput.value = currentSaturation;
-                lightnessInput.value = currentLightness;
-                
-                createColorSpectrum();
-                updateCursorFromHsl();
-                
-            } else {
-                // Convert HSL to others
-                const h = parseInt(hueValue.value);
-                const s = parseInt(saturationValue.value);
-                const l = parseInt(lightnessValue.value);
-                
-                if (isNaN(h) || isNaN(s) || isNaN(l) || h < 0 || h > 360 || s < 0 || s > 100 || l < 0 || l > 100) {
-                    alert('Please enter valid HSL values (H:0-360, S/L:0-100)');
-                    return;
-                }
-                
-                const rgb = hslToRgb(h, s, l);
-                const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
-                
-                // Update current color
-                currentHue = h;
-                currentSaturation = s;
-                currentLightness = l;
-                
-                // Update picker and inputs
-                hueSlider.value = currentHue;
-                hexInput.value = hex;
-                redValue.value = rgb.r;
-                greenValue.value = rgb.g;
-                blueValue.value = rgb.b;
-                redInput.value = rgb.r;
-                greenInput.value = rgb.g;
-                blueInput.value = rgb.b;
-                
-                createColorSpectrum();
-                updateCursorFromHsl();
-            }
-            
-            updateColorDisplay();
-        }
-        
-        function updateCursorFromHsl() {
-            const rect = colorSpectrum.getBoundingClientRect();
-            const x = (currentSaturation / 100) * rect.width;
-            const y = ((100 - currentLightness) / 100) * rect.height;
-            
-            colorCursor.style.left = `${x}px`;
-            colorCursor.style.top = `${y}px`;
-        }
-        
-        function generateColorPalette() {
-            const type = paletteType.value;
-            let colors = [];
-            
-            // Base color
-            const baseHsl = {
-                h: currentHue,
-                s: currentSaturation,
-                l: currentLightness
-            };
-            
-            // Generate palette based on type
-            switch (type) {
-                case 'monochromatic':
-                    colors = generateMonochromatic(baseHsl);
-                    break;
-                case 'analogous':
-                    colors = generateAnalogous(baseHsl);
-                    break;
-                case 'complementary':
-                    colors = generateComplementary(baseHsl);
-                    break;
-                case 'splitComplementary':
-                    colors = generateSplitComplementary(baseHsl);
-                    break;
-                case 'triadic':
-                    colors = generateTriadic(baseHsl);
-                    break;
-                case 'tetradic':
-                    colors = generateTetradic(baseHsl);
-                    break;
-                case 'square':
-                    colors = generateSquare(baseHsl);
-                    break;
-            }
-            
-            // Display palette
-            displayPalette(colors);
-        }
-        
-        function generateMonochromatic(baseHsl) {
-            const colors = [];
-            
-            // Generate 5 shades
-            for (let i = 0; i < 5; i++) {
-                const lightness = 20 + (i * 15);
-                colors.push({
-                    h: baseHsl.h,
-                    s: baseHsl.s,
-                    l: lightness
-                });
-            }
-            
-            return colors;
-        }
-        
-        function generateAnalogous(baseHsl) {
-            return [
-                { h: (baseHsl.h + 330) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 345) % 360, s: baseHsl.s, l: baseHsl.l },
-                baseHsl,
-                { h: (baseHsl.h + 15) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 30) % 360, s: baseHsl.s, l: baseHsl.l }
-            ];
-        }
-        
-        function generateComplementary(baseHsl) {
-            return [
-                baseHsl,
-                { h: (baseHsl.h + 180) % 360, s: baseHsl.s, l: baseHsl.l }
-            ];
-        }
-        
-        function generateSplitComplementary(baseHsl) {
-            return [
-                baseHsl,
-                { h: (baseHsl.h + 150) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 210) % 360, s: baseHsl.s, l: baseHsl.l }
-            ];
-        }
-        
-        function generateTriadic(baseHsl) {
-            return [
-                baseHsl,
-                { h: (baseHsl.h + 120) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 240) % 360, s: baseHsl.s, l: baseHsl.l }
-            ];
-        }
-        
-        function generateTetradic(baseHsl) {
-            return [
-                baseHsl,
-                { h: (baseHsl.h + 60) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 180) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 240) % 360, s: baseHsl.s, l: baseHsl.l }
-            ];
-        }
-        
-        function generateSquare(baseHsl) {
-            return [
-                baseHsl,
-                { h: (baseHsl.h + 90) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 180) % 360, s: baseHsl.s, l: baseHsl.l },
-                { h: (baseHsl.h + 270) % 360, s: baseHsl.s, l: baseHsl.l }
-            ];
-        }
-        
-        function displayPalette(colors) {
-            paletteColors.innerHTML = '';
-            
-            colors.forEach(color => {
-                const rgb = hslToRgb(color.h, color.s, color.l);
-                const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
-                
-                const colorElement = document.createElement('div');
-                colorElement.className = 'palette-color';
-                
-                const swatch = document.createElement('div');
-                swatch.className = 'color-swatch';
-                swatch.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-                
-                const info = document.createElement('div');
-                info.className = 'color-info';
-                info.textContent = `#${hex}`;
-                
-                colorElement.appendChild(swatch);
-                colorElement.appendChild(info);
-                paletteColors.appendChild(colorElement);
-            });
-        }
-        
-        // Color conversion functions
-        function hslToRgb(h, s, l) {
-            s /= 100;
-            l /= 100;
-            
-            const c = (1 - Math.abs(2 * l - 1)) * s;
-            const x = c * (1 - Math.abs((h / 60) % 2 - 1));
-            const m = l - c / 2;
-            
-            let r, g, b;
-            
-            if (h >= 0 && h < 60) {
-                [r, g, b] = [c, x, 0];
-            } else if (h >= 60 && h < 120) {
-                [r, g, b] = [x, c, 0];
-            } else if (h >= 120 && h < 180) {
-                [r, g, b] = [0, c, x];
-            } else if (h >= 180 && h < 240) {
-                [r, g, b] = [0, x, c];
-            } else if (h >= 240 && h < 300) {
-                [r, g, b] = [x, 0, c];
-            } else {
-                [r, g, b] = [c, 0, x];
-            }
-            
-            return {
-                r: Math.round((r + m) * 255),
-                g: Math.round((g + m) * 255),
-                b: Math.round((b + m) * 255)
-            };
-        }
-        
-        function rgbToHsl(r, g, b) {
-            r /= 255;
-            g /= 255;
-            b /= 255;
-            
-            const max = Math.max(r, g, b);
-            const min = Math.min(r, g, b);
-            let h, s, l = (max + min) / 2;
-            
-            if (max === min) {
-                h = s = 0; // achromatic
-            } else {
-                const d = max - min;
-                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-                
-                switch (max) {
-                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                    case g: h = (b - r) / d + 2; break;
-                    case b: h = (r - g) / d + 4; break;
-                }
-                
-                h *= 60;
-            }
-            
-            return {
-                h: Math.round(h),
-                s: Math.round(s * 100),
-                l: Math.round(l * 100)
-            };
-        }
-        
-        function rgbToHex(r, g, b) {
-            return [r, g, b].map(x => {
-                const hex = x.toString(16);
-                return hex.length === 1 ? '0' + hex : hex;
-            }).join('').toUpperCase();
-        }
-        
-        function hexToRgb(hex) {
-            const r = parseInt(hex.substring(0, 2), 16);
-            const g = parseInt(hex.substring(2, 4), 16);
-            const b = parseInt(hex.substring(4, 6), 16);
-            return { r, g, b };
-        }
-    </script>
+        h /= 6;
+      }
+
+      return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => alert("Copied!"));
+    }
+
+    window.onload = convertColor;
+  </script>
 </body>
 </html>
