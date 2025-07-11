@@ -4,30 +4,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Convert GIFs to MP4 videos easily using TOOLGENIE's browser-based GIF to MP4 converter tool. Fast, free, and mobile-friendly." />
-  <meta name="keywords" content="GIF to MP4, Convert GIF, Online GIF Converter, TOOLGENIE, Video Tools" />
+  <meta name="description" content="Convert GIFs to MP4 videos instantly using TOOLGENIE's free online converter.">
+  <meta name="keywords" content="GIF to MP4, gif converter, gif to video, TOOLGENIE">
   <meta name="author" content="TOOLGENIE" />
   <title>GIF to MP4 Converter | TOOLGENIE</title>
   <link rel="icon" href="../assets/favicon.png" type="image/png" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #eef1f5, #dae2ec);
+      margin: 0;
+      background: linear-gradient(to right, #f4f6f9, #e3efff);
       color: #333;
     }
 
-    header,
-    footer {
+    header, footer {
       backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.75);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      background: rgba(255, 255, 255, 0.7);
       padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -40,86 +34,60 @@
     }
 
     .container {
-      max-width: 960px;
+      max-width: 800px;
       margin: 2rem auto;
-      background: white;
       padding: 2rem;
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
-    h1 {
-      font-size: 1.8rem;
-    }
-
-    .upload-area {
-      border: 2px dashed #007BFF;
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      cursor: pointer;
+    input[type="file"] {
       margin-bottom: 1rem;
-      background: #f9f9f9;
     }
 
-    .upload-area.dragover {
-      background: #e0f0ff;
-    }
-
-    #gif-preview {
+    img, video {
       max-width: 100%;
-      display: none;
       margin-top: 1rem;
+      border-radius: 10px;
     }
 
     button {
-      background: #007BFF;
+      background: #007bff;
       color: white;
       border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 10px;
+      font-size: 1rem;
       cursor: pointer;
-      margin: 0.5rem 0;
+      margin-top: 1rem;
     }
 
     button:hover {
       background: #0056b3;
     }
 
-    video {
-      max-width: 100%;
-      margin-top: 1rem;
+    .preview-section {
+      margin-top: 2rem;
     }
 
     footer {
       text-align: center;
       font-size: 0.9rem;
       flex-direction: column;
-      margin-top: 2rem;
     }
 
     footer a {
       margin: 0 0.5rem;
       text-decoration: none;
-      color: #007BFF;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 1rem;
-      }
-
-      h1 {
-        font-size: 1.4rem;
-      }
+      color: #007bff;
     }
   </style>
 </head>
 
 <body>
   <header>
-    <div style="display:flex; align-items:center;">
+    <div style="display: flex; align-items: center;">
       <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
       <strong>TOOLGENIE</strong>
     </div>
@@ -132,22 +100,17 @@
 
   <main class="container">
     <h1>GIF to MP4 Converter</h1>
-    <p>Convert your GIF animations into high-quality MP4 videos—fast, browser-based, and privacy-friendly.</p>
+    <p>Convert animated GIFs to MP4 video format in seconds using your browser.</p>
 
-    <div class="upload-area" id="drop-area">
-      <p>Drag and drop your GIF here or click to upload</p>
-      <input type="file" accept=".gif" id="fileElem" style="display:none;" />
-    </div>
+    <input type="file" id="gifInput" accept="image/gif" />
+    <div id="gifPreview" class="preview-section"></div>
+    <button onclick="convertToMP4()">Convert to MP4</button>
 
-    <img id="gif-preview" />
-
-    <button id="convertBtn" style="display:none;">Convert to MP4</button>
-
-    <div id="result" style="display:none;">
+    <div id="mp4Container" class="preview-section" style="display:none;">
       <h3>MP4 Preview:</h3>
-      <video controls id="videoPreview"></video>
-      <br />
-      <a id="downloadLink" href="#" download="converted.mp4">
+      <video id="mp4Preview" controls></video>
+      <br>
+      <a id="downloadLink" download="converted.mp4">
         <button>Download MP4</button>
       </a>
     </div>
@@ -155,9 +118,9 @@
     <h2>How to use this tool</h2>
     <article>
       <ul>
-        <li>Upload a `.gif` file by dragging it in or clicking the upload box.</li>
-        <li>Click "Convert to MP4" to process the GIF.</li>
-        <li>Preview and download the MP4 version directly.</li>
+        <li>Upload a GIF file using the input box above.</li>
+        <li>Preview the GIF and click "Convert to MP4".</li>
+        <li>Once conversion finishes, preview and download your MP4 video.</li>
       </ul>
     </article>
   </main>
@@ -171,78 +134,47 @@
     <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.5/dist/ffmpeg.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
   <script>
-    const dropArea = document.getElementById("drop-area");
-    const fileElem = document.getElementById("fileElem");
-    const gifPreview = document.getElementById("gif-preview");
-    const convertBtn = document.getElementById("convertBtn");
-    const result = document.getElementById("result");
-    const videoPreview = document.getElementById("videoPreview");
-    const downloadLink = document.getElementById("downloadLink");
+    const gifInput = document.getElementById('gifInput');
+    const gifPreview = document.getElementById('gifPreview');
+    const mp4Container = document.getElementById('mp4Container');
+    const mp4Preview = document.getElementById('mp4Preview');
+    const downloadLink = document.getElementById('downloadLink');
 
-    let selectedFile;
+    let gifFile;
 
-    dropArea.addEventListener("click", () => fileElem.click());
-
-    dropArea.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      dropArea.classList.add("dragover");
-    });
-
-    dropArea.addEventListener("dragleave", () => {
-      dropArea.classList.remove("dragover");
-    });
-
-    dropArea.addEventListener("drop", (e) => {
-      e.preventDefault();
-      dropArea.classList.remove("dragover");
-      handleFile(e.dataTransfer.files[0]);
-    });
-
-    fileElem.addEventListener("change", () => handleFile(fileElem.files[0]));
-
-    function handleFile(file) {
-      if (file && file.type === "image/gif") {
-        selectedFile = file;
-        const reader = new FileReader();
-        reader.onload = () => {
-          gifPreview.src = reader.result;
-          gifPreview.style.display = "block";
-          convertBtn.style.display = "inline-block";
-        };
-        reader.readAsDataURL(file);
-      } else {
-        alert("Please upload a valid GIF file.");
+    gifInput.addEventListener('change', function () {
+      gifFile = this.files[0];
+      if (gifFile) {
+        const url = URL.createObjectURL(gifFile);
+        gifPreview.innerHTML = `<img src="${url}" alt="GIF Preview" />`;
       }
-    }
+    });
 
-    convertBtn.addEventListener("click", async () => {
-      if (!selectedFile) return;
-
-      convertBtn.innerText = "Converting...";
-      convertBtn.disabled = true;
+    async function convertToMP4() {
+      if (!gifFile) {
+        alert("Please upload a GIF first.");
+        return;
+      }
 
       const { createFFmpeg, fetchFile } = FFmpeg;
-      const ffmpeg = createFFmpeg({ log: false });
+      const ffmpeg = createFFmpeg({ log: true });
 
-      await ffmpeg.load();
+      if (!ffmpeg.isLoaded()) {
+        await ffmpeg.load();
+      }
 
-      ffmpeg.FS("writeFile", "input.gif", await fetchFile(selectedFile));
-      await ffmpeg.run("-i", "input.gif", "-movflags", "faststart", "output.mp4");
+      ffmpeg.FS('writeFile', 'input.gif', await fetchFile(gifFile));
+      await ffmpeg.run('-i', 'input.gif', '-movflags', 'faststart', '-pix_fmt', 'yuv420p', 'output.mp4');
+      const data = ffmpeg.FS('readFile', 'output.mp4');
 
-      const data = ffmpeg.FS("readFile", "output.mp4");
-
-      const videoBlob = new Blob([data.buffer], { type: "video/mp4" });
-      const videoUrl = URL.createObjectURL(videoBlob);
-
-      videoPreview.src = videoUrl;
-      downloadLink.href = videoUrl;
-
-      result.style.display = "block";
-      convertBtn.innerText = "Convert to MP4";
-      convertBtn.disabled = false;
-    });
+      const mp4Blob = new Blob([data.buffer], { type: 'video/mp4' });
+      const mp4Url = URL.createObjectURL(mp4Blob);
+      mp4Preview.src = mp4Url;
+      downloadLink.href = mp4Url;
+      mp4Container.style.display = 'block';
+    }
   </script>
 </body>
 
