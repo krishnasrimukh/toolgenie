@@ -1,362 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener - Shorten Links for Free | TOOLGENIE</title>
-    <meta name="description" content="Free online URL shortener. Create short, memorable links for sharing. Track clicks with our simple analytics. No registration required.">
-    <meta name="keywords" content="url shortener, link shortener, shorten url, free url shortener, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/url-shortener.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/url-shortener.html">
-    <meta property="og:title" content="URL Shortener - Shorten Links for Free | TOOLGENIE">
-    <meta property="og:description" content="Free online URL shortener. Create short, memorable links for sharing. Track clicks with our simple analytics.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/url-shortener.html">
-    <meta property="twitter:title" content="URL Shortener - Shorten Links for Free | TOOLGENIE">
-    <meta property="twitter:description" content="Free online URL shortener. Create short, memorable links for sharing. Track clicks with our simple analytics.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Easily shorten long URLs using TOOLGENIE's fast and secure URL Shortener tool." />
+  <meta name="keywords" content="URL shortener, Short link generator, TOOLGENIE URL tool" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>URL Shortener | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f2f5, #d9e2ec);
+      color: #333;
+    }
+    header, footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    input[type="url"] {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    #result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      display: none;
+    }
+    a.short-url {
+      color: #007BFF;
+      word-break: break-all;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+    }
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
     </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <main class="container">
+    <h1>URL Shortener</h1>
+    <p>Paste your long URL below and click shorten to generate a short version.</p>
+    <input type="url" id="urlInput" placeholder="Enter long URL here" required />
+    <button onclick="shortenURL()">Shorten URL</button>
+    <div id="result">
+      <strong>Shortened URL:</strong>
+      <p><a id="shortUrl" class="short-url" href="#" target="_blank"></a></p>
+    </div>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>URL Shortener</h1>
-            <p class="tool-description">Create short, memorable links for sharing. Track clicks with our simple analytics. Perfect for social media, marketing, and anywhere you need a shorter URL.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="url-shortener">
-                    <div class="shortener-form">
-                        <div class="input-group">
-                            <label for="longUrl">Enter Long URL:</label>
-                            <input type="url" id="longUrl" placeholder="https://example.com/very/long/url...">
-                        </div>
-                        <div class="input-group">
-                            <label for="customSlug">Custom Slug (optional):</label>
-                            <div class="slug-input">
-                                <span class="slug-prefix">toolgenie.in/</span>
-                                <input type="text" id="customSlug" placeholder="my-custom-link">
-                            </div>
-                        </div>
-                        <button id="shortenBtn" class="action-btn">Shorten URL</button>
-                    </div>
-                    
-                    <div class="result-container" style="display: none;">
-                        <h3>Your Short URL</h3>
-                        <div class="short-url-display">
-                            <input type="text" id="shortUrl" readonly>
-                            <button id="copyUrlBtn" class="action-btn">Copy</button>
-                        </div>
-                        <div class="url-analytics">
-                            <div class="analytic-item">
-                                <span class="analytic-label">Clicks:</span>
-                                <span class="analytic-value" id="clickCount">0</span>
-                            </div>
-                            <div class="analytic-item">
-                                <span class="analytic-label">Created:</span>
-                                <span class="analytic-value" id="createdDate">Just now</span>
-                            </div>
-                        </div>
-                        <div class="qr-code-section">
-                            <h4>QR Code</h4>
-                            <div class="qr-code-placeholder" id="qrCodePlaceholder">
-                                <!-- QR code would be generated here -->
-                            </div>
-                            <button id="downloadQrBtn" class="action-btn secondary">Download QR Code</button>
-                        </div>
-                        <button id="newUrlBtn" class="action-btn secondary">Shorten Another URL</button>
-                    </div>
-                </div>
-            </div>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Paste the long URL into the input box above.</li>
+        <li>Click on "Shorten URL" to generate a shortened link.</li>
+        <li>Copy and use your short link anywhere!</li>
+      </ul>
+    </article>
+  </main>
 
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Simple Shortening:</strong> Create short links in seconds</li>
-                    <li><strong>Custom Slugs:</strong> Choose your own URL ending</li>
-                    <li><strong>Basic Analytics:</strong> Track how many clicks your links get</li>
-                    <li><strong>QR Codes:</strong> Generate QR codes for your shortened URLs</li>
-                    <li><strong>No Registration:</strong> Use without signing up</li>
-                </ul>
-            </div>
-        </section>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
-
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Shorten URLs</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Enter Long URL</h3>
-                    <p>Paste the long URL you want to shorten in the input field.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: Customize (Optional)</h3>
-                    <p>Add a custom ending to your short URL if desired.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Shorten</h3>
-                    <p>Click "Shorten URL" to create your compact link.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: Share</h3>
-                    <p>Copy your short URL or QR code and share it anywhere.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">How long do shortened URLs last?</h3>
-                <div class="faq-answer">
-                    <p>Shortened URLs created with our tool remain active indefinitely. There is currently no expiration for links.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Can I edit a shortened URL after creating it?</h3>
-                <div class="faq-answer">
-                    <p>No, once a short URL is created, it cannot be edited. You would need to create a new short URL with the updated destination.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Is there a limit to how many URLs I can shorten?</h3>
-                <div class="faq-answer">
-                    <p>No, you can shorten as many URLs as you need. There are no usage limits.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">How are click analytics tracked?</h3>
-                <div class="faq-answer">
-                    <p>Our system records each time someone clicks your short URL. We show you the total count but don't store personal information about who clicked.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Can I use custom domains for shortened URLs?</h3>
-                <div class="faq-answer">
-                    <p>Currently, we only support shortening to our toolgenie.in domain. Custom domain support may be added in the future.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
-    <script>
-        // DOM Elements
-        const longUrl = document.getElementById('longUrl');
-        const customSlug = document.getElementById('customSlug');
-        const shortenBtn = document.getElementById('shortenBtn');
-        const resultContainer = document.querySelector('.result-container');
-        const shortUrl = document.getElementById('shortUrl');
-        const copyUrlBtn = document.getElementById('copyUrlBtn');
-        const clickCount = document.getElementById('clickCount');
-        const createdDate = document.getElementById('createdDate');
-        const qrCodePlaceholder = document.getElementById('qrCodePlaceholder');
-        const downloadQrBtn = document.getElementById('downloadQrBtn');
-        const newUrlBtn = document.getElementById('newUrlBtn');
-        
-        // Store shortened URLs in localStorage
-        let shortenedUrls = JSON.parse(localStorage.getItem('toolgenie_shortened_urls')) || [];
-        
-        // Event Listeners
-        shortenBtn.addEventListener('click', shortenUrl);
-        copyUrlBtn.addEventListener('click', copyShortUrl);
-        downloadQrBtn.addEventListener('click', downloadQrCode);
-        newUrlBtn.addEventListener('click', resetForm);
-        
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
-
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Functions
-        function shortenUrl() {
-            const url = longUrl.value.trim();
-            let slug = customSlug.value.trim();
-            
-            // Validate URL
-            if (!url) {
-                alert('Please enter a URL to shorten');
-                return;
-            }
-            
-            if (!isValidUrl(url)) {
-                alert('Please enter a valid URL (include http:// or https://)');
-                return;
-            }
-            
-            // Validate slug if provided
-            if (slug) {
-                if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
-                    alert('Custom slug can only contain letters, numbers, hyphens, and underscores');
-                    return;
-                }
-                
-                if (slug.length > 30) {
-                    alert('Custom slug must be 30 characters or less');
-                    return;
-                }
-                
-                // Check if slug is already in use
-                if (shortenedUrls.some(item => item.slug === slug)) {
-                    alert('This custom slug is already in use. Please choose another.');
-                    return;
-                }
-            } else {
-                // Generate random slug
-                slug = generateRandomSlug();
-            }
-            
-            // Create short URL
-            const shortUrlStr = `https://toolgenie.in/${slug}`;
-            
-            // Save to localStorage
-            const urlData = {
-                longUrl: url,
-                slug: slug,
-                shortUrl: shortUrlStr,
-                clicks: 0,
-                created: new Date().toISOString()
-            };
-            
-            shortenedUrls.push(urlData);
-            localStorage.setItem('toolgenie_shortened_urls', JSON.stringify(shortenedUrls));
-            
-            // Display results
-            shortUrl.value = shortUrlStr;
-            clickCount.textContent = '0';
-            createdDate.textContent = 'Just now';
-            
-            // Generate QR code placeholder
-            qrCodePlaceholder.innerHTML = `<p>QR code for ${shortUrlStr}</p>`;
-            
-            // Show result container
-            resultContainer.style.display = 'block';
-            
-            // Scroll to results
-            resultContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function generateRandomSlug() {
-            const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let result = '';
-            
-            for (let i = 0; i < 6; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            
-            // Check if slug exists
-            if (shortenedUrls.some(item => item.slug === result)) {
-                return generateRandomSlug(); // Recursively generate until unique
-            }
-            
-            return result;
-        }
-        
-        function isValidUrl(str) {
-            try {
-                new URL(str);
-                return true;
-            } catch (_) {
-                return false;
-            }
-        }
-        
-        function copyShortUrl() {
-            shortUrl.select();
-            document.execCommand('copy');
-            
-            // Show feedback
-            const originalText = copyUrlBtn.textContent;
-            copyUrlBtn.textContent = 'Copied!';
-            setTimeout(() => {
-                copyUrlBtn.textContent = originalText;
-            }, 2000);
-        }
-        
-        function downloadQrCode() {
-            alert('QR code download functionality would be implemented here');
-            // In a real implementation, this would generate and download a QR code image
-        }
-        
-        function resetForm() {
-            longUrl.value = '';
-            customSlug.value = '';
-            resultContainer.style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+  <script>
+    function shortenURL() {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        alert("Please enter a valid URL.");
+        return;
+      }
+      const shortId = Math.random().toString(36).substring(2, 8);
+      const shortUrl = `${window.location.origin}/s/${shortId}`;
+      const resultDiv = document.getElementById('result');
+      const link = document.getElementById('shortUrl');
+      link.href = shortUrl;
+      link.textContent = shortUrl;
+      resultDiv.style.display = 'block';
+    }
+  </script>
 </body>
+
 </html>
