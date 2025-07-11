@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Generator - Create MD5, SHA1, SHA256 Hashes Online | TOOLGENIE</title>
+    <meta name="description" content="Free online hash generator. Create MD5, SHA1, SHA256, SHA512 hashes from text or files. Useful for checksums, passwords, and data verification.">
+    <meta name="keywords" content="hash generator, md5 generator, sha1 generator, sha256 generator, online hash tool, toolgenie">
+    <meta name="author" content="TOOLGENIE">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolgenie.in/tools/hash-generator.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolgenie.in/tools/hash-generator.html">
+    <meta property="og:title" content="Hash Generator - Create MD5, SHA1, SHA256 Hashes Online | TOOLGENIE">
+    <meta property="og:description" content="Free online hash generator. Create MD5, SHA1, SHA256, SHA512 hashes from text or files.">
+    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolgenie.in/tools/hash-generator.html">
+    <meta property="twitter:title" content="Hash Generator - Create MD5, SHA1, SHA256 Hashes Online | TOOLGENIE">
+    <meta property="twitter:description" content="Free online hash generator. Create MD5, SHA1, SHA256, SHA512 hashes from text or files.">
+    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/icons/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../about.html" class="nav-link">About</a>
+                <a href="../contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ad Space (Top) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- Tool Container -->
+        <section class="tool-container">
+            <h1>Hash Generator</h1>
+            <p class="tool-description">Generate MD5, SHA1, SHA256, and SHA512 hashes from text or files. Useful for checksums, password hashing, and data verification.</p>
+            
+            <!-- Tool Interface -->
+            <div class="tool-interface">
+                <div class="hash-generator">
+                    <div class="input-methods">
+                        <div class="method-tabs">
+                            <button id="textHashTab" class="method-tab active">Text</button>
+                            <button id="fileHashTab" class="method-tab">File</button>
+                        </div>
+                        
+                        <div class="method-content">
+                            <div id="textHashContent" class="method-panel active">
+                                <textarea id="textToHash" placeholder="Enter text to generate hash..."></textarea>
+                            </div>
+                            <div id="fileHashContent" class="method-panel">
+                                <div class="file-upload-area" id="fileHashArea">
+                                    <input type="file" id="fileToHash" style="display: none;">
+                                    <div class="upload-icon">📁</div>
+                                    <h3>Drag & Drop your file here</h3>
+                                    <p>or</p>
+                                    <button id="selectHashFileBtn" class="upload-btn">Select File</button>
+                                    <div class="file-info" id="hashFileInfo" style="display: none;">
+                                        <p><strong>File Name:</strong> <span id="hashFileName"></span></p>
+                                        <p><strong>File Size:</strong> <span id="hashFileSize"></span></p>
+                                        <p><strong>File Type:</strong> <span id="hashFileType"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hash-options">
+                        <h3>Hash Algorithms</h3>
+                        <div class="algorithm-grid">
+                            <div class="algorithm-option">
+                                <label for="md5Checkbox">
+                                    <input type="checkbox" id="md5Checkbox" checked>
+                                    MD5
+                                </label>
+                            </div>
+                            <div class="algorithm-option">
+                                <label for="sha1Checkbox">
+                                    <input type="checkbox" id="sha1Checkbox" checked>
+                                    SHA1
+                                </label>
+                            </div>
+                            <div class="algorithm-option">
+                                <label for="sha256Checkbox">
+                                    <input type="checkbox" id="sha256Checkbox" checked>
+                                    SHA256
+                                </label>
+                            </div>
+                            <div class="algorithm-option">
+                                <label for="sha512Checkbox">
+                                    <input type="checkbox" id="sha512Checkbox">
+                                    SHA512
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="generateHashBtn" class="action-btn">Generate Hashes</button>
+                    
+                    <div class="hash-results" id="hashResults" style="display: none;">
+                        <h3>Generated Hashes</h3>
+                        <div class="result-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Algorithm</th>
+                                        <th>Hash Value</th>
+                                        <th>Copy</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hashResultsBody">
+                                    <!-- Hash results will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <button id="clearHashesBtn" class="action-btn secondary">Clear Results</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Features -->
+            <div class="tool-features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Multiple Algorithms:</strong> MD5, SHA1, SHA256, SHA512</li>
+                    <li><strong>Text & File Support:</strong> Generate hashes from text or files</li>
+                    <li><strong>Batch Processing:</strong> Generate multiple hashes at once</li>
+                    <li><strong>Privacy Focused:</strong> All processing happens in your browser</li>
+                    <li><strong>Checksum Verification:</strong> Verify file integrity with hashes</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Ad Space (Middle) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- How To Use Section -->
+        <section class="how-to-use">
+            <h2>How To Generate Hashes</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Enter Input</h3>
+                    <p>Type text or upload a file you want to generate hashes for.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Select Algorithms</h3>
+                    <p>Choose which hash algorithms you want to use (MD5, SHA1, etc.).</p>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Generate</h3>
+                    <p>Click "Generate Hashes" to create the cryptographic hashes.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 4: Copy Results</h3>
+                    <p>Copy the hash values you need from the results table.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What is a hash function?</h3>
+                <div class="faq-answer">
+                    <p>A hash function takes input data of any size and returns a fixed-size string of characters, which typically appears random. The same input will always produce the same hash, but even a small change in input will produce a completely different hash.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Which hash algorithm should I use?</h3>
+                <div class="faq-answer">
+                    <p>It depends on your use case:
+                    <br>- MD5: Fast but cryptographically broken, good for checksums
+                    <br>- SHA1: More secure than MD5 but also considered weak
+                    <br>- SHA256: Currently recommended for most security purposes
+                    <br>- SHA512: More secure but generates longer hashes
+                    <br>For password hashing, consider specialized algorithms like bcrypt instead.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Can I use this for password hashing?</h3>
+                <div class="faq-answer">
+                    <p>While you can generate hashes of passwords, these algorithms alone are not recommended for password storage. For passwords, use specialized password hashing algorithms like bcrypt, scrypt, or PBKDF2 which include salting and are computationally intensive.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How are file hashes generated?</h3>
+                <div class="faq-answer">
+                    <p>The file is read as binary data and processed through the hash algorithm. The resulting hash serves as a unique fingerprint for that exact file content.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is there a file size limit for hashing?</h3>
+                <div class="faq-answer">
+                    <p>There's no strict limit, but very large files may cause performance issues in your browser. For best results, we recommend files under 100MB.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // DOM Elements
+        const textHashTab = document.getElementById('textHashTab');
+        const fileHashTab = document.getElementById('fileHashTab');
+        const textHashContent = document.getElementById('textHashContent');
+        const fileHashContent = document.getElementById('fileHashContent');
+        const textToHash = document.getElementById('textToHash');
+        const fileToHash = document.getElementById('fileToHash');
+        const selectHashFileBtn = document.getElementById('selectHashFileBtn');
+        const fileHashArea = document.getElementById('fileHashArea');
+        const hashFileInfo = document.getElementById('hashFileInfo');
+        const hashFileName = document.getElementById('hashFileName');
+        const hashFileSize = document.getElementById('hashFileSize');
+        const hashFileType = document.getElementById('hashFileType');
+        const md5Checkbox = document.getElementById('md5Checkbox');
+        const sha1Checkbox = document.getElementById('sha1Checkbox');
+        const sha256Checkbox = document.getElementById('sha256Checkbox');
+        const sha512Checkbox = document.getElementById('sha512Checkbox');
+        const generateHashBtn = document.getElementById('generateHashBtn');
+        const hashResults = document.getElementById('hashResults');
+        const hashResultsBody = document.getElementById('hashResultsBody');
+        const clearHashesBtn = document.getElementById('clearHashesBtn');
+        
+        // Current file
+        let currentHashFile = null;
+
+        // Event Listeners
+        textHashTab.addEventListener('click', () => switchHashMethod('text'));
+        fileHashTab.addEventListener('click', () => switchHashMethod('file'));
+        selectHashFileBtn.addEventListener('click', () => fileToHash.click());
+        fileToHash.addEventListener('change', handleHashFileSelect);
+        fileHashArea.addEventListener('dragover', handleDragOver);
+        fileHashArea.addEventListener('drop', handleHashFileDrop);
+        generateHashBtn.addEventListener('click', generateHashes);
+        clearHashesBtn.addEventListener('click', clearHashResults);
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.classList.toggle('active');
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Functions
+        function switchHashMethod(method) {
+            if (method === 'text') {
+                textHashTab.classList.add('active');
+                fileHashTab.classList.remove('active');
+                textHashContent.style.display = 'block';
+                fileHashContent.style.display = 'none';
+            } else {
+                textHashTab.classList.remove('active');
+                fileHashTab.classList.add('active');
+                textHashContent.style.display = 'none';
+                fileHashContent.style.display = 'block';
+            }
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.currentTarget.classList.add('dragover');
+        }
+        
+        function handleHashFileDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            fileHashArea.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            processHashFile(file);
+        }
+        
+        function handleHashFileSelect(e) {
+            const file = e.target.files[0];
+            processHashFile(file);
+        }
+        
+        function processHashFile(file) {
+            if (!file) return;
+            
+            currentHashFile = file;
+            
+            // Display file info
+            hashFileName.textContent = file.name;
+            hashFileSize.textContent = formatFileSize(file.size);
+            hashFileType.textContent = file.type || 'Unknown';
+            
+            hashFileInfo.style.display = 'block';
+        }
+        
+        function generateHashes() {
+            // Check at least one algorithm is selected
+            if (!md5Checkbox.checked && !sha1Checkbox.checked && !sha256Checkbox.checked && !sha512Checkbox.checked) {
+                alert('Please select at least one hash algorithm');
+                return;
+            }
+            
+            if (textHashTab.classList.contains('active')) {
+                // Hash text
+                const text = textToHash.value.trim();
+                if (!text) {
+                    alert('Please enter some text to hash');
+                    return;
+                }
+                
+                generateTextHashes(text);
+            } else {
+                // Hash file
+                if (!currentHashFile) {
+                    alert('Please select a file to hash');
+                    return;
+                }
+                
+                generateFileHashes(currentHashFile);
+            }
+        }
+        
+        function generateTextHashes(text) {
+            const results = {};
+            
+            if (md5Checkbox.checked) {
+                results.MD5 = CryptoJS.MD5(text).toString();
+            }
+            
+            if (sha1Checkbox.checked) {
+                results.SHA1 = CryptoJS.SHA1(text).toString();
+            }
+            
+            if (sha256Checkbox.checked) {
+                results.SHA256 = CryptoJS.SHA256(text).toString();
+            }
+            
+            if (sha512Checkbox.checked) {
+                results.SHA512 = CryptoJS.SHA512(text).toString();
+            }
+            
+            displayHashResults(results);
+        }
+        
+        function generateFileHashes(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+                const wordArray = CryptoJS.lib.WordArray.create(fileContent);
+                const results = {};
+                
+                if (md5Checkbox.checked) {
+                    results.MD5 = CryptoJS.MD5(wordArray).toString();
+                }
+                
+                if (sha1Checkbox.checked) {
+                    results.SHA1 = CryptoJS.SHA1(wordArray).toString();
+                }
+                
+                if (sha256Checkbox.checked) {
+                    results.SHA256 = CryptoJS.SHA256(wordArray).toString();
+                }
+                
+                if (sha512Checkbox.checked) {
+                    results.SHA512 = CryptoJS.SHA512(wordArray).toString();
+                }
+                
+                displayHashResults(results);
+            };
+            
+            reader.readAsArrayBuffer(file);
+        }
+        
+        function displayHashResults(results) {
+            // Clear previous results
+            hashResultsBody.innerHTML = '';
+            
+            // Add new results
+            for (const [algorithm, hash] of Object.entries(results)) {
+                const row = document.createElement('tr');
+                
+                const algoCell = document.createElement('td');
+                algoCell.textContent = algorithm;
+                
+                const hashCell = document.createElement('td');
+                const hashInput = document.createElement('input');
+                hashInput.type = 'text';
+                hashInput.value = hash;
+                hashInput.readOnly = true;
+                hashCell.appendChild(hashInput);
+                
+                const copyCell = document.createElement('td');
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-hash-btn';
+                copyBtn.textContent = 'Copy';
+                copyBtn.addEventListener('click', () => {
+                    hashInput.select();
+                    document.execCommand('copy');
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyBtn.textContent = 'Copy';
+                    }, 2000);
+                });
+                copyCell.appendChild(copyBtn);
+                
+                row.appendChild(algoCell);
+                row.appendChild(hashCell);
+                row.appendChild(copyCell);
+                
+                hashResultsBody.appendChild(row);
+            }
+            
+            // Show results section
+            hashResults.style.display = 'block';
+            
+            // Scroll to results
+            hashResults.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function clearHashResults() {
+            hashResultsBody.innerHTML = '';
+            hashResults.style.display = 'none';
+            
+            if (textHashTab.classList.contains('active')) {
+                textToHash.value = '';
+            } else {
+                fileToHash.value = '';
+                currentHashFile = null;
+                hashFileInfo.style.display = 'none';
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
