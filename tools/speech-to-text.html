@@ -1,532 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speech to Text Converter - Free Online Transcription Tool | TOOLGENIE</title>
-    <meta name="description" content="Free online speech to text converter. Transcribe audio to text in real-time using your microphone. No installation required.">
-    <meta name="keywords" content="speech to text, voice typing, transcription tool, dictation software, audio to text, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/speech-to-text.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/speech-to-text.html">
-    <meta property="og:title" content="Speech to Text Converter - Free Online Transcription Tool | TOOLGENIE">
-    <meta property="og:description" content="Free online speech to text converter. Transcribe audio to text in real-time using your microphone.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/speech-to-text.html">
-    <meta property="twitter:title" content="Speech to Text Converter - Free Online Transcription Tool | TOOLGENIE">
-    <meta property="twitter:description" content="Free online speech to text converter. Transcribe audio to text in real-time using your microphone.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Convert speech to text instantly with TOOLGENIE's accurate and free speech recognition tool." />
+  <meta name="keywords" content="Speech to Text, Voice to Text, Online Transcriber, Dictation Tool, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Speech to Text Converter | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      color: #333;
+    }
+
+    header,
+    footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.75);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-top: 0;
+      color: #555;
+    }
+
+    textarea {
+      width: 100%;
+      height: 250px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    @media (max-width: 600px) {
+      .buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
     </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <main class="container">
+    <h1>Speech to Text Converter</h1>
+    <p>Convert your voice into text using your microphone and download it as a document.</p>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>Speech to Text Converter</h1>
-            <p class="tool-description">Convert your speech to text in real-time using your microphone. Perfect for dictation, transcription, and voice notes.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="speech-to-text">
-                    <div class="recording-controls">
-                        <button id="startBtn" class="action-btn">Start Recording</button>
-                        <button id="stopBtn" class="action-btn secondary" disabled>Stop Recording</button>
-                        <button id="clearBtn" class="action-btn secondary">Clear Text</button>
-                        <button id="copyBtn" class="action-btn secondary">Copy Text</button>
-                    </div>
-                    
-                    <div class="recording-status">
-                        <div id="statusIndicator" class="status-indicator">
-                            <div class="indicator-circle"></div>
-                            <span>Ready</span>
-                        </div>
-                        <div class="audio-visualizer" id="audioVisualizer"></div>
-                    </div>
-                    
-                    <div class="language-selection">
-                        <label for="languageSelect">Language:</label>
-                        <select id="languageSelect">
-                            <option value="en-US" selected>English (US)</option>
-                            <option value="en-GB">English (UK)</option>
-                            <option value="es-ES">Spanish</option>
-                            <option value="fr-FR">French</option>
-                            <option value="de-DE">German</option>
-                            <option value="it-IT">Italian</option>
-                            <option value="pt-BR">Portuguese (Brazil)</option>
-                            <option value="ru-RU">Russian</option>
-                            <option value="ja-JP">Japanese</option>
-                            <option value="zh-CN">Chinese (Simplified)</option>
-                            <option value="hi-IN">Hindi</option>
-                        </select>
-                    </div>
-                    
-                    <div class="text-output">
-                        <textarea id="textOutput" placeholder="Your transcribed text will appear here..." readonly></textarea>
-                        <div class="text-stats">
-                            <span id="wordCount">0 words</span>
-                            <span id="charCount">0 characters</span>
-                        </div>
-                    </div>
-                    
-                    <div class="transcription-options">
-                        <h3>Transcription Options</h3>
-                        <div class="options-grid">
-                            <div class="option-group">
-                                <label for="punctuationToggle">
-                                    <input type="checkbox" id="punctuationToggle" checked>
-                                    Auto Punctuation
-                                </label>
-                            </div>
-                            <div class="option-group">
-                                <label for="profanityFilter">
-                                    <input type="checkbox" id="profanityFilter">
-                                    Filter Profanity
-                                </label>
-                            </div>
-                            <div class="option-group">
-                                <label for="capitalization">
-                                    <input type="checkbox" id="capitalization" checked>
-                                    Auto Capitalization
-                                </label>
-                            </div>
-                            <div class="option-group">
-                                <label for="continuousMode">
-                                    <input type="checkbox" id="continuousMode">
-                                    Continuous Mode
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="buttons">
+      <button onclick="startRecognition()">🎙️ Start Listening</button>
+      <button onclick="stopRecognition()">🛑 Stop</button>
+      <button onclick="downloadText()">⬇️ Download as .txt</button>
+      <button onclick="downloadPDF()">⬇️ Download as PDF</button>
+    </div>
 
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Real-time Transcription:</strong> See text appear as you speak</li>
-                    <li><strong>Multiple Languages:</strong> Supports over 10 languages and dialects</li>
-                    <li><strong>Smart Formatting:</strong> Automatic punctuation and capitalization</li>
-                    <li><strong>Privacy Focused:</strong> All processing happens in your browser</li>
-                    <li><strong>No Installation:</strong> Works directly in your web browser</li>
-                </ul>
-            </div>
-        </section>
+    <label for="result"><strong>Live Transcription:</strong></label>
+    <textarea id="result" placeholder="Your spoken words will appear here..." readonly></textarea>
 
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Click “Start Listening” and allow microphone access.</li>
+        <li>Speak clearly and your speech will appear in the text area.</li>
+        <li>Click “Stop” to end recording.</li>
+        <li>You can download the transcribed text as a TXT or PDF file.</li>
+      </ul>
+    </article>
+  </main>
 
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Use the Speech to Text Tool</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Allow Microphone Access</h3>
-                    <p>Click "Start Recording" and allow the browser to access your microphone when prompted.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: Start Speaking</h3>
-                    <p>Speak clearly into your microphone. Your words will appear as text in real-time.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Stop Recording</h3>
-                    <p>Click "Stop Recording" when you're finished. You can then edit or copy the text.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: Use Your Text</h3>
-                    <p>Copy the transcribed text to your clipboard or download it as a text file.</p>
-                </div>
-            </div>
-            
-            <div class="tips">
-                <h3>Tips for Best Results</h3>
-                <ul>
-                    <li>Use a good quality microphone in a quiet environment</li>
-                    <li>Speak clearly at a natural pace</li>
-                    <li>Position the microphone 6-12 inches from your mouth</li>
-                    <li>Avoid background noise when possible</li>
-                </ul>
-            </div>
-        </section>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">Why isn't the microphone working?</h3>
-                <div class="faq-answer">
-                    <p>Make sure you've allowed microphone access when prompted. Check your browser settings if you accidentally blocked access. Also ensure no other applications are using the microphone.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">How accurate is the speech recognition?</h3>
-                <div class="faq-answer">
-                    <p>Accuracy depends on microphone quality, background noise, and how clearly you speak. In good conditions, accuracy can be over 90% for supported languages.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Can I upload an audio file to transcribe?</h3>
-                <div class="faq-answer">
-                    <p>This version only works with live microphone input. For audio file transcription, you would need a server-based solution.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Is there a limit to recording length?</h3>
-                <div class="faq-answer">
-                    <p>There's no strict limit, but very long sessions may cause performance issues in some browsers. For best results, keep sessions under 30 minutes.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Is my speech data being sent to servers?</h3>
-                <div class="faq-answer">
-                    <p>No, all speech processing happens directly in your browser. Your audio never leaves your computer, ensuring complete privacy.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    let recognition;
+    if ('webkitSpeechRecognition' in window) {
+      recognition = new webkitSpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
-    <script>
-        // DOM Elements
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const statusIndicator = document.getElementById('statusIndicator');
-        const audioVisualizer = document.getElementById('audioVisualizer');
-        const languageSelect = document.getElementById('languageSelect');
-        const textOutput = document.getElementById('textOutput');
-        const wordCount = document.getElementById('wordCount');
-        const charCount = document.getElementById('charCount');
-        const punctuationToggle = document.getElementById('punctuationToggle');
-        const profanityFilter = document.getElementById('profanityFilter');
-        const capitalization = document.getElementById('capitalization');
-        const continuousMode = document.getElementById('continuousMode');
-        
-        // Variables
-        let recognition;
-        let isRecording = false;
-        let audioContext;
-        let analyser;
-        let microphone;
-        let dataArray;
-        let animationId;
-        
-        // Check for browser support
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        const isSupported = !!SpeechRecognition;
-        
-        if (!isSupported) {
-            startBtn.disabled = true;
-            statusIndicator.querySelector('span').textContent = 'Not supported in your browser';
-            statusIndicator.querySelector('.indicator-circle').style.backgroundColor = '#ff4444';
+      recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          transcript += event.results[i][0].transcript;
         }
-        
-        // Event Listeners
-        startBtn.addEventListener('click', startRecording);
-        stopBtn.addEventListener('click', stopRecording);
-        clearBtn.addEventListener('click', clearText);
-        copyBtn.addEventListener('click', copyText);
-        textOutput.addEventListener('input', updateTextStats);
-        
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
+        document.getElementById('result').value += transcript + ' ';
+      };
+    } else {
+      alert("Speech Recognition not supported in this browser.");
+    }
 
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Functions
-        function updateTextStats() {
-            const text = textOutput.value;
-            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-            const chars = text.length;
-            
-            wordCount.textContent = `${words} word${words !== 1 ? 's' : ''}`;
-            charCount.textContent = `${chars} character${chars !== 1 ? 's' : ''}`;
-        }
+    function startRecognition() {
+      if (recognition) recognition.start();
+    }
 
-        function startRecording() {
-            if (!isSupported) return;
-            
-            // Initialize speech recognition
-            recognition = new SpeechRecognition();
-            recognition.lang = languageSelect.value;
-            recognition.interimResults = true;
-            recognition.continuous = continuousMode.checked;
-            
-            // Configure based on options
-            if ('webkitSpeechRecognition' in window) {
-                // Chrome-specific features
-                recognition.interimResults = true;
-                if (punctuationToggle.checked) {
-                    recognition.maxAlternatives = 1;
-                }
-            }
-            
-            recognition.onstart = function() {
-                isRecording = true;
-                startBtn.disabled = true;
-                stopBtn.disabled = false;
-                statusIndicator.querySelector('.indicator-circle').style.backgroundColor = '#00C851';
-                statusIndicator.querySelector('span').textContent = 'Recording...';
-                
-                // Start audio visualization
-                startAudioVisualization();
-            };
-            
-            recognition.onend = function() {
-                if (isRecording && continuousMode.checked) {
-                    recognition.start();
-                } else {
-                    stopRecording();
-                }
-            };
-            
-            recognition.onerror = function(event) {
-                console.error('Speech recognition error', event.error);
-                stopRecording();
-                
-                let errorMessage = 'Error occurred';
-                switch(event.error) {
-                    case 'no-speech':
-                        errorMessage = 'No speech detected';
-                        break;
-                    case 'audio-capture':
-                        errorMessage = 'Microphone not available';
-                        break;
-                    case 'not-allowed':
-                        errorMessage = 'Microphone access denied';
-                        break;
-                }
-                
-                statusIndicator.querySelector('.indicator-circle').style.backgroundColor = '#ff4444';
-                statusIndicator.querySelector('span').textContent = errorMessage;
-            };
-            
-            recognition.onresult = function(event) {
-                let interimTranscript = '';
-                let finalTranscript = '';
-                
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    
-                    if (event.results[i].isFinal) {
-                        // Process final results
-                        let processedText = transcript;
-                        
-                        // Auto capitalization
-                        if (capitalization.checked) {
-                            processedText = capitalizeSentences(processedText);
-                        }
-                        
-                        // Profanity filtering (simple example)
-                        if (profanityFilter.checked) {
-                            processedText = filterProfanity(processedText);
-                        }
-                        
-                        finalTranscript += processedText + ' ';
-                    } else {
-                        interimTranscript += transcript;
-                    }
-                }
-                
-                // Update text output
-                textOutput.value = finalTranscript + interimTranscript;
-                updateTextStats();
-                
-                // Auto-scroll to bottom
-                textOutput.scrollTop = textOutput.scrollHeight;
-            };
-            
-            // Start recognition
-            recognition.start();
-        }
+    function stopRecognition() {
+      if (recognition) recognition.stop();
+    }
 
-        function stopRecording() {
-            if (!isRecording) return;
-            
-            isRecording = false;
-            startBtn.disabled = false;
-            stopBtn.disabled = true;
-            
-            if (recognition) {
-                recognition.stop();
-            }
-            
-            statusIndicator.querySelector('.indicator-circle').style.backgroundColor = '#ffbb33';
-            statusIndicator.querySelector('span').textContent = 'Ready';
-            
-            // Stop audio visualization
-            stopAudioVisualization();
-        }
+    function downloadText() {
+      const text = document.getElementById('result').value;
+      const blob = new Blob([text], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.download = 'speech-to-text.txt';
+      link.href = URL.createObjectURL(blob);
+      link.click();
+    }
 
-        async function startAudioVisualization() {
-            try {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                analyser.fftSize = 256;
-                
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                microphone = audioContext.createMediaStreamSource(stream);
-                microphone.connect(analyser);
-                
-                dataArray = new Uint8Array(analyser.frequencyBinCount);
-                
-                // Clear previous visualization
-                audioVisualizer.innerHTML = '';
-                
-                // Create visualization bars
-                for (let i = 0; i < 32; i++) {
-                    const bar = document.createElement('div');
-                    bar.className = 'visualizer-bar';
-                    audioVisualizer.appendChild(bar);
-                }
-                
-                // Start animation loop
-                visualizeAudio();
-            } catch (error) {
-                console.error('Audio visualization error:', error);
-            }
-        }
-
-        function visualizeAudio() {
-            if (!isRecording) return;
-            
-            analyser.getByteFrequencyData(dataArray);
-            const bars = audioVisualizer.querySelectorAll('.visualizer-bar');
-            
-            for (let i = 0; i < bars.length; i++) {
-                const value = dataArray[i * 4] / 2.55; // Scale to 0-100
-                bars[i].style.height = `${value}%`;
-                bars[i].style.backgroundColor = `hsl(${200 + (value * 1.5)}, 100%, 50%)`;
-            }
-            
-            animationId = requestAnimationFrame(visualizeAudio);
-        }
-
-        function stopAudioVisualization() {
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-                animationId = null;
-            }
-            
-            if (microphone) {
-                microphone.disconnect();
-                microphone = null;
-            }
-            
-            if (audioContext && audioContext.state !== 'closed') {
-                audioContext.close();
-            }
-            
-            // Clear visualization
-            audioVisualizer.innerHTML = '';
-        }
-
-        function capitalizeSentences(text) {
-            // Simple sentence capitalization
-            return text.replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) {
-                return c.toUpperCase();
-            });
-        }
-
-        function filterProfanity(text) {
-            // Simple profanity filter (would be more comprehensive in production)
-            const profanity = [
-                'shit', 'fuck', 'asshole', 'bitch', 'cunt', 
-                'dick', 'piss', 'cock', 'pussy', 'fag'
-            ];
-            
-            let filteredText = text;
-            profanity.forEach(word => {
-                const regex = new RegExp(`\\b${word}\\b`, 'gi');
-                filteredText = filteredText.replace(regex, '*'.repeat(word.length));
-            });
-            
-            return filteredText;
-        }
-
-        function clearText() {
-            textOutput.value = '';
-            updateTextStats();
-        }
-
-        function copyText() {
-            textOutput.select();
-            document.execCommand('copy');
-            
-            // Show temporary feedback
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = 'Copied!';
-            setTimeout(() => {
-                copyBtn.textContent = originalText;
-            }, 2000);
-        }
-    </script>
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const text = document.getElementById('result').value;
+      const lines = doc.splitTextToSize(text, 180);
+      doc.text(lines, 15, 20);
+      doc.save('speech-to-text.pdf');
+    }
+  </script>
 </body>
+
 </html>
