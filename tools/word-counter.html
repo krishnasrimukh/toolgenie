@@ -1,308 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Counter - Count Words & Characters Online | TOOLGENIE</title>
-    <meta name="description" content="Free online word counter tool. Count words, characters, sentences, and paragraphs instantly. Perfect for writers, students, and professionals.">
-    <meta name="keywords" content="word counter, character counter, online word count, text analyzer, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/word-counter.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/word-counter.html">
-    <meta property="og:title" content="Word Counter - Count Words & Characters Online | TOOLGENIE">
-    <meta property="og:description" content="Free online word counter tool. Count words, characters, sentences, and paragraphs instantly.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/word-counter.html">
-    <meta property="twitter:title" content="Word Counter - Count Words & Characters Online | TOOLGENIE">
-    <meta property="twitter:description" content="Free online word counter tool. Count words, characters, sentences, and paragraphs instantly.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Count words and characters easily with TOOLGENIE's Word Counter. Ideal for writers, students, and professionals." />
+  <meta name="keywords" content="Word Counter, Character Counter, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Word Counter Tool | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #333;
+    }
+
+    header,
+    footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      margin-bottom: 1rem;
+    }
+
+    .stats {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
     </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <main class="container">
+    <h1>Word Counter Tool</h1>
+    <p>Paste or type your text below to get word and character count instantly.</p>
+    <textarea id="textInput" oninput="updateStats()" placeholder="Start typing here..."></textarea>
+    <div class="stats">
+      <span id="wordCount">Words: 0</span>
+      <span id="charCount">Characters: 0</span>
+    </div>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>Word Counter</h1>
-            <p class="tool-description">Count words, characters, sentences, and paragraphs in your text instantly. Perfect for writers, students, and professionals who need to meet specific length requirements.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="word-counter">
-                    <div class="text-input">
-                        <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
-                    </div>
-                    
-                    <div class="counter-results">
-                        <div class="result-box">
-                            <div class="result-label">Words</div>
-                            <div class="result-value" id="wordCount">0</div>
-                        </div>
-                        <div class="result-box">
-                            <div class="result-label">Characters</div>
-                            <div class="result-value" id="charCount">0</div>
-                        </div>
-                        <div class="result-box">
-                            <div class="result-label">Characters (no spaces)</div>
-                            <div class="result-value" id="charNoSpacesCount">0</div>
-                        </div>
-                        <div class="result-box">
-                            <div class="result-label">Sentences</div>
-                            <div class="result-value" id="sentenceCount">0</div>
-                        </div>
-                        <div class="result-box">
-                            <div class="result-label">Paragraphs</div>
-                            <div class="result-value" id="paragraphCount">0</div>
-                        </div>
-                        <div class="result-box">
-                            <div class="result-label">Reading Time</div>
-                            <div class="result-value" id="readingTime">0 min</div>
-                        </div>
-                    </div>
-                    
-                    <div class="counter-options">
-                        <h3>Options</h3>
-                        <div class="options-grid">
-                            <div class="option-group">
-                                <label for="countSpaces">
-                                    <input type="checkbox" id="countSpaces" checked>
-                                    Include spaces in character count
-                                </label>
-                            </div>
-                            <div class="option-group">
-                                <label for="readingSpeed">Reading Speed (wpm):</label>
-                                <input type="range" id="readingSpeed" min="100" max="300" value="200">
-                                <span id="readingSpeedValue">200</span>
-                            </div>
-                            <div class="option-group">
-                                <button id="clearTextBtn" class="action-btn secondary">Clear Text</button>
-                                <button id="copyTextBtn" class="action-btn secondary">Copy Text</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Type or paste your text into the textarea.</li>
+        <li>Word and character count will update instantly.</li>
+        <li>This tool is helpful for writers, students, and professionals alike.</li>
+      </ul>
+    </article>
+  </main>
 
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Real-time Counting:</strong> See counts update as you type</li>
-                    <li><strong>Multiple Metrics:</strong> Words, characters, sentences, paragraphs</li>
-                    <li><strong>Reading Time:</strong> Estimate how long your text takes to read</li>
-                    <li><strong>Customizable:</strong> Adjust reading speed and counting preferences</li>
-                    <li><strong>No Limits:</strong> Count text of any length for free</li>
-                </ul>
-            </div>
-        </section>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <script>
+    function updateStats() {
+      const text = document.getElementById('textInput').value.trim();
+      const words = text === '' ? 0 : text.split(/\s+/).length;
+      const chars = text.length;
 
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Use The Word Counter</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Enter Your Text</h3>
-                    <p>Type or paste your text into the input box above.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: View Counts</h3>
-                    <p>See real-time counts for words, characters, sentences, and paragraphs.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Adjust Options</h3>
-                    <p>Customize counting preferences and reading speed if needed.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: Copy or Clear</h3>
-                    <p>Copy your text to clipboard or clear the input for new text.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">How does the word counter work?</h3>
-                <div class="faq-answer">
-                    <p>The word counter splits your text into words based on spaces and punctuation. It counts each distinct word, character, sentence (based on punctuation), and paragraph (based on line breaks).</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Does it count hyphenated words as one or two words?</h3>
-                <div class="faq-answer">
-                    <p>Hyphenated words (like "state-of-the-art") are counted as a single word. This is the standard used by most publishers and word processors.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">How is reading time calculated?</h3>
-                <div class="faq-answer">
-                    <p>Reading time is calculated by dividing the word count by words-per-minute (wpm). The default is 200 wpm (average adult reading speed), but you can adjust this in the options.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Does the counter work with different languages?</h3>
-                <div class="faq-answer">
-                    <p>Yes, the counter works with any language that uses spaces between words. For languages without spaces (like Chinese or Japanese), character count will be accurate but word count may not be.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Is there a limit to how much text I can count?</h3>
-                <div class="faq-answer">
-                    <p>No, you can count text of any length. The tool processes everything in your browser, so there are no server-side limits.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
-    <script>
-        // DOM Elements
-        const textInput = document.getElementById('textInput');
-        const wordCount = document.getElementById('wordCount');
-        const charCount = document.getElementById('charCount');
-        const charNoSpacesCount = document.getElementById('charNoSpacesCount');
-        const sentenceCount = document.getElementById('sentenceCount');
-        const paragraphCount = document.getElementById('paragraphCount');
-        const readingTime = document.getElementById('readingTime');
-        const countSpaces = document.getElementById('countSpaces');
-        const readingSpeed = document.getElementById('readingSpeed');
-        const readingSpeedValue = document.getElementById('readingSpeedValue');
-        const clearTextBtn = document.getElementById('clearTextBtn');
-        const copyTextBtn = document.getElementById('copyTextBtn');
-        
-        // Event Listeners
-        textInput.addEventListener('input', updateCounts);
-        countSpaces.addEventListener('change', updateCounts);
-        readingSpeed.addEventListener('input', updateReadingTime);
-        clearTextBtn.addEventListener('click', clearText);
-        copyTextBtn.addEventListener('click', copyText);
-        
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
-
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Initialize reading speed display
-        readingSpeedValue.textContent = readingSpeed.value;
-        
-        // Functions
-        function updateCounts() {
-            const text = textInput.value;
-            
-            // Word count (split by whitespace and filter out empty strings)
-            const words = text.trim() ? text.trim().split(/\s+/).filter(word => word) : [];
-            wordCount.textContent = words.length;
-            
-            // Character counts
-            charCount.textContent = text.length;
-            charNoSpacesCount.textContent = text.replace(/\s/g, '').length;
-            
-            // Sentence count (split by ., !, ? followed by space or end)
-            const sentences = text.trim() ? text.split(/[.!?]+(?=\s|$)/).filter(s => s.trim()) : [];
-            sentenceCount.textContent = sentences.length;
-            
-            // Paragraph count (split by newlines)
-            const paragraphs = text.trim() ? text.split(/\n+/).filter(p => p.trim()) : [];
-            paragraphCount.textContent = paragraphs.length;
-            
-            // Update reading time
-            updateReadingTime();
-        }
-        
-        function updateReadingTime() {
-            const words = parseInt(wordCount.textContent) || 0;
-            const speed = parseInt(readingSpeed.value);
-            readingSpeedValue.textContent = speed;
-            
-            const minutes = Math.ceil(words / speed);
-            readingTime.textContent = minutes <= 1 ? '1 min' : `${minutes} mins`;
-        }
-        
-        function clearText() {
-            textInput.value = '';
-            updateCounts();
-        }
-        
-        function copyText() {
-            textInput.select();
-            document.execCommand('copy');
-            
-            // Show feedback
-            const originalText = copyTextBtn.textContent;
-            copyTextBtn.textContent = 'Copied!';
-            setTimeout(() => {
-                copyTextBtn.textContent = originalText;
-            }, 2000);
-        }
-    </script>
+      document.getElementById('wordCount').textContent = `Words: ${words}`;
+      document.getElementById('charCount').textContent = `Characters: ${chars}`;
+    }
+  </script>
 </body>
+
 </html>
