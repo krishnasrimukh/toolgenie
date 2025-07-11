@@ -1,84 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Compressor - ToolGenie</title>
-    <meta name="description" content="Compress your images by percentage or target size (KB) with preview. Fast, secure, and free image compressor tool." />
-    <link rel="stylesheet" href="../styles.css" />
-    <script src="/scripts/image-compressor.js" defer></script>
-  </head>
-  <body class="bg-gray-50 text-gray-900">
-    <!-- Navbar -->
-    <header class="navbar sticky top-0 bg-white shadow z-50">
-      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold text-blue-600">ToolGenie</a>
-        <nav class="space-x-4">
-          <a href="/" class="hover:underline">Home</a>
-          <a href="/tools" class="hover:underline">Tools</a>
-          <a href="/contact" class="hover:underline">Contact</a>
-        </nav>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Compress images online with adjustable quality, custom size, and preview options. Simple, fast, and free." />
+  <title>Image Compressor Tool - ToolGenie</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    body {
+      background: #e0eafc;
+      background: linear-gradient(to right, #cfdef3, #e0eafc);
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      background-color: #4f46e5;
+    }
+  </style>
+</head>
+
+<body class="text-gray-800">
+  <!-- Navbar -->
+  <nav class="w-full p-4 bg-white bg-opacity-60 shadow-md glass flex justify-between items-center">
+    <div class="text-2xl font-bold">ToolGenie</div>
+    <ul class="flex space-x-4 text-lg">
+      <li><a href="/" class="hover:text-blue-600">Home</a></li>
+      <li><a href="/tools" class="hover:text-blue-600">Tools</a></li>
+      <li><a href="/contact" class="hover:text-blue-600">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Section -->
+  <main class="max-w-5xl mx-auto mt-10 p-6 glass">
+    <h1 class="text-3xl font-bold mb-4">Image Compressor Tool</h1>
+
+    <!-- Ads Placeholder -->
+    <div class="my-4 w-full h-24 bg-white bg-opacity-40 rounded-md flex items-center justify-center border border-gray-300">
+      <span class="text-gray-500">Ad Space (728x90)</span>
+    </div>
+
+    <!-- Upload and Compression Options -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <div id="drop-area" class="p-4 border-2 border-dashed border-gray-400 rounded-lg bg-white bg-opacity-40 text-center cursor-pointer">
+          <p class="text-gray-700">Drag & drop image here or click to upload</p>
+          <input type="file" id="imageInput" accept="image/*" class="hidden">
+        </div>
+
+        <div class="mt-4">
+          <label class="block mb-2 font-semibold">Compression Mode</label>
+          <select id="mode" class="w-full p-2 border rounded">
+            <option value="percentage">By Percentage</option>
+            <option value="size">By Size (KB)</option>
+          </select>
+        </div>
+
+        <div class="mt-4" id="percentageControl">
+          <label class="block mb-2">Compression Quality: <span id="qualityValue">70%</span></label>
+          <input type="range" id="quality" min="10" max="100" value="70" class="w-full">
+        </div>
+
+        <div class="mt-4 hidden" id="sizeControl">
+          <label class="block mb-2">Target Size (KB)</label>
+          <input type="number" id="targetSize" class="w-full p-2 border rounded" placeholder="e.g. 200">
+        </div>
+
+        <button id="compressBtn" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Compress</button>
       </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-10">
-      <h1 class="text-3xl font-bold mb-4 text-center">Image Compressor</h1>
-      <p class="text-center mb-8 text-gray-600">
-        Drag and drop your image or select one to compress. Choose by percentage or target file size (KB).
-      </p>
+      <div>
+        <h2 class="text-xl font-semibold mb-2">Preview</h2>
+        <div class="flex flex-col items-center">
+          <img id="originalPreview" src="" class="max-w-full mb-2 hidden rounded-lg border">
+          <p id="originalSize" class="text-sm text-gray-600 mb-4"></p>
 
-      <!-- Upload Area -->
-      <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-center mb-6 bg-white shadow-sm" id="upload-area">
-        <input type="file" id="imageInput" accept="image/*" hidden />
-        <button id="uploadButton" class="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700">Upload Image</button>
-        <p class="text-gray-500 mt-4">or drag and drop here</p>
-      </div>
+          <img id="compressedPreview" src="" class="max-w-full hidden rounded-lg border">
+          <p id="compressedSize" class="text-sm text-gray-600"></p>
 
-      <!-- Compression Options -->
-      <div class="bg-white p-6 rounded-xl shadow mb-6">
-        <div class="mb-4">
-          <label class="font-medium">Compression Type:</label>
-          <div class="flex space-x-4 mt-2">
-            <label><input type="radio" name="compressionType" value="percentage" checked /> By Percentage</label>
-            <label><input type="radio" name="compressionType" value="targetSize" /> By Target Size (KB)</label>
-          </div>
-        </div>
-
-        <!-- Percentage Slider -->
-        <div id="percentageSliderWrapper" class="mt-4">
-          <label for="percentageRange" class="font-medium">Compression Level: <span id="percentageValue">70%</span></label>
-          <input type="range" id="percentageRange" min="10" max="100" value="70" class="w-full mt-2" />
-        </div>
-
-        <!-- Target KB Input -->
-        <div id="targetSizeWrapper" class="mt-4 hidden">
-          <label for="targetSize" class="font-medium">Target File Size (KB):</label>
-          <input type="number" id="targetSize" min="10" max="5000" placeholder="e.g., 200" class="w-full mt-2 border rounded px-3 py-2" />
-        </div>
-
-        <button id="compressButton" class="mt-6 bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700">Compress Image</button>
-      </div>
-
-      <!-- Preview Section -->
-      <div id="previewSection" class="grid md:grid-cols-2 gap-6 hidden">
-        <div class="bg-white p-4 rounded-xl shadow">
-          <h2 class="text-lg font-semibold mb-2">Original Image</h2>
-          <img id="originalPreview" src="" alt="Original" class="rounded mb-2 max-w-full" />
-          <p class="text-gray-500 text-sm">Size: <span id="originalSize">-</span> KB</p>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow">
-          <h2 class="text-lg font-semibold mb-2">Compressed Image</h2>
-          <img id="compressedPreview" src="" alt="Compressed" class="rounded mb-2 max-w-full" />
-          <p class="text-gray-500 text-sm">Size: <span id="compressedSize">-</span> KB</p>
-          <a id="downloadButton" href="#" download class="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Download</a>
+          <a id="downloadBtn" href="#" download class="hidden mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Download</a>
         </div>
       </div>
-    </main>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t mt-12 py-6 text-center text-gray-500 text-sm">
-      &copy; 2025 ToolGenie. All rights reserved.
-    </footer>
-  </body>
+    <!-- How to Use Section -->
+    <section class="mt-10">
+      <h3 class="text-2xl font-bold mb-4">How to Use This Tool</h3>
+      <ol class="list-decimal pl-5 space-y-2 text-gray-700">
+        <li>Upload an image by dragging it into the box or clicking to browse files.</li>
+        <li>Select the compression mode: either reduce by percentage or target file size in KB.</li>
+        <li>Adjust the slider or enter the target size.</li>
+        <li>Click the "Compress" button.</li>
+        <li>Preview the original and compressed images and compare sizes.</li>
+        <li>Click the download button to save your optimized image.</li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full mt-10 p-4 glass text-center text-sm text-gray-600">
+    &copy; 2025 ToolGenie. All rights reserved.
+  </footer>
+
+  <script>
+    const dropArea = document.getElementById('drop-area');
+    const imageInput = document.getElementById('imageInput');
+    const originalPreview = document.getElementById('originalPreview');
+    const compressedPreview = document.getElementById('compressedPreview');
+    const originalSize = document.getElementById('originalSize');
+    const compressedSize = document.getElementById('compressedSize');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const compressBtn = document.getElementById('compressBtn');
+    const quality = document.getElementById('quality');
+    const qualityValue = document.getElementById('qualityValue');
+    const mode = document.getElementById('mode');
+    const percentageControl = document.getElementById('percentageControl');
+    const sizeControl = document.getElementById('sizeControl');
+    const targetSize = document.getElementById('targetSize');
+
+    let originalFile;
+
+    dropArea.addEventListener('click', () => imageInput.click());
+    dropArea.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropArea.classList.add('border-blue-500');
+    });
+    dropArea.addEventListener('dragleave', () => {
+      dropArea.classList.remove('border-blue-500');
+    });
+    dropArea.addEventListener('drop', e => {
+      e.preventDefault();
+      dropArea.classList.remove('border-blue-500');
+      const file = e.dataTransfer.files[0];
+      handleImage(file);
+    });
+
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files[0];
+      handleImage(file);
+    });
+
+    quality.addEventListener('input', () => {
+      qualityValue.textContent = `${quality.value}%`;
+    });
+
+    mode.addEventListener('change', () => {
+      if (mode.value === 'percentage') {
+        percentageControl.classList.remove('hidden');
+        sizeControl.classList.add('hidden');
+      } else {
+        percentageControl.classList.add('hidden');
+        sizeControl.classList.remove('hidden');
+      }
+    });
+
+    function handleImage(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+      originalFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        originalPreview.src = e.target.result;
+        originalPreview.classList.remove('hidden');
+        originalSize.textContent = `Original Size: ${(file.size / 1024).toFixed(2)} KB`;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    compressBtn.addEventListener('click', () => {
+      if (!originalFile) return;
+      const img = new Image();
+      img.src = URL.createObjectURL(originalFile);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        let qualityFactor = 0.7;
+
+        if (mode.value === 'percentage') {
+          qualityFactor = quality.value / 100;
+        } else {
+          // binary search to hit target size (approx)
+          let minQ = 0.1, maxQ = 1.0;
+          let bestData;
+          for (let i = 0; i < 10; i++) {
+            let midQ = (minQ + maxQ) / 2;
+            const data = canvas.toDataURL('image/jpeg', midQ);
+            const size = Math.round((data.length * (3/4)) / 1024);
+            if (size > targetSize.value) maxQ = midQ;
+            else {
+              minQ = midQ;
+              bestData = data;
+            }
+          }
+          showCompressed(bestData);
+          return;
+        }
+
+        const compressedData = canvas.toDataURL('image/jpeg', qualityFactor);
+        showCompressed(compressedData);
+      };
+    });
+
+    function showCompressed(data) {
+      compressedPreview.src = data;
+      compressedPreview.classList.remove('hidden');
+      const byteLength = Math.round((data.length * (3/4)) / 1024);
+      compressedSize.textContent = `Compressed Size: ${byteLength} KB`;
+      downloadBtn.href = data;
+      downloadBtn.classList.remove('hidden');
+    }
+  </script>
+</body>
+
 </html>
