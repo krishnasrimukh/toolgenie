@@ -1,95 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contact ToolGenie – Send us your feedback or questions." />
-  <title>Contact - ToolGenie</title>
-  <link rel="stylesheet" href="assets/styles/style.css" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
-      background: #f9fbff;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    p {
-      text-align: center;
-      color: #666;
-    }
-    form {
-      margin-top: 2rem;
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-      margin-bottom: 0.3rem;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 0.7rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-    button {
-      margin-top: 1.5rem;
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    footer {
-      margin-top: 4rem;
-      text-align: center;
-      color: #888;
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact TOOLGENIE - Get in Touch</title>
+    <meta name="description" content="Contact TOOLGENIE for support, suggestions, or partnership inquiries. We'd love to hear from you!">
+    <meta name="keywords" content="contact toolgenie, toolgenie support, tool suggestions">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/icons/favicon.ico">
 </head>
 <body>
+    <!-- Navigation Bar (same as index.html) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
 
-  <h1>Contact Us</h1>
-  <p>If you have questions, suggestions, or found a bug — we’d love to hear from you!</p>
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="contact-section">
+            <h1>Contact Us</h1>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h2>Send Us a Message</h2>
+                    <form id="contactForm" action="thank-you.html" method="GET">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="support">Technical Support</option>
+                                <option value="suggestion">Tool Suggestion</option>
+                                <option value="partnership">Partnership Inquiry</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h2>Other Ways to Reach Us</h2>
+                    <div class="info-item">
+                        <h3>Email</h3>
+                        <p><a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Feedback</h3>
+                        <p>We appreciate your feedback and suggestions for new tools or improvements to existing ones.</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Report Issues</h3>
+                        <p>If you encounter any problems with our tools, please let us know so we can fix them.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <form action="https://formsubmit.co/krishnasrimukh@gmail.com" method="POST">
-    <!-- Prevent spam -->
-    <input type="hidden" name="_captcha" value="false">
-    <!-- Redirect after submission (optional) -->
-    <input type="hidden" name="_next" value="https://toolgenie.in/thank-you.html">
-    
-    <label for="name">Your Name</label>
-    <input type="text" name="name" id="name" required />
+    <!-- Footer (same as index.html) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    <label for="email">Your Email</label>
-    <input type="email" name="email" id="email" required />
-
-    <label for="message">Message</label>
-    <textarea name="message" id="message" rows="5" required></textarea>
-
-    <button type="submit">Send Message</button>
-  </form>
-
-  <footer>
-    &copy; 2025 ToolGenie – We're listening 📩
-  </footer>
-
+    <script src="js/main.js"></script>
 </body>
 </html>
