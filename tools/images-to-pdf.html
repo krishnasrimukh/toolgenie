@@ -1,220 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
-  <meta name="description" content="Convert multiple images to a single PDF online. Upload JPG, PNG, or WebP files, reorder, preview, and download as a high-quality PDF." />
-  <meta name="keywords" content="images to pdf, convert images to pdf, jpg to pdf, png to pdf, image merger pdf, pdf maker from photos" />
+  <meta name="description" content="Easily convert multiple images to a single PDF file. Drag and drop images, preview, and download your PDF instantly." />
+  <meta name="keywords" content="Images to PDF, Convert images to PDF, JPG to PDF, PNG to PDF, image converter tool" />
   <meta name="author" content="TOOLGENIE" />
-  <title>Images to PDF – TOOLGENIE</title>
-  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <title>Images to PDF - TOOLGENIE</title>
+  <link rel="icon" href="/assets/favicon.png" type="image/png" />
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #e0f2fe, #dbeafe);
-      color: #111;
+      padding: 0;
+      background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
     }
 
     header, footer {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 1rem 2rem;
     }
 
-    .logo {
+    header img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    nav {
       display: flex;
       align-items: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      gap: 0.5rem;
-    }
-
-    .logo img {
-      width: 32px;
-      height: 32px;
+      gap: 1rem;
     }
 
     nav a {
-      margin: 0 1rem;
+      color: white;
       text-decoration: none;
-      color: #111;
-    }
-
-    .search-box {
-      background: rgba(255,255,255,0.4);
-      padding: 0.4rem 0.8rem;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.1);
     }
 
     .container {
-      max-width: 750px;
+      max-width: 800px;
       margin: 2rem auto;
-      background: rgba(255,255,255,0.6);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       padding: 2rem;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      color: #374151;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     }
 
     .drop-zone {
-      border: 2px dashed #6b7280;
-      border-radius: 12px;
+      border: 2px dashed #ffffff88;
+      border-radius: 10px;
       padding: 2rem;
       text-align: center;
-      background: rgba(255,255,255,0.3);
       cursor: pointer;
+      margin-bottom: 1.5rem;
     }
 
-    input[type="file"] {
-      display: none;
+    .drop-zone:hover {
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
-    .preview {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      justify-content: center;
-    }
-
-    .preview img {
-      height: 100px;
+    .preview-container img {
+      max-height: 100px;
+      margin: 5px;
       border-radius: 10px;
     }
 
-    .download-btn {
-      display: block;
-      background: #3b82f6;
+    button {
+      background: #00c6ff;
       color: white;
-      padding: 0.6rem 1.2rem;
+      padding: 0.7rem 1.5rem;
       border: none;
       border-radius: 10px;
+      font-size: 1rem;
       cursor: pointer;
-      margin: 2rem auto 0;
-      text-align: center;
+      margin-top: 1rem;
     }
 
-    .how-to-use {
-      margin-top: 3rem;
-      background: rgba(255,255,255,0.5);
-      border-radius: 16px;
-      padding: 1.5rem;
+    button:hover {
+      background: #0072ff;
     }
 
     footer {
-      justify-content: center;
-      gap: 2rem;
+      margin-top: 3rem;
+      padding: 1rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       font-size: 0.9rem;
-      padding-bottom: 2rem;
+    }
+
+    footer a {
+      color: #ffffff;
+      margin: 0 10px;
+      text-decoration: none;
     }
   </style>
 </head>
+
 <body>
   <header>
-    <div class="logo">
-      <img src="/assets/favicon.png" alt="TOOLGENIE Logo" />
-      TOOLGENIE
+    <div style="display: flex; align-items: center;">
+      <img src="/assets/favicon.png" alt="Logo">
+      <h2>TOOLGENIE</h2>
     </div>
     <nav>
       <a href="/index.html">Tools</a>
       <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
     </nav>
-    <input type="text" class="search-box" placeholder="Search..." />
   </header>
 
-  <main class="container">
+  <div class="container">
     <h1>Images to PDF</h1>
-    <p class="subtitle">Upload your images (JPG, PNG, WebP), reorder them, and convert to one clean PDF document.</p>
+    <p>Convert multiple images (JPG, PNG, WebP) into a single high-quality PDF document. Fast, private, and completely free.</p>
 
-    <label for="fileInput" class="drop-zone" id="dropZone">
-      Drag & Drop or Click to Upload Images
-      <input type="file" id="fileInput" accept="image/*" multiple />
-    </label>
+    <div class="drop-zone" id="drop-zone">
+      Drag & drop images here or click to upload
+    </div>
 
-    <div class="preview" id="preview"></div>
+    <input type="file" id="file-input" accept="image/*" multiple hidden>
 
-    <button class="download-btn" id="generatePDF">Download PDF</button>
+    <div class="preview-container" id="preview-container"></div>
 
-    <section class="how-to-use">
+    <button id="convert-btn">Convert to PDF</button>
+    <div id="download-link"></div>
+
+    <article style="margin-top: 2rem;">
       <h2>How to Use This Tool</h2>
-      <p>Select or drag and drop image files. You can upload multiple images and reorder them. After uploading, click "Download PDF" to get a single merged document. This tool is 100% free and works on all devices.</p>
-    </section>
-  </main>
+      <ul>
+        <li>Click the box or drag and drop your image files.</li>
+        <li>Preview your images and confirm order.</li>
+        <li>Click on 'Convert to PDF' to generate your document.</li>
+        <li>A download button will appear once the PDF is ready.</li>
+        <li>No data is uploaded – everything happens in your browser.</li>
+      </ul>
+    </article>
+  </div>
 
   <footer>
-    <a href="/about.html">About</a>
-    <a href="/contact.html">Contact</a>
-    <a href="/privacy.html">Privacy</a>
+    <p>
+      <a href="/about.html">About</a> |
+      <a href="/contact.html">Contact</a> |
+      <a href="/privacy.html">Privacy</a><br>
+      &copy; 2025 TOOLGENIE. All rights reserved.
+    </p>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    const fileInput = document.getElementById("fileInput");
-    const dropZone = document.getElementById("dropZone");
-    const preview = document.getElementById("preview");
-    const generatePDF = document.getElementById("generatePDF");
-    let images = [];
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const previewContainer = document.getElementById('preview-container');
+    const convertBtn = document.getElementById('convert-btn');
+    const downloadLinkDiv = document.getElementById('download-link');
+    let imageFiles = [];
 
-    dropZone.addEventListener("click", () => fileInput.click());
-    dropZone.addEventListener("dragover", e => {
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', e => {
       e.preventDefault();
-      dropZone.style.borderColor = "#3b82f6";
+      dropZone.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
     });
-    dropZone.addEventListener("dragleave", () => {
-      dropZone.style.borderColor = "#6b7280";
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.style.backgroundColor = 'transparent';
     });
-    dropZone.addEventListener("drop", e => {
+    dropZone.addEventListener('drop', e => {
       e.preventDefault();
+      dropZone.style.backgroundColor = 'transparent';
       handleFiles(e.dataTransfer.files);
     });
-    fileInput.addEventListener("change", () => handleFiles(fileInput.files));
+    fileInput.addEventListener('change', e => handleFiles(e.target.files));
 
     function handleFiles(files) {
-      for (const file of files) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          const img = new Image();
-          img.src = e.target.result;
-          preview.appendChild(img);
-          images.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
+      for (let file of files) {
+        if (file.type.startsWith('image/')) {
+          imageFiles.push(file);
+          const reader = new FileReader();
+          reader.onload = () => {
+            const img = document.createElement('img');
+            img.src = reader.result;
+            previewContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
       }
     }
 
-    generatePDF.addEventListener("click", async () => {
-      const {{ jsPDF }} = window.jspdf;
+    convertBtn.addEventListener('click', async () => {
+      if (imageFiles.length === 0) return alert('Please upload images first');
+      const { jsPDF } = window.jspdf;
       const pdf = new jsPDF();
-      for (let i = 0; i < images.length; i++) {
+      for (let i = 0; i < imageFiles.length; i++) {
+        const imgData = await toDataURL(imageFiles[i]);
         const img = new Image();
-        img.src = images[i];
-        await new Promise(res => img.onload = res);
-        const imgProps = pdf.getImageProperties(img);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        img.src = imgData;
+        await new Promise(resolve => img.onload = resolve);
+        const ratio = img.width / img.height;
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        let width = pageWidth;
+        let height = width / ratio;
+        if (height > pageHeight) {
+          height = pageHeight;
+          width = height * ratio;
+        }
         if (i !== 0) pdf.addPage();
-        pdf.addImage(images[i], 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        pdf.addImage(imgData, 'JPEG', (pageWidth - width)/2, (pageHeight - height)/2, width, height);
       }
-      pdf.save("converted.pdf");
+      const pdfBlob = pdf.output('blob');
+      const url = URL.createObjectURL(pdfBlob);
+      downloadLinkDiv.innerHTML = `<a href="${url}" download="images-to-pdf.pdf"><button>Download PDF</button></a>`;
     });
+
+    function toDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+      });
+    }
   </script>
 </body>
+
 </html>
