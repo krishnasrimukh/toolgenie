@@ -1,514 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Compressor - Free Online Tool | TOOLGENIE</title>
-    <meta name="description" content="Free online image compressor tool. Reduce image file size without losing quality. Supports JPG, PNG, GIF, and WebP formats. No installation needed.">
-    <meta name="keywords" content="image compressor, compress images online, reduce image size, free image optimizer, JPG compressor, PNG compressor, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/image-compressor.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/image-compressor.html">
-    <meta property="og:title" content="Image Compressor - Free Online Tool | TOOLGENIE">
-    <meta property="og:description" content="Free online image compressor tool. Reduce image file size without losing quality. Supports JPG, PNG, GIF, and WebP formats.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/image-compressor.html">
-    <meta property="twitter:title" content="Image Compressor - Free Online Tool | TOOLGENIE">
-    <meta property="twitter:description" content="Free online image compressor tool. Reduce image file size without losing quality. Supports JPG, PNG, GIF, and WebP formats.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
-    </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Compressor - ToolGenie</title>
+    <meta name="description" content="Compress your images by percentage or target size (KB) with preview. Fast, secure, and free image compressor tool." />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/scripts/image-compressor.js" defer></script>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <!-- Navbar -->
+    <header class="navbar sticky top-0 bg-white shadow z-50">
+      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold text-blue-600">ToolGenie</a>
+        <nav class="space-x-4">
+          <a href="/" class="hover:underline">Home</a>
+          <a href="/tools" class="hover:underline">Tools</a>
+          <a href="/contact" class="hover:underline">Contact</a>
+        </nav>
+      </div>
+    </header>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
+    <main class="container mx-auto px-4 py-10">
+      <h1 class="text-3xl font-bold mb-4 text-center">Image Compressor</h1>
+      <p class="text-center mb-8 text-gray-600">
+        Drag and drop your image or select one to compress. Choose by percentage or target file size (KB).
+      </p>
+
+      <!-- Upload Area -->
+      <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-center mb-6 bg-white shadow-sm" id="upload-area">
+        <input type="file" id="imageInput" accept="image/*" hidden />
+        <button id="uploadButton" class="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700">Upload Image</button>
+        <p class="text-gray-500 mt-4">or drag and drop here</p>
+      </div>
+
+      <!-- Compression Options -->
+      <div class="bg-white p-6 rounded-xl shadow mb-6">
+        <div class="mb-4">
+          <label class="font-medium">Compression Type:</label>
+          <div class="flex space-x-4 mt-2">
+            <label><input type="radio" name="compressionType" value="percentage" checked /> By Percentage</label>
+            <label><input type="radio" name="compressionType" value="targetSize" /> By Target Size (KB)</label>
+          </div>
         </div>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>Image Compressor</h1>
-            <p class="tool-description">Reduce the file size of your images without significant quality loss. Perfect for optimizing images for websites, emails, or social media. Supports JPG, PNG, GIF, and WebP formats.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="image-compressor">
-                    <div class="upload-area" id="dropArea">
-                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                        <div class="upload-icon">📁</div>
-                        <h3>Drag & Drop your image here</h3>
-                        <p>or</p>
-                        <button id="selectFileBtn" class="upload-btn">Select Image</button>
-                    </div>
-                    <div class="compression-options" style="display: none;">
-                        <h3>Compression Options</h3>
-                        <div class="option-group">
-                            <label for="quality">Quality:</label>
-                            <input type="range" id="quality" min="10" max="100" value="80">
-                            <span id="qualityValue">80%</span>
-                        </div>
-                        <div class="option-group">
-                            <label for="outputFormat">Output Format:</label>
-                            <select id="outputFormat">
-                                <option value="original">Original Format</option>
-                                <option value="jpeg">JPEG</option>
-                                <option value="png">PNG</option>
-                                <option value="webp">WebP</option>
-                            </select>
-                        </div>
-                        <button id="compressBtn" class="action-btn">Compress Image</button>
-                    </div>
-                    <div class="result-area" style="display: none;">
-                        <div class="comparison">
-                            <div class="original">
-                                <h4>Original</h4>
-                                <img id="originalImage" src="" alt="Original Image">
-                                <p id="originalSize"></p>
-                            </div>
-                            <div class="compressed">
-                                <h4>Compressed</h4>
-                                <img id="compressedImage" src="" alt="Compressed Image">
-                                <p id="compressedSize"></p>
-                            </div>
-                        </div>
-                        <div class="savings">
-                            <p>Reduced by <span id="reductionPercent">0%</span> (<span id="sizeSaved">0 KB</span>)</p>
-                        </div>
-                        <button id="downloadBtn" class="action-btn">Download Compressed Image</button>
-                        <button id="newImageBtn" class="action-btn secondary">Compress Another Image</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Multiple Format Support:</strong> Compress JPG, PNG, GIF, and WebP images</li>
-                    <li><strong>Adjustable Quality:</strong> Control the compression level with a simple slider</li>
-                    <li><strong>Format Conversion:</strong> Convert images to different formats during compression</li>
-                    <li><strong>Instant Results:</strong> See before-and-after comparison with file size savings</li>
-                    <li><strong>Privacy Guaranteed:</strong> All processing happens in your browser - we never see your images</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
+        <!-- Percentage Slider -->
+        <div id="percentageSliderWrapper" class="mt-4">
+          <label for="percentageRange" class="font-medium">Compression Level: <span id="percentageValue">70%</span></label>
+          <input type="range" id="percentageRange" min="10" max="100" value="70" class="w-full mt-2" />
         </div>
 
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Use Image Compressor</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Upload Image</h3>
-                    <p>Click the "Select Image" button or drag and drop your image file into the upload area.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: Adjust Settings</h3>
-                    <p>Use the quality slider to set your desired compression level and select output format if needed.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Compress</h3>
-                    <p>Click the "Compress Image" button to process your image with the selected settings.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: Download</h3>
-                    <p>Preview the compressed image and click "Download" to save it to your device.</p>
-                </div>
-            </div>
-        </section>
+        <!-- Target KB Input -->
+        <div id="targetSizeWrapper" class="mt-4 hidden">
+          <label for="targetSize" class="font-medium">Target File Size (KB):</label>
+          <input type="number" id="targetSize" min="10" max="5000" placeholder="e.g., 200" class="w-full mt-2 border rounded px-3 py-2" />
+        </div>
 
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">What is an image compressor?</h3>
-                <div class="faq-answer">
-                    <p>An image compressor reduces the file size of digital images by removing unnecessary data while maintaining acceptable visual quality. This helps images load faster on websites and takes up less storage space.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Will compressing my image reduce its quality?</h3>
-                <div class="faq-answer">
-                    <p>Some quality reduction is inevitable when compressing images, but our tool allows you to control the balance between file size and quality. You can preview the compressed image before downloading to ensure it meets your needs.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">What's the difference between lossy and lossless compression?</h3>
-                <div class="faq-answer">
-                    <p>Lossy compression reduces file size by permanently eliminating certain information (especially redundant data). Lossless compression reduces file size without losing any quality, but the reduction is typically less significant. Our tool primarily uses lossy compression for greater size reduction.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Is there a limit to the image size I can compress?</h3>
-                <div class="faq-answer">
-                    <p>There's no strict limit, but very large images may take longer to process or might cause performance issues in some browsers. For best results, we recommend compressing images under 10MB.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Are my images stored on your servers?</h3>
-                <div class="faq-answer">
-                    <p>No, all image processing happens directly in your browser. Your images never leave your device unless you choose to download the compressed version.</p>
-                </div>
-            </div>
-        </section>
+        <button id="compressButton" class="mt-6 bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700">Compress Image</button>
+      </div>
+
+      <!-- Preview Section -->
+      <div id="previewSection" class="grid md:grid-cols-2 gap-6 hidden">
+        <div class="bg-white p-4 rounded-xl shadow">
+          <h2 class="text-lg font-semibold mb-2">Original Image</h2>
+          <img id="originalPreview" src="" alt="Original" class="rounded mb-2 max-w-full" />
+          <p class="text-gray-500 text-sm">Size: <span id="originalSize">-</span> KB</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow">
+          <h2 class="text-lg font-semibold mb-2">Compressed Image</h2>
+          <img id="compressedPreview" src="" alt="Compressed" class="rounded mb-2 max-w-full" />
+          <p class="text-gray-500 text-sm">Size: <span id="compressedSize">-</span> KB</p>
+          <a id="downloadButton" href="#" download class="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Download</a>
+        </div>
+      </div>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
+    <footer class="bg-white border-t mt-12 py-6 text-center text-gray-500 text-sm">
+      &copy; 2025 ToolGenie. All rights reserved.
     </footer>
-
-    <script src="../js/main.js"></script>
-    <!-- Image Compressor JavaScript -->
-    <script>
-        // DOM Elements
-        const fileInput = document.getElementById('fileInput');
-        const selectFileBtn = document.getElementById('selectFileBtn');
-        const dropArea = document.getElementById('dropArea');
-        const qualitySlider = document.getElementById('quality');
-        const qualityValue = document.getElementById('qualityValue');
-        const outputFormat = document.getElementById('outputFormat');
-        const compressBtn = document.getElementById('compressBtn');
-        const originalImage = document.getElementById('originalImage');
-        const compressedImage = document.getElementById('compressedImage');
-        const originalSize = document.getElementById('originalSize');
-        const compressedSize = document.getElementById('compressedSize');
-        const reductionPercent = document.getElementById('reductionPercent');
-        const sizeSaved = document.getElementById('sizeSaved');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const newImageBtn = document.getElementById('newImageBtn');
-        const compressionOptions = document.querySelector('.compression-options');
-        const resultArea = document.querySelector('.result-area');
-
-        // Current file data
-        let currentFile = null;
-        let compressedFile = null;
-
-        // Event Listeners
-        selectFileBtn.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', handleFileSelect);
-        dropArea.addEventListener('dragover', handleDragOver);
-        dropArea.addEventListener('drop', handleDrop);
-        qualitySlider.addEventListener('input', updateQualityValue);
-        compressBtn.addEventListener('click', compressImage);
-        downloadBtn.addEventListener('click', downloadImage);
-        newImageBtn.addEventListener('click', resetTool);
-
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
-
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Functions
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            processFile(file);
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            dropArea.classList.add('dragover');
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            dropArea.classList.remove('dragover');
-            
-            const file = e.dataTransfer.files[0];
-            processFile(file);
-        }
-
-        function processFile(file) {
-            if (!file.type.match('image.*')) {
-                alert('Please select an image file (JPEG, PNG, GIF, or WebP)');
-                return;
-            }
-
-            currentFile = file;
-            
-            // Display compression options
-            dropArea.style.display = 'none';
-            compressionOptions.style.display = 'block';
-            
-            // Preview original image
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                originalImage.src = e.target.result;
-                originalSize.textContent = formatFileSize(file.size);
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function updateQualityValue() {
-            qualityValue.textContent = `${qualitySlider.value}%`;
-        }
-
-        function compressImage() {
-            if (!currentFile) return;
-            
-            const quality = parseInt(qualitySlider.value) / 100;
-            const format = outputFormat.value === 'original' ? 
-                currentFile.type.split('/')[1] : outputFormat.value;
-            
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    
-                    canvas.toBlob(function(blob) {
-                        compressedFile = blob;
-                        
-                        // Display results
-                        compressedImage.src = URL.createObjectURL(blob);
-                        compressedSize.textContent = formatFileSize(blob.size);
-                        
-                        // Calculate savings
-                        const savings = currentFile.size - blob.size;
-                        const percent = (savings / currentFile.size * 100).toFixed(1);
-                        
-                        sizeSaved.textContent = formatFileSize(savings);
-                        reductionPercent.textContent = `${percent}%`;
-                        
-                        // Show result area
-                        compressionOptions.style.display = 'none';
-                        resultArea.style.display = 'block';
-                        
-                    }, `image/${format}`, quality);
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(currentFile);
-        }
-
-        function downloadImage() {
-            if (!compressedFile) return;
-            
-            const url = URL.createObjectURL(compressedFile);
-            const a = document.createElement('a');
-            a.href = url;
-            
-            // Determine file extension
-            let extension = 'jpg';
-            if (outputFormat.value !== 'original') {
-                extension = outputFormat.value;
-            } else {
-                const type = currentFile.type.split('/')[1];
-                if (type) extension = type;
-            }
-            
-            // Create filename (original name + compressed)
-            const originalName = currentFile.name.split('.')[0];
-            a.download = `${originalName}-compressed.${extension}`;
-            
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        function resetTool() {
-            // Reset all elements
-            fileInput.value = '';
-            currentFile = null;
-            compressedFile = null;
-            
-            dropArea.style.display = 'flex';
-            compressionOptions.style.display = 'none';
-            resultArea.style.display = 'none';
-            
-            originalImage.src = '';
-            compressedImage.src = '';
-            originalSize.textContent = '';
-            compressedSize.textContent = '';
-            reductionPercent.textContent = '0%';
-            sizeSaved.textContent = '0 KB';
-        }
-
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-    </script>
-    <style>
-        /* Image Compressor Specific Styles */
-        .image-compressor {
-            width: 100%;
-        }
-        
-        .upload-area {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-            transition: var(--transition);
-        }
-        
-        .upload-area:hover, .upload-area.dragover {
-            border-color: var(--primary-color);
-            background: rgba(74, 107, 255, 0.05);
-        }
-        
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .upload-btn, .action-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            transition: var(--transition);
-        }
-        
-        .action-btn.secondary {
-            background: var(--secondary-color);
-            margin-left: 1rem;
-        }
-        
-        .upload-btn:hover, .action-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        .option-group {
-            margin: 1rem 0;
-        }
-        
-        .option-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .option-group input[type="range"] {
-            width: 100%;
-            margin-bottom: 0.5rem;
-        }
-        
-        .option-group select {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        
-        .comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .comparison img {
-            max-width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            border: 1px solid #eee;
-            border-radius: 4px;
-        }
-        
-        .comparison h4 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-        
-        .savings {
-            text-align: center;
-            margin: 1.5rem 0;
-            font-size: 1.1rem;
-        }
-        
-        .savings span {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-        
-        @media (max-width: 768px) {
-            .comparison {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</body>
+  </body>
 </html>
