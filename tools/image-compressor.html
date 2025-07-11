@@ -1,223 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Compress images online with adjustable quality, custom size, and preview options. Simple, fast, and free." />
-  <title>Image Compressor Tool - ToolGenie</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Free online Image Compressor Tool – Reduce image size in KB with drag & drop upload, preview, slider control, and instant download. No watermark." />
+  <meta name="keywords" content="image compressor, compress image, reduce image size, online image compression, jpg compressor, png compressor, resize image" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Image Compressor – TOOLGENIE</title>
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
   <style>
     body {
-      background: #e0eafc;
-      background: linear-gradient(to right, #cfdef3, #e0eafc);
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+      color: #111;
     }
-    .glass {
-      background: rgba(255, 255, 255, 0.2);
+
+    header, footer {
+      background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: #4f46e5;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #111;
+    }
+
+    .search-box {
+      background: rgba(255,255,255,0.4);
+      padding: 0.4rem 0.8rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.6);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .drop-zone {
+      border: 2px dashed #6b7280;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .control-group {
+      margin-top: 1.5rem;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    input[type="number"],
+    input[type="range"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .preview {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .preview img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .how-to-use {
+      margin-top: 3rem;
+      background: rgba(255,255,255,0.5);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    footer {
+      justify-content: center;
+      gap: 2rem;
+      font-size: 0.9rem;
+      padding-bottom: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      nav a {
+        margin: 0 0.5rem;
+      }
     }
   </style>
 </head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="/assets/favicon.png" alt="TOOLGENIE Logo" />
+      TOOLGENIE
+    </div>
+    <nav>
+      <a href="/index.html">Tools</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <input type="text" class="search-box" placeholder="Search..." />
+  </header>
 
-<body class="text-gray-800">
-  <!-- Navbar -->
-  <nav class="w-full p-4 bg-white bg-opacity-60 shadow-md glass flex justify-between items-center">
-    <div class="text-2xl font-bold">ToolGenie</div>
-    <ul class="flex space-x-4 text-lg">
-      <li><a href="/" class="hover:text-blue-600">Home</a></li>
-      <li><a href="/tools" class="hover:text-blue-600">Tools</a></li>
-      <li><a href="/contact" class="hover:text-blue-600">Contact</a></li>
-    </ul>
-  </nav>
+  <main class="container">
+    <h1>Image Compressor</h1>
 
-  <!-- Main Section -->
-  <main class="max-w-5xl mx-auto mt-10 p-6 glass">
-    <h1 class="text-3xl font-bold mb-4">Image Compressor Tool</h1>
+    <label for="fileInput" class="drop-zone" id="dropZone">
+      Drag & Drop or Click to Upload Image
+      <input type="file" id="fileInput" accept="image/*" />
+    </label>
 
-    <!-- Ads Placeholder -->
-    <div class="my-4 w-full h-24 bg-white bg-opacity-40 rounded-md flex items-center justify-center border border-gray-300">
-      <span class="text-gray-500">Ad Space (728x90)</span>
+    <div class="control-group">
+      <label for="targetSize">Target size (in KB)</label>
+      <input type="number" id="targetSize" value="200" />
     </div>
 
-    <!-- Upload and Compression Options -->
-    <div class="grid md:grid-cols-2 gap-6">
-      <div>
-        <div id="drop-area" class="p-4 border-2 border-dashed border-gray-400 rounded-lg bg-white bg-opacity-40 text-center cursor-pointer">
-          <p class="text-gray-700">Drag & drop image here or click to upload</p>
-          <input type="file" id="imageInput" accept="image/*" class="hidden">
-        </div>
-
-        <div class="mt-4">
-          <label class="block mb-2 font-semibold">Compression Mode</label>
-          <select id="mode" class="w-full p-2 border rounded">
-            <option value="percentage">By Percentage</option>
-            <option value="size">By Size (KB)</option>
-          </select>
-        </div>
-
-        <div class="mt-4" id="percentageControl">
-          <label class="block mb-2">Compression Quality: <span id="qualityValue">70%</span></label>
-          <input type="range" id="quality" min="10" max="100" value="70" class="w-full">
-        </div>
-
-        <div class="mt-4 hidden" id="sizeControl">
-          <label class="block mb-2">Target Size (KB)</label>
-          <input type="number" id="targetSize" class="w-full p-2 border rounded" placeholder="e.g. 200">
-        </div>
-
-        <button id="compressBtn" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Compress</button>
-      </div>
-
-      <div>
-        <h2 class="text-xl font-semibold mb-2">Preview</h2>
-        <div class="flex flex-col items-center">
-          <img id="originalPreview" src="" class="max-w-full mb-2 hidden rounded-lg border">
-          <p id="originalSize" class="text-sm text-gray-600 mb-4"></p>
-
-          <img id="compressedPreview" src="" class="max-w-full hidden rounded-lg border">
-          <p id="compressedSize" class="text-sm text-gray-600"></p>
-
-          <a id="downloadBtn" href="#" download class="hidden mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Download</a>
-        </div>
-      </div>
+    <div class="control-group">
+      <label for="compressionRange">Compression Level: <span id="compressionValue">70</span>%</label>
+      <input type="range" id="compressionRange" min="10" max="100" value="70" />
     </div>
 
-    <!-- How to Use Section -->
-    <section class="mt-10">
-      <h3 class="text-2xl font-bold mb-4">How to Use This Tool</h3>
-      <ol class="list-decimal pl-5 space-y-2 text-gray-700">
-        <li>Upload an image by dragging it into the box or clicking to browse files.</li>
-        <li>Select the compression mode: either reduce by percentage or target file size in KB.</li>
-        <li>Adjust the slider or enter the target size.</li>
-        <li>Click the "Compress" button.</li>
-        <li>Preview the original and compressed images and compare sizes.</li>
-        <li>Click the download button to save your optimized image.</li>
-      </ol>
+    <div class="preview" id="previewContainer" style="display:none;">
+      <p><strong>Preview:</strong></p>
+      <img id="previewImage" />
+      <p>Compressed Size: <span id="compressedSize">0</span> KB</p>
+      <a id="downloadBtn" class="download-btn" download="compressed-image.jpg">Download</a>
+    </div>
+
+    <section class="how-to-use">
+      <h2>How to Use This Tool</h2>
+      <p>Upload your image by dragging it into the box or clicking to select files. Set the desired output file size in KB and adjust the compression slider as needed. Once the image is processed, you can preview it and click the download button to save your optimized image.</p>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="w-full mt-10 p-4 glass text-center text-sm text-gray-600">
-    &copy; 2025 ToolGenie. All rights reserved.
+  <footer>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/privacy.html">Privacy</a>
   </footer>
 
   <script>
-    const dropArea = document.getElementById('drop-area');
-    const imageInput = document.getElementById('imageInput');
-    const originalPreview = document.getElementById('originalPreview');
-    const compressedPreview = document.getElementById('compressedPreview');
-    const originalSize = document.getElementById('originalSize');
-    const compressedSize = document.getElementById('compressedSize');
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const compressionRange = document.getElementById('compressionRange');
+    const compressionValue = document.getElementById('compressionValue');
+    const previewImage = document.getElementById('previewImage');
+    const previewContainer = document.getElementById('previewContainer');
     const downloadBtn = document.getElementById('downloadBtn');
-    const compressBtn = document.getElementById('compressBtn');
-    const quality = document.getElementById('quality');
-    const qualityValue = document.getElementById('qualityValue');
-    const mode = document.getElementById('mode');
-    const percentageControl = document.getElementById('percentageControl');
-    const sizeControl = document.getElementById('sizeControl');
-    const targetSize = document.getElementById('targetSize');
+    const compressedSize = document.getElementById('compressedSize');
 
-    let originalFile;
+    compressionRange.oninput = () => {
+      compressionValue.textContent = compressionRange.value;
+    };
 
-    dropArea.addEventListener('click', () => imageInput.click());
-    dropArea.addEventListener('dragover', e => {
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', e => {
       e.preventDefault();
-      dropArea.classList.add('border-blue-500');
+      dropZone.style.borderColor = "#3b82f6";
     });
-    dropArea.addEventListener('dragleave', () => {
-      dropArea.classList.remove('border-blue-500');
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.style.borderColor = "#6b7280";
     });
-    dropArea.addEventListener('drop', e => {
+
+    dropZone.addEventListener('drop', e => {
       e.preventDefault();
-      dropArea.classList.remove('border-blue-500');
-      const file = e.dataTransfer.files[0];
-      handleImage(file);
+      fileInput.files = e.dataTransfer.files;
+      handleFile(fileInput.files[0]);
     });
 
-    imageInput.addEventListener('change', () => {
-      const file = imageInput.files[0];
-      handleImage(file);
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) handleFile(fileInput.files[0]);
     });
 
-    quality.addEventListener('input', () => {
-      qualityValue.textContent = `${quality.value}%`;
-    });
-
-    mode.addEventListener('change', () => {
-      if (mode.value === 'percentage') {
-        percentageControl.classList.remove('hidden');
-        sizeControl.classList.add('hidden');
-      } else {
-        percentageControl.classList.add('hidden');
-        sizeControl.classList.remove('hidden');
-      }
-    });
-
-    function handleImage(file) {
-      if (!file || !file.type.startsWith('image/')) return;
-      originalFile = file;
+    function handleFile(file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        originalPreview.src = e.target.result;
-        originalPreview.classList.remove('hidden');
-        originalSize.textContent = `Original Size: ${(file.size / 1024).toFixed(2)} KB`;
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+
+          let quality = compressionRange.value / 100;
+          const targetSizeKB = parseInt(document.getElementById('targetSize').value);
+          let compressedBlob;
+
+          function compress() {
+            return new Promise((resolve) => {
+              canvas.toBlob(blob => {
+                compressedBlob = blob;
+                if (blob.size / 1024 > targetSizeKB && quality > 0.1) {
+                  quality -= 0.05;
+                  canvas.toBlob(blob2 => {
+                    compressedBlob = blob2;
+                    resolve(blob2);
+                  }, 'image/jpeg', quality);
+                } else {
+                  resolve(blob);
+                }
+              }, 'image/jpeg', quality);
+            });
+          }
+
+          compress().then(() => {
+            const url = URL.createObjectURL(compressedBlob);
+            previewImage.src = url;
+            previewContainer.style.display = 'block';
+            downloadBtn.href = url;
+            compressedSize.textContent = Math.round(compressedBlob.size / 1024);
+          });
+        };
+        img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
-
-    compressBtn.addEventListener('click', () => {
-      if (!originalFile) return;
-      const img = new Image();
-      img.src = URL.createObjectURL(originalFile);
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-
-        let qualityFactor = 0.7;
-
-        if (mode.value === 'percentage') {
-          qualityFactor = quality.value / 100;
-        } else {
-          // binary search to hit target size (approx)
-          let minQ = 0.1, maxQ = 1.0;
-          let bestData;
-          for (let i = 0; i < 10; i++) {
-            let midQ = (minQ + maxQ) / 2;
-            const data = canvas.toDataURL('image/jpeg', midQ);
-            const size = Math.round((data.length * (3/4)) / 1024);
-            if (size > targetSize.value) maxQ = midQ;
-            else {
-              minQ = midQ;
-              bestData = data;
-            }
-          }
-          showCompressed(bestData);
-          return;
-        }
-
-        const compressedData = canvas.toDataURL('image/jpeg', qualityFactor);
-        showCompressed(compressedData);
-      };
-    });
-
-    function showCompressed(data) {
-      compressedPreview.src = data;
-      compressedPreview.classList.remove('hidden');
-      const byteLength = Math.round((data.length * (3/4)) / 1024);
-      compressedSize.textContent = `Compressed Size: ${byteLength} KB`;
-      downloadBtn.href = data;
-      downloadBtn.classList.remove('hidden');
-    }
   </script>
 </body>
-
 </html>
