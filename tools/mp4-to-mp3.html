@@ -1,216 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MP4 to MP3 Converter - ToolGenie</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #fff;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .heading {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .subheading {
-      text-align: center;
-      color: #555;
-      font-size: 16px;
-      margin-bottom: 30px;
-    }
-
-    .drop-area {
-      border: 2px dashed #007BFF;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-
-    .drop-area.dragover {
-      background-color: #f0f8ff;
-    }
-
-    .browse-label {
-      color: #007BFF;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    video, audio {
-      width: 100%;
-      margin-top: 15px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .button {
-      padding: 10px 20px;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 20px;
-      display: inline-block;
-      transition: background 0.3s;
-    }
-
-    .button:hover {
-      background-color: #0056b3;
-    }
-
-    .preview-section {
-      margin-top: 30px;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP4 to MP3 - Extract Audio from Video Online | TOOLGENIE</title>
+    <meta name="description" content="Free online tool to convert MP4 videos to MP3 audio files. Extract audio from videos quickly and easily. No installation needed.">
+    <meta name="keywords" content="mp4 to mp3, video to audio, extract audio from video, convert video to mp3, online audio converter, toolgenie">
+    <meta name="author" content="TOOLGENIE">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolgenie.in/tools/mp4-to-mp3.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolgenie.in/tools/mp4-to-mp3.html">
+    <meta property="og:title" content="MP4 to MP3 - Extract Audio from Video Online | TOOLGENIE">
+    <meta property="og:description" content="Free online tool to convert MP4 videos to MP3 audio files. Extract audio from videos quickly and easily. No installation needed.">
+    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolgenie.in/tools/mp4-to-mp3.html">
+    <meta property="twitter:title" content="MP4 to MP3 - Extract Audio from Video Online | TOOLGENIE">
+    <meta property="twitter:description" content="Free online tool to convert MP4 videos to MP3 audio files. Extract audio from videos quickly and easily. No installation needed.">
+    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/icons/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/ffmpeg.js@1.1.0/ffmpeg.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1 class="heading">🎵 MP4 to MP3 Converter</h1>
-    <p class="subheading">Extract audio from your video files easily</p>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../about.html" class="nav-link">About</a>
+                <a href="../contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
 
-    <div class="drop-area" id="drop-area">
-      <p>Drag & Drop MP4 file here or <label for="fileInput" class="browse-label">Browse</label></p>
-      <input type="file" id="fileInput" accept="video/mp4" hidden />
-    </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ad Space (Top) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
 
-    <div class="preview-section" id="previewSection" style="display: none;">
-      <h3>Video Preview</h3>
-      <video id="videoPreview" controls></video>
+        <!-- Tool Container -->
+        <section class="tool-container">
+            <h1>MP4 to MP3 Converter</h1>
+            <p class="tool-description">Extract audio from your MP4 videos and save them as high-quality MP3 files. Perfect for creating audio clips from videos or saving music from video files.</p>
+            
+            <!-- Tool Interface -->
+            <div class="tool-interface">
+                <div class="mp4-to-mp3">
+                    <div class="upload-area" id="dropArea">
+                        <input type="file" id="fileInput" accept="video/mp4" style="display: none;">
+                        <div class="upload-icon">📁</div>
+                        <h3>Drag & Drop your MP4 video here</h3>
+                        <p>or</p>
+                        <button id="selectFileBtn" class="upload-btn">Select MP4 File</button>
+                    </div>
+                    <div class="options" style="display: none;">
+                        <h3>Video Info</h3>
+                        <div class="video-info">
+                            <div class="video-preview">
+                                <video id="videoPreview" controls style="max-width: 100%;"></video>
+                            </div>
+                            <div class="video-details">
+                                <p><strong>File Name:</strong> <span id="fileName"></span></p>
+                                <p><strong>File Size:</strong> <span id="fileSize"></span></p>
+                                <p><strong>Duration:</strong> <span id="videoDuration"></span></p>
+                            </div>
+                        </div>
+                        <div class="audio-options">
+                            <h3>Audio Options</h3>
+                            <div class="option-group">
+                                <label for="audioQuality">Audio Quality:</label>
+                                <select id="audioQuality">
+                                    <option value="320">High Quality (320 kbps)</option>
+                                    <option value="256" selected>Good Quality (256 kbps)</option>
+                                    <option value="192">Medium Quality (192 kbps)</option>
+                                    <option value="128">Standard Quality (128 kbps)</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label for="trimStart">Trim Start (seconds):</label>
+                                <input type="number" id="trimStart" min="0" value="0" step="1">
+                            </div>
+                            <div class="option-group">
+                                <label for="trimEnd">Trim End (seconds):</label>
+                                <input type="number" id="trimEnd" min="0" value="0" step="1">
+                            </div>
+                        </div>
+                        <button id="convertBtn" class="action-btn">Convert to MP3</button>
+                        <div class="progress-container" style="display: none;">
+                            <p>Converting... <span id="progressPercent">0</span>%</p>
+                            <progress id="conversionProgress" value="0" max="100"></progress>
+                        </div>
+                        <button id="downloadBtn" class="action-btn" style="display: none;">Download MP3</button>
+                        <button id="newFileBtn" class="action-btn secondary">New File</button>
+                    </div>
+                </div>
+            </div>
 
-      <button class="button" onclick="convertToMP3()">Convert to MP3</button>
+            <!-- Tool Features -->
+            <div class="tool-features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>High Quality Audio:</strong> Extract MP3 audio at up to 320 kbps quality</li>
+                    <li><strong>Trim Functionality:</strong> Select specific portions of the video to convert</li>
+                    <li><strong>Fast Processing:</strong> Quick conversion with progress tracking</li>
+                    <li><strong>Privacy Guaranteed:</strong> All processing happens in your browser</li>
+                    <li><strong>No Watermarks:</strong> Your converted audio is completely clean</li>
+                </ul>
+            </div>
+        </section>
 
-      <div id="audioSection" style="display: none;">
-        <h3>MP3 Preview</h3>
-        <audio id="audioPreview" controls></audio>
-        <a id="downloadBtn" class="button" download="converted-audio.mp3">Download MP3</a>
-      </div>
-    </div>
-  </div>
+        <!-- Ad Space (Middle) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
 
-  <script>
-    const fileInput = document.getElementById("fileInput");
-    const dropArea = document.getElementById("drop-area");
-    const videoPreview = document.getElementById("videoPreview");
-    const audioPreview = document.getElementById("audioPreview");
-    const previewSection = document.getElementById("previewSection");
-    const audioSection = document.getElementById("audioSection");
-    const downloadBtn = document.getElementById("downloadBtn");
+        <!-- How To Use Section -->
+        <section class="how-to-use">
+            <h2>How To Convert MP4 to MP3</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Upload MP4</h3>
+                    <p>Click "Select MP4 File" or drag and drop your MP4 video into the upload area.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Set Options</h3>
+                    <p>Choose audio quality and optionally set start/end times to trim the audio.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Convert</h3>
+                    <p>Click "Convert to MP3" to extract the audio from your video.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 4: Download</h3>
+                    <p>Click "Download MP3" to save your audio file to your device.</p>
+                </div>
+            </div>
+        </section>
 
-    let selectedFile;
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What's the difference between MP4 and MP3?</h3>
+                <div class="faq-answer">
+                    <p>MP4 is a video file format that contains both video and audio data, while MP3 is an audio-only format that contains just the audio track.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Will converting MP4 to MP3 reduce quality?</h3>
+                <div class="faq-answer">
+                    <p>The audio quality depends on the bitrate you choose. Higher bitrates (like 320 kbps) preserve more quality but result in larger files.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Can I convert only part of a video?</h3>
+                <div class="faq-answer">
+                    <p>Yes, you can specify start and end times to extract just a portion of the video's audio.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How long does conversion take?</h3>
+                <div class="faq-answer">
+                    <p>Conversion time depends on your device's processing power and the length of the video. Short videos typically convert in seconds.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Are my videos stored on your servers?</h3>
+                <div class="faq-answer">
+                    <p>No, all video processing happens directly in your browser. Your videos never leave your device.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    dropArea.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      dropArea.classList.add("dragover");
-    });
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    dropArea.addEventListener("dragleave", () => {
-      dropArea.classList.remove("dragover");
-    });
+    <script src="../js/main.js"></script>
+    <script>
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const dropArea = document.getElementById('dropArea');
+        const videoPreview = document.getElementById('videoPreview');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const videoDuration = document.getElementById('videoDuration');
+        const audioQuality = document.getElementById('audioQuality');
+        const trimStart = document.getElementById('trimStart');
+        const trimEnd = document.getElementById('trimEnd');
+        const convertBtn = document.getElementById('convertBtn');
+        const progressContainer = document.querySelector('.progress-container');
+        const progressPercent = document.getElementById('progressPercent');
+        const conversionProgress = document.getElementById('conversionProgress');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newFileBtn = document.getElementById('newFileBtn');
+        const optionsSection = document.querySelector('.options');
 
-    dropArea.addEventListener("drop", (e) => {
-      e.preventDefault();
-      dropArea.classList.remove("dragover");
-      const file = e.dataTransfer.files[0];
-      handleFile(file);
-    });
+        // Current file and converted data
+        let currentFile = null;
+        let mp3Blob = null;
+        let ffmpeg = null;
 
-    document.querySelector(".browse-label").addEventListener("click", () => fileInput.click());
-    fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
+        // Event Listeners
+        selectFileBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+        dropArea.addEventListener('dragover', handleDragOver);
+        dropArea.addEventListener('drop', handleDrop);
+        convertBtn.addEventListener('click', convertToMp3);
+        downloadBtn.addEventListener('click', downloadMp3);
+        newFileBtn.addEventListener('click', resetTool);
 
-    function handleFile(file) {
-      if (!file || file.type !== "video/mp4") return alert("Please upload a valid MP4 video file.");
-      selectedFile = file;
-      videoPreview.src = URL.createObjectURL(file);
-      previewSection.style.display = "block";
-      audioSection.style.display = "none";
-    }
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.classList.toggle('active');
+            });
+        });
 
-    function convertToMP3() {
-      if (!selectedFile) return alert("Please upload a video first.");
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-      const video = document.createElement("video");
-      video.src = URL.createObjectURL(selectedFile);
-
-      // Create audio context to extract audio
-      const reader = new FileReader();
-      reader.readAsArrayBuffer(selectedFile);
-
-      reader.onload = async function () {
-        const context = new AudioContext();
-        const buffer = await context.decodeAudioData(reader.result);
-
-        const offlineCtx = new OfflineAudioContext(1, buffer.length, buffer.sampleRate);
-        const source = offlineCtx.createBufferSource();
-        source.buffer = buffer;
-        source.connect(offlineCtx.destination);
-        source.start();
-
-        const renderedBuffer = await offlineCtx.startRendering();
-        const wavBlob = bufferToWavBlob(renderedBuffer);
-        const mp3Url = URL.createObjectURL(wavBlob);
-
-        audioPreview.src = mp3Url;
-        downloadBtn.href = mp3Url;
-        audioSection.style.display = "block";
-      };
-    }
-
-    function bufferToWavBlob(buffer) {
-      const length = buffer.length * buffer.numberOfChannels * 2 + 44;
-      const bufferArray = new ArrayBuffer(length);
-      const view = new DataView(bufferArray);
-
-      function writeString(view, offset, string) {
-        for (let i = 0; i < string.length; i++) {
-          view.setUint8(offset + i, string.charCodeAt(i));
+        // Functions
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            processFile(file);
         }
-      }
 
-      let offset = 0;
-
-      writeString(view, offset, "RIFF"); offset += 4;
-      view.setUint32(offset, 36 + buffer.length * 2, true); offset += 4;
-      writeString(view, offset, "WAVE"); offset += 4;
-      writeString(view, offset, "fmt "); offset += 4;
-      view.setUint32(offset, 16, true); offset += 4;
-      view.setUint16(offset, 1, true); offset += 2;
-      view.setUint16(offset, buffer.numberOfChannels, true); offset += 2;
-      view.setUint32(offset, buffer.sampleRate, true); offset += 4;
-      view.setUint32(offset, buffer.sampleRate * buffer.numberOfChannels * 2, true); offset += 4;
-      view.setUint16(offset, buffer.numberOfChannels * 2, true); offset += 2;
-      view.setUint16(offset, 16, true); offset += 2;
-      writeString(view, offset, "data"); offset += 4;
-      view.setUint32(offset, buffer.length * 2, true); offset += 4;
-
-      for (let i = 0; i < buffer.length; i++) {
-        for (let ch = 0; ch < buffer.numberOfChannels; ch++) {
-          const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
-          view.setInt16(offset, sample * 0x7FFF, true);
-          offset += 2;
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea.classList.add('dragover');
         }
-      }
 
-      return new Blob([view], { type: "audio/wav" });
-    }
-  </script>
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            processFile(file);
+        }
+
+        function processFile(file) {
+            if (!file.type.match('video/mp4') && !file.name.match(/\.mp4$/i)) {
+                alert('Please select an MP4 video file');
+                return;
+            }
+
+            currentFile = file;
+            
+            // Display options
+            dropArea.style.display = 'none';
+            optionsSection.style.display = 'block';
+            progressContainer.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            
+            // Display file info
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            
+            // Set up video preview
+            const videoURL = URL.createObjectURL(file);
+            videoPreview.src = videoURL;
+            
+            // Get video duration when metadata loads
+            videoPreview.onloadedmetadata = function() {
+                const duration = videoPreview.duration;
+                videoDuration.textContent = formatTime(duration);
+                
+                // Set default trim end to full duration
+                trimEnd.value = Math.floor(duration);
+            };
+        }
+
+        async function convertToMp3() {
+            if (!currentFile) return;
+            
+            try {
+                // Show progress
+                convertBtn.disabled = true;
+                progressContainer.style.display = 'block';
+                
+                // Load ffmpeg if not already loaded
+                if (!ffmpeg) {
+                    ffmpeg = createFFmpeg({ log: true });
+                    await ffmpeg.load();
+                }
+                
+                // Read the file
+                const data = await readFileAsArrayBuffer(currentFile);
+                ffmpeg.FS('writeFile', 'input.mp4', new Uint8Array(data));
+                
+                // Get trim options
+                const startTime = parseInt(trimStart.value) || 0;
+                const endTime = parseInt(trimEnd.value) || 0;
+                let command = ['-i', 'input.mp4', '-q:a', '0', '-map', 'a'];
+                
+                // Add trim filters if specified
+                if (startTime > 0 || endTime > 0) {
+                    const duration = endTime > startTime ? endTime - startTime : 0;
+                    command = [
+                        '-i', 'input.mp4',
+                        '-ss', startTime.toString(),
+                        ...(duration > 0 ? ['-t', duration.toString()] : []),
+                        '-q:a', '0',
+                        '-map', 'a'
+                    ];
+                }
+                
+                // Set audio quality
+                const quality = audioQuality.value;
+                if (quality === '320') {
+                    command.push('-b:a', '320k');
+                } else if (quality === '256') {
+                    command.push('-b:a', '256k');
+                } else if (quality === '192') {
+                    command.push('-b:a', '192k');
+                } else {
+                    command.push('-b:a', '128k');
+                }
+                
+                command.push('output.mp3');
+                
+                // Run ffmpeg command
+                await ffmpeg.run(...command);
+                
+                // Get the result
+                const output = ffmpeg.FS('readFile', 'output.mp3');
+                mp3Blob = new Blob([output.buffer], { type: 'audio/mp3' });
+                
+                // Show download button
+                downloadBtn.style.display = 'inline-block';
+                convertBtn.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Conversion error:', error);
+                alert('An error occurred during conversion. Please try again.');
+            } finally {
+                convertBtn.disabled = false;
+            }
+        }
+
+        function downloadMp3() {
+            if (!mp3Blob) return;
+            
+            const url = URL.createObjectURL(mp3Blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            // Create filename (original name with .mp3 extension)
+            const originalName = currentFile.name.replace(/\.[^/.]+$/, "");
+            a.download = `${originalName}.mp3`;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function resetTool() {
+            // Reset all elements
+            fileInput.value = '';
+            currentFile = null;
+            mp3Blob = null;
+            
+            if (videoPreview.src) {
+                URL.revokeObjectURL(videoPreview.src);
+                videoPreview.src = '';
+            }
+            
+            dropArea.style.display = 'flex';
+            optionsSection.style.display = 'none';
+            
+            fileName.textContent = '';
+            fileSize.textContent = '';
+            videoDuration.textContent = '';
+            progressContainer.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            convertBtn.style.display = 'inline-block';
+            convertBtn.disabled = false;
+        }
+
+        function readFileAsArrayBuffer(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    </script>
+    <style>
+        /* MP4 to MP3 Specific Styles */
+        .mp4-to-mp3 {
+            width: 100%;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            transition: var(--transition);
+        }
+        
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: rgba(74, 107, 255, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-btn, .action-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: var(--transition);
+        }
+        
+        .action-btn.secondary {
+            background: var(--secondary-color);
+            margin-left: 1rem;
+        }
+        
+        .upload-btn:hover, .action-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .video-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .video-preview video {
+            width: 100%;
+            max-height: 200px;
+            background: black;
+            border-radius: 4px;
+        }
+        
+        .video-details {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        
+        .video-details p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .audio-options {
+            margin: 1.5rem 0;
+        }
+        
+        .option-group {
+            margin: 1rem 0;
+        }
+        
+        .option-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .option-group select, .option-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .progress-container {
+            margin: 1rem 0;
+        }
+        
+        .progress-container p {
+            margin-bottom: 0.5rem;
+        }
+        
+        progress {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .video-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </body>
 </html>
