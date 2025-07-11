@@ -1,439 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Zone Converter - Convert Time Zones Online | TOOLGENIE</title>
-    <meta name="description" content="Free online time zone converter. Compare and convert time between different time zones worldwide. Perfect for scheduling international meetings and calls.">
-    <meta name="keywords" content="time zone converter, world clock, time zone calculator, convert time zones, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/time-zone-converter.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/time-zone-converter.html">
-    <meta property="og:title" content="Time Zone Converter - Convert Time Zones Online | TOOLGENIE">
-    <meta property="og:description" content="Free online time zone converter. Compare and convert time between different time zones worldwide.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/time-zone-converter.html">
-    <meta property="twitter:title" content="Time Zone Converter - Convert Time Zones Online | TOOLGENIE">
-    <meta property="twitter:description" content="Free online time zone converter. Compare and convert time between different time zones worldwide.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Easily convert time between different time zones with TOOLGENIE's Time Zone Converter Tool." />
+  <meta name="keywords" content="Time Zone Converter, World Clock, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Time Zone Converter Tool | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f2f5, #d9e2ec);
+      color: #333;
+    }
+
+    header,
+    footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    label, select, input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    select, input {
+      padding: 0.5rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .output {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
     </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <main class="container">
+    <h1>Time Zone Converter</h1>
+    <p>Convert date and time across global time zones with precision.</p>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>Time Zone Converter</h1>
-            <p class="tool-description">Compare and convert time between different time zones worldwide. Perfect for scheduling international meetings, calls, and travel planning.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="timezone-converter">
-                    <div class="conversion-section">
-                        <div class="time-input">
-                            <div class="input-group">
-                                <label for="fromDate">Date:</label>
-                                <input type="date" id="fromDate">
-                            </div>
-                            <div class="input-group">
-                                <label for="fromTime">Time:</label>
-                                <input type="time" id="fromTime">
-                            </div>
-                            <div class="input-group">
-                                <label for="fromTimezone">From Timezone:</label>
-                                <select id="fromTimezone" class="timezone-select">
-                                    <!-- Timezones will be populated by JavaScript -->
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="convert-button">
-                            <button id="convertBtn" class="action-btn">Convert</button>
-                        </div>
-                        
-                        <div class="time-output">
-                            <div class="input-group">
-                                <label for="toTimezone">To Timezone:</label>
-                                <select id="toTimezone" class="timezone-select">
-                                    <!-- Timezones will be populated by JavaScript -->
-                                </select>
-                            </div>
-                            <div class="result-display">
-                                <div class="result-date" id="resultDate"></div>
-                                <div class="result-time" id="resultTime"></div>
-                                <div class="result-timezone" id="resultTimezone"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="timezone-map">
-                        <h3>World Time Zones</h3>
-                        <div class="map-container">
-                            <!-- World map visualization would go here -->
-                            <div class="map-placeholder">
-                                <p>Time zone visualization would appear here</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="timezone-comparison">
-                        <h3>Compare Multiple Time Zones</h3>
-                        <div class="comparison-controls">
-                            <button id="addTimezoneBtn" class="action-btn secondary">+ Add Timezone</button>
-                            <button id="compareBtn" class="action-btn">Compare</button>
-                        </div>
-                        <div class="comparison-results" id="comparisonResults">
-                            <!-- Comparison results will be added here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <label for="sourceTime">Enter Time (in 24-hour format):</label>
+    <input type="datetime-local" id="sourceTime">
 
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Global Coverage:</strong> Convert between all major time zones worldwide</li>
-                    <li><strong>Daylight Saving Aware:</strong> Automatically adjusts for DST changes</li>
-                    <li><strong>Multiple Comparison:</strong> Compare time across multiple zones simultaneously</li>
-                    <li><strong>Visual Representation:</strong> See time differences at a glance</li>
-                    <li><strong>Historical Data:</strong> Check past or future time conversions</li>
-                </ul>
-            </div>
-        </section>
+    <label for="sourceZone">From Time Zone:</label>
+    <select id="sourceZone"></select>
 
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+    <label for="targetZone">To Time Zone:</label>
+    <select id="targetZone"></select>
 
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Convert Time Zones</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Enter Date & Time</h3>
-                    <p>Select the date and time you want to convert in the "From" section.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: Select Time Zones</h3>
-                    <p>Choose your original time zone and the time zone you want to convert to.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Convert</h3>
-                    <p>Click "Convert" to see the equivalent time in your target time zone.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: Compare (Optional)</h3>
-                    <p>Add additional time zones to compare multiple locations at once.</p>
-                </div>
-            </div>
-        </section>
+    <button onclick="convertTime()">Convert</button>
 
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">How accurate is the time zone conversion?</h3>
-                <div class="faq-answer">
-                    <p>Our converter uses the most up-to-date time zone database and automatically accounts for daylight saving time changes. It's accurate for past, present, and future dates (within reasonable limits).</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Can I convert times in the past or future?</h3>
-                <div class="faq-answer">
-                    <p>Yes, you can convert times for any date. The converter accounts for historical time zone changes and daylight saving time rules that were in effect at that time.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Why do some locations show the same time but different time zones?</h3>
-                <div class="faq-answer">
-                    <p>Some time zones share the same UTC offset but may have different names (especially during daylight saving time). Also, some locations unofficially use a neighboring time zone for convenience.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">How do I find a city's time zone?</h3>
-                <div class="faq-answer">
-                    <p>Start typing the city name in the time zone selector and matching options will appear. For smaller cities, try searching for the nearest major city in the same time zone.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Do I need to account for daylight saving time manually?</h3>
-                <div class="faq-answer">
-                    <p>No, our converter automatically detects and applies daylight saving time rules for each location based on the date you select.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+    <div class="output" id="result"></div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Enter the date and time using the input box above.</li>
+        <li>Select the source time zone and the target time zone from the dropdowns.</li>
+        <li>Click "Convert" to see the converted time below.</li>
+      </ul>
+    </article>
+  </main>
 
-    <script src="../js/main.js"></script>
-    <script>
-        // DOM Elements
-        const fromDate = document.getElementById('fromDate');
-        const fromTime = document.getElementById('fromTime');
-        const fromTimezone = document.getElementById('fromTimezone');
-        const toTimezone = document.getElementById('toTimezone');
-        const convertBtn = document.getElementById('convertBtn');
-        const resultDate = document.getElementById('resultDate');
-        const resultTime = document.getElementById('resultTime');
-        const resultTimezone = document.getElementById('resultTimezone');
-        const addTimezoneBtn = document.getElementById('addTimezoneBtn');
-        const compareBtn = document.getElementById('compareBtn');
-        const comparisonResults = document.getElementById('comparisonResults');
-        
-        // Initialize with current time
-        const now = new Date();
-        fromDate.valueAsDate = now;
-        fromTime.value = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-        
-        // Timezone data
-        const timezones = moment.tz.names();
-        let addedTimezones = [];
-        
-        // Populate timezone dropdowns
-        function populateTimezones() {
-            // Sort timezones by their current offset
-            const sortedTimezones = [...timezones].sort((a, b) => {
-                return moment.tz(a).utcOffset() - moment.tz(b).utcOffset();
-            });
-            
-            // Clear existing options
-            fromTimezone.innerHTML = '';
-            toTimezone.innerHTML = '';
-            
-            // Add options to both selects
-            sortedTimezones.forEach(tz => {
-                const offset = moment.tz(tz).format('Z');
-                const option1 = document.createElement('option');
-                option1.value = tz;
-                option1.textContent = `${tz} (UTC${offset})`;
-                
-                const option2 = option1.cloneNode(true);
-                
-                fromTimezone.appendChild(option1);
-                toTimezone.appendChild(option2);
-            });
-            
-            // Set default timezones
-            const userTimezone = moment.tz.guess();
-            fromTimezone.value = userTimezone;
-            
-            // Set to a different default (e.g., UTC)
-            toTimezone.value = 'UTC';
-        }
-        
-        // Convert time between timezones
-        function convertTime() {
-            const dateStr = fromDate.value;
-            const timeStr = fromTime.value;
-            const fromTz = fromTimezone.value;
-            const toTz = toTimezone.value;
-            
-            if (!dateStr || !timeStr || !fromTz || !toTz) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            // Create moment object in original timezone
-            const datetimeStr = `${dateStr} ${timeStr}`;
-            const originalTime = moment.tz(datetimeStr, 'YYYY-MM-DD HH:mm', fromTz);
-            
-            // Convert to target timezone
-            const convertedTime = originalTime.clone().tz(toTz);
-            
-            // Display results
-            resultDate.textContent = convertedTime.format('dddd, MMMM D, YYYY');
-            resultTime.textContent = convertedTime.format('h:mm A');
-            resultTimezone.textContent = `${toTimezone.options[toTimezone.selectedIndex].text}`;
-        }
-        
-        // Add timezone to comparison list
-        function addTimezone() {
-            const tzSelect = document.createElement('select');
-            tzSelect.className = 'timezone-select';
-            
-            // Populate with timezones
-            timezones.forEach(tz => {
-                const offset = moment.tz(tz).format('Z');
-                const option = document.createElement('option');
-                option.value = tz;
-                option.textContent = `${tz} (UTC${offset})`;
-                tzSelect.appendChild(option);
-            });
-            
-            // Set default to UTC
-            tzSelect.value = 'UTC';
-            
-            const comparisonItem = document.createElement('div');
-            comparisonItem.className = 'comparison-item';
-            comparisonItem.appendChild(tzSelect);
-            
-            // Add remove button
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-btn';
-            removeBtn.textContent = '×';
-            removeBtn.addEventListener('click', () => {
-                comparisonResults.removeChild(comparisonItem);
-                addedTimezones = addedTimezones.filter(tz => tz !== tzSelect.value);
-            });
-            
-            comparisonItem.appendChild(removeBtn);
-            comparisonResults.appendChild(comparisonItem);
-            
-            // Track added timezone
-            addedTimezones.push(tzSelect.value);
-            tzSelect.addEventListener('change', () => {
-                const index = addedTimezones.indexOf(tzSelect.value);
-                if (index !== -1) {
-                    addedTimezones[index] = tzSelect.value;
-                }
-            });
-        }
-        
-        // Compare time across multiple timezones
-        function compareTimezones() {
-            const dateStr = fromDate.value;
-            const timeStr = fromTime.value;
-            const fromTz = fromTimezone.value;
-            
-            if (!dateStr || !timeStr || !fromTz) {
-                alert('Please fill in the original time fields');
-                return;
-            }
-            
-            // Get all selected timezones to compare
-            const compareTzs = Array.from(document.querySelectorAll('.comparison-item select')).map(select => select.value);
-            
-            if (compareTzs.length === 0) {
-                alert('Please add at least one timezone to compare');
-                return;
-            }
-            
-            // Create moment object in original timezone
-            const datetimeStr = `${dateStr} ${timeStr}`;
-            const originalTime = moment.tz(datetimeStr, 'YYYY-MM-DD HH:mm', fromTz);
-            
-            // Generate comparison table
-            let comparisonHTML = '<div class="comparison-table"><div class="comparison-header">';
-            comparisonHTML += '<div>Timezone</div><div>Local Time</div><div>Difference</div></div>';
-            
-            // Add original timezone
-            const originalOffset = originalTime.format('Z');
-            comparisonHTML += `
-                <div class="comparison-row original">
-                    <div>${fromTz} (UTC${originalOffset})</div>
-                    <div>${originalTime.format('h:mm A dddd, MMM D')}</div>
-                    <div>Original Time</div>
-                </div>
-            `;
-            
-            // Add comparison timezones
-            compareTzs.forEach(tz => {
-                if (tz === fromTz) return;
-                
-                const convertedTime = originalTime.clone().tz(tz);
-                const offset = convertedTime.format('Z');
-                const diffHours = (convertedTime.utcOffset() - originalTime.utcOffset()) / 60;
-                let diffText = '';
-                
-                if (diffHours > 0) {
-                    diffText = `${diffHours} hours ahead`;
-                } else if (diffHours < 0) {
-                    diffText = `${Math.abs(diffHours)} hours behind`;
-                } else {
-                    diffText = 'Same time';
-                }
-                
-                comparisonHTML += `
-                    <div class="comparison-row">
-                        <div>${tz} (UTC${offset})</div>
-                        <div>${convertedTime.format('h:mm A dddd, MMM D')}</div>
-                        <div>${diffText}</div>
-                    </div>
-                `;
-            });
-            
-            comparisonHTML += '</div>';
-            comparisonResults.innerHTML = comparisonHTML;
-        }
-        
-        // Event Listeners
-        convertBtn.addEventListener('click', convertTime);
-        addTimezoneBtn.addEventListener('click', addTimezone);
-        compareBtn.addEventListener('click', compareTimezones);
-        
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Initialize
-        populateTimezones();
-    </script>
+  <script>
+    const zones = Intl.supportedValuesOf('timeZone');
+    const sourceZone = document.getElementById("sourceZone");
+    const targetZone = document.getElementById("targetZone");
+
+    zones.forEach(zone => {
+      sourceZone.innerHTML += `<option value="${zone}">${zone}</option>`;
+      targetZone.innerHTML += `<option value="${zone}">${zone}</option>`;
+    });
+
+    function convertTime() {
+      const sourceDateTime = document.getElementById('sourceTime').value;
+      const fromTZ = sourceZone.value;
+      const toTZ = targetZone.value;
+      if (!sourceDateTime || !fromTZ || !toTZ) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const utcTime = new Date(sourceDateTime + 'Z');
+      const toTime = new Intl.DateTimeFormat('en-US', {
+        timeZone: toTZ,
+        dateStyle: 'full',
+        timeStyle: 'long'
+      }).format(utcTime);
+
+      document.getElementById('result').innerText = `Converted Time in ${toTZ}:
+${toTime}`;
+    }
+  </script>
 </body>
+
 </html>
