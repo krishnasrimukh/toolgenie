@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper & Resizer - Edit Photos Online | TOOLGENIE</title>
+    <meta name="description" content="Free online image cropper and resizer tool. Crop, resize, and edit your photos. Supports JPG, PNG, GIF. No installation required.">
+    <meta name="keywords" content="image cropper, photo resizer, crop image online, resize photo, image editor, toolgenie">
+    <meta name="author" content="TOOLGENIE">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolgenie.in/tools/image-cropper-resizer.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolgenie.in/tools/image-cropper-resizer.html">
+    <meta property="og:title" content="Image Cropper & Resizer - Edit Photos Online | TOOLGENIE">
+    <meta property="og:description" content="Free online image cropper and resizer tool. Crop, resize, and edit your photos. Supports JPG, PNG, GIF.">
+    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolgenie.in/tools/image-cropper-resizer.html">
+    <meta property="twitter:title" content="Image Cropper & Resizer - Edit Photos Online | TOOLGENIE">
+    <meta property="twitter:description" content="Free online image cropper and resizer tool. Crop, resize, and edit your photos. Supports JPG, PNG, GIF.">
+    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/icons/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../about.html" class="nav-link">About</a>
+                <a href="../contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ad Space (Top) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- Tool Container -->
+        <section class="tool-container">
+            <h1>Image Cropper & Resizer</h1>
+            <p class="tool-description">Upload an image to crop and resize it. Adjust dimensions, aspect ratio, and download your edited image in JPG, PNG, or original format.</p>
+            
+            <!-- Tool Interface -->
+            <div class="tool-interface">
+                <div class="image-editor">
+                    <div class="upload-section">
+                        <div class="upload-area" id="uploadArea">
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                            <div class="upload-icon">🖼️</div>
+                            <h3>Drag & Drop your image here</h3>
+                            <p>or</p>
+                            <button id="selectFileBtn" class="upload-btn">Select Image</button>
+                        </div>
+                        <div class="file-info" id="fileInfo" style="display: none;">
+                            <p><strong>File Name:</strong> <span id="fileName"></span></p>
+                            <p><strong>File Size:</strong> <span id="fileSize"></span></p>
+                            <p><strong>Dimensions:</strong> <span id="fileDimensions"></span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-section" style="display: none;">
+                        <div class="editor-container">
+                            <div class="image-container">
+                                <img id="imageToCrop" src="" alt="Image to crop">
+                            </div>
+                            <div class="editor-controls">
+                                <h3>Editor Controls</h3>
+                                
+                                <div class="control-group">
+                                    <h4>Crop Options</h4>
+                                    <div class="option-group">
+                                        <label for="aspectRatio">Aspect Ratio:</label>
+                                        <select id="aspectRatio">
+                                            <option value="free">Free</option>
+                                            <option value="1:1">Square (1:1)</option>
+                                            <option value="4:3">Standard (4:3)</option>
+                                            <option value="16:9">Widescreen (16:9)</option>
+                                            <option value="3:2">Classic (3:2)</option>
+                                            <option value="5:4">Large Format (5:4)</option>
+                                            <option value="custom">Custom</option>
+                                        </select>
+                                    </div>
+                                    <div class="option-group custom-ratio" style="display: none;">
+                                        <label for="customRatioX">Custom Ratio:</label>
+                                        <input type="number" id="customRatioX" min="1" max="100" value="1">
+                                        <span>:</span>
+                                        <input type="number" id="customRatioY" min="1" max="100" value="1">
+                                    </div>
+                                    <div class="option-group">
+                                        <button id="cropBtn" class="action-btn">Crop Image</button>
+                                        <button id="resetCropBtn" class="action-btn secondary">Reset Crop</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <h4>Resize Options</h4>
+                                    <div class="option-group">
+                                        <label for="resizeWidth">Width (px):</label>
+                                        <input type="number" id="resizeWidth" min="1">
+                                    </div>
+                                    <div class="option-group">
+                                        <label for="resizeHeight">Height (px):</label>
+                                        <input type="number" id="resizeHeight" min="1">
+                                    </div>
+                                    <div class="option-group">
+                                        <label for="maintainAspect">
+                                            <input type="checkbox" id="maintainAspect" checked>
+                                            Maintain aspect ratio
+                                        </label>
+                                    </div>
+                                    <div class="option-group">
+                                        <button id="resizeBtn" class="action-btn">Resize Image</button>
+                                        <button id="resetSizeBtn" class="action-btn secondary">Original Size</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <h4>Output Options</h4>
+                                    <div class="option-group">
+                                        <label for="outputFormat">Output Format:</label>
+                                        <select id="outputFormat">
+                                            <option value="original">Original Format</option>
+                                            <option value="jpeg">JPEG</option>
+                                            <option value="png">PNG</option>
+                                            <option value="webp">WebP</option>
+                                        </select>
+                                    </div>
+                                    <div class="option-group" id="jpegQualityGroup" style="display: none;">
+                                        <label for="jpegQuality">JPEG Quality (0-100):</label>
+                                        <input type="range" id="jpegQuality" min="0" max="100" value="90">
+                                        <span id="jpegQualityValue">90</span>
+                                    </div>
+                                    <div class="option-group">
+                                        <button id="downloadBtn" class="action-btn">Download Image</button>
+                                        <button id="newImageBtn" class="action-btn secondary">New Image</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <h3>Preview</h3>
+                            <div class="preview-container">
+                                <canvas id="previewCanvas"></canvas>
+                            </div>
+                            <div class="preview-info">
+                                <p><strong>Output Size:</strong> <span id="outputSize">-</span></p>
+                                <p><strong>Output Dimensions:</strong> <span id="outputDimensions">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Features -->
+            <div class="tool-features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Precise Cropping:</strong> Crop images with pixel-perfect accuracy</li>
+                    <li><strong>Multiple Aspect Ratios:</strong> Square, widescreen, custom ratios</li>
+                    <li><strong>Flexible Resizing:</strong> Scale images to exact dimensions</li>
+                    <li><strong>Format Conversion:</strong> Save as JPG, PNG, or WebP</li>
+                    <li><strong>Quality Control:</strong> Adjust JPG compression quality</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Ad Space (Middle) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- How To Use Section -->
+        <section class="how-to-use">
+            <h2>How To Crop & Resize Images</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Upload Image</h3>
+                    <p>Select an image file from your computer or drag and drop it into the upload area.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Crop</h3>
+                    <p>Use the crop tool to select the area you want to keep. Choose from preset aspect ratios or use freeform.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Resize</h3>
+                    <p>Enter new dimensions or scale the image while maintaining the aspect ratio.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 4: Download</h3>
+                    <p>Choose output format and quality, then download your edited image.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What image formats can I upload?</h3>
+                <div class="faq-answer">
+                    <p>You can upload JPG, PNG, GIF, BMP, and WebP images. The output can be saved as JPG, PNG, or WebP regardless of the original format.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is there a limit to the image size I can edit?</h3>
+                <div class="faq-answer">
+                    <p>There's no strict limit, but very large images (over 10MB) may cause performance issues in some browsers. For best results, we recommend images under 5000x5000 pixels.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Will cropping and resizing reduce image quality?</h3>
+                <div class="faq-answer">
+                    <p>Cropping doesn't reduce quality as it just removes pixels. Resizing can affect quality when making images larger (pixelation) or much smaller (detail loss). The tool uses high-quality resizing algorithms to minimize quality loss.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Can I undo changes?</h3>
+                <div class="faq-answer">
+                    <p>You can reset the crop or resize to the original dimensions at any time. However, there's no multi-step undo feature, so you may need to start over if you make multiple changes you're not happy with.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Are my images stored on your servers?</h3>
+                <div class="faq-answer">
+                    <p>No, all image processing happens directly in your browser. Your images never leave your computer, ensuring complete privacy.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const fileDimensions = document.getElementById('fileDimensions');
+        const editorSection = document.querySelector('.editor-section');
+        const imageToCrop = document.getElementById('imageToCrop');
+        const aspectRatio = document.getElementById('aspectRatio');
+        const customRatioGroup = document.querySelector('.custom-ratio');
+        const customRatioX = document.getElementById('customRatioX');
+        const customRatioY = document.getElementById('customRatioY');
+        const cropBtn = document.getElementById('cropBtn');
+        const resetCropBtn = document.getElementById('resetCropBtn');
+        const resizeWidth = document.getElementById('resizeWidth');
+        const resizeHeight = document.getElementById('resizeHeight');
+        const maintainAspect = document.getElementById('maintainAspect');
+        const resizeBtn = document.getElementById('resizeBtn');
+        const resetSizeBtn = document.getElementById('resetSizeBtn');
+        const outputFormat = document.getElementById('outputFormat');
+        const jpegQualityGroup = document.getElementById('jpegQualityGroup');
+        const jpegQuality = document.getElementById('jpegQuality');
+        const jpegQualityValue = document.getElementById('jpegQualityValue');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newImageBtn = document.getElementById('newImageBtn');
+        const previewCanvas = document.getElementById('previewCanvas');
+        const outputSize = document.getElementById('outputSize');
+        const outputDimensions = document.getElementById('outputDimensions');
+        
+        // Variables
+        let cropper;
+        let originalImageData = null;
+        let currentImageData = null;
+        let originalWidth, originalHeight;
+        let currentWidth, currentHeight;
+
+        // Event Listeners
+        selectFileBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('drop', handleDrop);
+        aspectRatio.addEventListener('change', updateAspectRatio);
+        customRatioX.addEventListener('input', updateCustomRatio);
+        customRatioY.addEventListener('input', updateCustomRatio);
+        cropBtn.addEventListener('click', applyCrop);
+        resetCropBtn.addEventListener('click', resetCrop);
+        resizeWidth.addEventListener('input', updateResizeDimensions);
+        resizeHeight.addEventListener('input', updateResizeDimensions);
+        resizeBtn.addEventListener('click', applyResize);
+        resetSizeBtn.addEventListener('click', resetSize);
+        outputFormat.addEventListener('change', updateOutputOptions);
+        jpegQuality.addEventListener('input', () => {
+            jpegQualityValue.textContent = jpegQuality.value;
+        });
+        downloadBtn.addEventListener('click', downloadImage);
+        newImageBtn.addEventListener('click', resetTool);
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.classList.toggle('active');
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Functions
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            processImageFile(file);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadArea.classList.add('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadArea.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            processImageFile(file);
+        }
+
+        function processImageFile(file) {
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                imageToCrop.src = event.target.result;
+                
+                // Store original image data
+                originalImageData = event.target.result;
+                
+                // Display file info
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                
+                // Wait for image to load to get dimensions
+                imageToCrop.onload = function() {
+                    originalWidth = this.naturalWidth;
+                    originalHeight = this.naturalHeight;
+                    currentWidth = originalWidth;
+                    currentHeight = originalHeight;
+                    
+                    fileDimensions.textContent = `${originalWidth} × ${originalHeight} px`;
+                    resizeWidth.value = originalWidth;
+                    resizeHeight.value = originalHeight;
+                    
+                    // Show editor section
+                    uploadArea.style.display = 'none';
+                    fileInfo.style.display = 'block';
+                    editorSection.style.display = 'block';
+                    
+                    // Initialize cropper
+                    initCropper();
+                    
+                    // Update preview
+                    updatePreview();
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initCropper() {
+            if (cropper) {
+                cropper.destroy();
+            }
+            
+            cropper = new Cropper(imageToCrop, {
+                aspectRatio: NaN, // Start with free ratio
+                viewMode: 1,
+                autoCropArea: 0.8,
+                responsive: true,
+                restore: false,
+                guides: true,
+                center: true,
+                highlight: true,
+                cropBoxMovable: true,
+                cropBoxResizable: true,
+                toggleDragModeOnDblclick: false,
+                ready: function() {
+                    // Set initial crop box to cover most of the image
+                    const containerData = cropper.getContainerData();
+                    const cropBoxWidth = containerData.width * 0.8;
+                    const cropBoxHeight = containerData.height * 0.8;
+                    
+                    cropper.setCropBoxData({
+                        width: cropBoxWidth,
+                        height: cropBoxHeight,
+                        left: (containerData.width - cropBoxWidth) / 2,
+                        top: (containerData.height - cropBoxHeight) / 2
+                    });
+                }
+            });
+        }
+
+        function updateAspectRatio() {
+            if (aspectRatio.value === 'custom') {
+                customRatioGroup.style.display = 'flex';
+                const ratioX = parseInt(customRatioX.value) || 1;
+                const ratioY = parseInt(customRatioY.value) || 1;
+                cropper.setAspectRatio(ratioX / ratioY);
+            } else if (aspectRatio.value === 'free') {
+                customRatioGroup.style.display = 'none';
+                cropper.setAspectRatio(NaN);
+            } else {
+                customRatioGroup.style.display = 'none';
+                const ratio = aspectRatio.value.split(':');
+                cropper.setAspectRatio(parseInt(ratio[0]) / parseInt(ratio[1]));
+            }
+        }
+
+        function updateCustomRatio() {
+            if (aspectRatio.value === 'custom') {
+                const ratioX = parseInt(customRatioX.value) || 1;
+                const ratioY = parseInt(customRatioY.value) || 1;
+                cropper.setAspectRatio(ratioX / ratioY);
+            }
+        }
+
+        function applyCrop() {
+            // Get cropped canvas
+            const canvas = cropper.getCroppedCanvas();
+            
+            if (!canvas) {
+                alert('Please select a crop area first');
+                return;
+            }
+            
+            // Update image source
+            imageToCrop.src = canvas.toDataURL();
+            
+            // Update dimensions
+            currentWidth = canvas.width;
+            currentHeight = canvas.height;
+            resizeWidth.value = currentWidth;
+            resizeHeight.value = currentHeight;
+            
+            // Reinitialize cropper with new image
+            initCropper();
+            
+            // Update preview
+            updatePreview();
+        }
+
+        function resetCrop() {
+            cropper.reset();
+        }
+
+        function updateResizeDimensions(e) {
+            if (!maintainAspect.checked) return;
+            
+            const changedField = e.target.id;
+            const ratio = originalWidth / originalHeight;
+            
+            if (changedField === 'resizeWidth') {
+                resizeHeight.value = Math.round(resizeWidth.value / ratio);
+            } else {
+                resizeWidth.value = Math.round(resizeHeight.value * ratio);
+            }
+        }
+
+        function applyResize() {
+            const newWidth = parseInt(resizeWidth.value);
+            const newHeight = parseInt(resizeHeight.value);
+            
+            if (isNaN(newWidth) || isNaN(newHeight) || newWidth <= 0 || newHeight <= 0) {
+                alert('Please enter valid dimensions');
+                return;
+            }
+            
+            // Create canvas for resizing
+            const canvas = document.createElement('canvas');
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw image with new dimensions
+            ctx.drawImage(imageToCrop, 0, 0, newWidth, newHeight);
+            
+            // Update image source
+            imageToCrop.src = canvas.toDataURL();
+            
+            // Update dimensions
+            currentWidth = newWidth;
+            currentHeight = newHeight;
+            
+            // Reinitialize cropper with new image
+            initCropper();
+            
+            // Update preview
+            updatePreview();
+        }
+
+        function resetSize() {
+            // Reset to original dimensions
+            resizeWidth.value = originalWidth;
+            resizeHeight.value = originalHeight;
+            applyResize();
+        }
+
+        function updateOutputOptions() {
+            jpegQualityGroup.style.display = outputFormat.value === 'jpeg' ? 'block' : 'none';
+            updatePreview();
+        }
+
+        function updatePreview() {
+            // Get current cropped area
+            const canvas = cropper.getCroppedCanvas({
+                width: currentWidth,
+                height: currentHeight
+            });
+            
+            if (!canvas) return;
+            
+            // Update preview canvas
+            previewCanvas.width = Math.min(300, canvas.width);
+            previewCanvas.height = Math.min(300, canvas.height * (previewCanvas.width / canvas.width));
+            
+            const ctx = previewCanvas.getContext('2d');
+            ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+            ctx.drawImage(canvas, 0, 0, previewCanvas.width, previewCanvas.height);
+            
+            // Update preview info
+            outputDimensions.textContent = `${currentWidth} × ${currentHeight} px`;
+            
+            // Estimate output size
+            let mimeType;
+            switch (outputFormat.value) {
+                case 'jpeg': mimeType = 'image/jpeg'; break;
+                case 'png': mimeType = 'image/png'; break;
+                case 'webp': mimeType = 'image/webp'; break;
+                default: mimeType = imageToCrop.src.split(';')[0].split(':')[1];
+            }
+            
+            canvas.toBlob(blob => {
+                outputSize.textContent = formatFileSize(blob.size);
+            }, mimeType, outputFormat.value === 'jpeg' ? jpegQuality.value / 100 : 1);
+        }
+
+        function downloadImage() {
+            // Get current cropped area
+            const canvas = cropper.getCroppedCanvas({
+                width: currentWidth,
+                height: currentHeight
+            });
+            
+            if (!canvas) {
+                alert('Please select a crop area first');
+                return;
+            }
+            
+            // Determine file type and extension
+            let mimeType, extension;
+            switch (outputFormat.value) {
+                case 'jpeg':
+                    mimeType = 'image/jpeg';
+                    extension = 'jpg';
+                    break;
+                case 'png':
+                    mimeType = 'image/png';
+                    extension = 'png';
+                    break;
+                case 'webp':
+                    mimeType = 'image/webp';
+                    extension = 'webp';
+                    break;
+                default:
+                    // Use original format
+                    const originalType = imageToCrop.src.split(';')[0].split(':')[1];
+                    mimeType = originalType;
+                    extension = originalType.split('/')[1];
+            }
+            
+            // Create download link
+            const link = document.createElement('a');
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                link.href = url;
+                link.download = `edited-image.${extension}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }, mimeType, outputFormat.value === 'jpeg' ? jpegQuality.value / 100 : 1);
+        }
+
+        function resetTool() {
+            // Reset UI
+            uploadArea.style.display = 'flex';
+            fileInfo.style.display = 'none';
+            editorSection.style.display = 'none';
+            fileInput.value = '';
+            
+            // Destroy cropper if exists
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+            
+            // Reset preview
+            previewCanvas.getContext('2d').clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+            outputSize.textContent = '-';
+            outputDimensions.textContent = '-';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
