@@ -1,667 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base64 Encoder/Decoder - Convert Text & Files Online | TOOLGENIE</title>
-    <meta name="description" content="Free online Base64 encoder and decoder. Convert text, images, and files to Base64 format or decode Base64 back to original content. No registration required.">
-    <meta name="keywords" content="base64 encoder, base64 decoder, base64 converter, encode base64, decode base64, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/base64-encoder-decoder.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/base64-encoder-decoder.html">
-    <meta property="og:title" content="Base64 Encoder/Decoder - Convert Text & Files Online | TOOLGENIE">
-    <meta property="og:description" content="Free online Base64 encoder and decoder. Convert text, images, and files to Base64 format or decode Base64 back to original content.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/base64-encoder-decoder.html">
-    <meta property="twitter:title" content="Base64 Encoder/Decoder - Convert Text & Files Online | TOOLGENIE">
-    <meta property="twitter:description" content="Free online Base64 encoder and decoder. Convert text, images, and files to Base64 format or decode Base64 back to original content.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Encode or decode text using Base64 with TOOLGENIE's fast and secure online utility." />
+  <meta name="keywords" content="Base64 Encoder, Base64 Decoder, Online Tool, Encode Decode, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Base64 Encoder/Decoder | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f2f5, #d9e2ec);
+      color: #333;
+    }
+
+    header,
+    footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
     </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <main class="container">
+    <h1>Base64 Encoder/Decoder</h1>
+    <p>Enter text below to encode or decode in Base64 format.</p>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>Base64 Encoder/Decoder</h1>
-            <p class="tool-description">Convert text, images, and files to Base64 format or decode Base64 back to original content. Useful for data URIs, web development, and data transfer.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="base64-tool">
-                    <div class="mode-selector">
-                        <button id="encodeModeBtn" class="mode-btn active">Encode</button>
-                        <button id="decodeModeBtn" class="mode-btn">Decode</button>
-                    </div>
-                    
-                    <div class="encode-section" id="encodeSection">
-                        <div class="input-methods">
-                            <div class="method-tabs">
-                                <button id="textEncodeTab" class="method-tab active">Text</button>
-                                <button id="fileEncodeTab" class="method-tab">File</button>
-                            </div>
-                            
-                            <div class="method-content">
-                                <div id="textEncodeContent" class="method-panel active">
-                                    <textarea id="textToEncode" placeholder="Enter text to encode to Base64..."></textarea>
-                                </div>
-                                <div id="fileEncodeContent" class="method-panel">
-                                    <div class="file-upload-area" id="fileEncodeArea">
-                                        <input type="file" id="fileToEncode" style="display: none;">
-                                        <div class="upload-icon">📁</div>
-                                        <h3>Drag & Drop your file here</h3>
-                                        <p>or</p>
-                                        <button id="selectEncodeFileBtn" class="upload-btn">Select File</button>
-                                        <div class="file-info" id="encodeFileInfo" style="display: none;">
-                                            <p><strong>File Name:</strong> <span id="encodeFileName"></span></p>
-                                            <p><strong>File Size:</strong> <span id="encodeFileSize"></span></p>
-                                            <p><strong>File Type:</strong> <span id="encodeFileType"></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button id="encodeBtn" class="action-btn">Encode to Base64</button>
-                        
-                        <div class="result-area">
-                            <label for="base64Result">Base64 Result:</label>
-                            <textarea id="base64Result" readonly placeholder="Base64 encoded result will appear here..."></textarea>
-                            <div class="result-actions">
-                                <button id="copyBase64Btn" class="action-btn secondary">Copy</button>
-                                <button id="clearBase64Btn" class="action-btn secondary">Clear</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="decode-section" id="decodeSection" style="display: none;">
-                        <div class="input-methods">
-                            <div class="method-tabs">
-                                <button id="textDecodeTab" class="method-tab active">Text</button>
-                                <button id="fileDecodeTab" class="method-tab">File</button>
-                            </div>
-                            
-                            <div class="method-content">
-                                <div id="textDecodeContent" class="method-panel active">
-                                    <textarea id="textToDecode" placeholder="Enter Base64 to decode..."></textarea>
-                                </div>
-                                <div id="fileDecodeContent" class="method-panel">
-                                    <div class="file-upload-area" id="fileDecodeArea">
-                                        <input type="file" id="fileToDecode" style="display: none;">
-                                        <div class="upload-icon">📁</div>
-                                        <h3>Drag & Drop Base64 file here</h3>
-                                        <p>or</p>
-                                        <button id="selectDecodeFileBtn" class="upload-btn">Select File</button>
-                                        <div class="file-info" id="decodeFileInfo" style="display: none;">
-                                            <p><strong>File Name:</strong> <span id="decodeFileName"></span></p>
-                                            <p><strong>File Size:</strong> <span id="decodeFileSize"></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button id="decodeBtn" class="action-btn">Decode from Base64</button>
-                        
-                        <div class="result-area">
-                            <label for="decodedResult">Decoded Result:</label>
-                            <div class="result-display" id="decodedResultContainer">
-                                <textarea id="textDecodedResult" readonly placeholder="Text result will appear here..." style="display: none;"></textarea>
-                                <div id="fileDecodedResult" style="display: none;">
-                                    <div class="file-preview" id="filePreview"></div>
-                                    <div class="file-actions">
-                                        <button id="downloadDecodedFileBtn" class="action-btn secondary">Download File</button>
-                                    </div>
-                                </div>
-                                <div id="noResult" class="no-result">
-                                    <p>Decoded result will appear here based on input type</p>
-                                </div>
-                            </div>
-                            <div class="result-actions">
-                                <button id="copyDecodedBtn" class="action-btn secondary" style="display: none;">Copy</button>
-                                <button id="clearDecodedBtn" class="action-btn secondary">Clear</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <label for="inputText"><strong>Input:</strong></label>
+    <textarea id="inputText" placeholder="Enter your text here..."></textarea>
 
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Two-way Conversion:</strong> Encode to Base64 or decode from Base64</li>
-                    <li><strong>Multiple Inputs:</strong> Works with text, images, and files</li>
-                    <li><strong>File Support:</strong> Encode any file type up to 10MB</li>
-                    <li><strong>Preview Decoded Files:</strong> View images and text directly</li>
-                    <li><strong>Privacy Focused:</strong> All processing happens in your browser</li>
-                </ul>
-            </div>
-        </section>
+    <div style="margin-bottom: 1rem;">
+      <button onclick="encodeBase64()">Encode</button>
+      <button onclick="decodeBase64()">Decode</button>
+    </div>
 
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+    <label for="outputText"><strong>Output:</strong></label>
+    <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
 
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Use Base64 Encoder/Decoder</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Select Mode</h3>
-                    <p>Choose whether you want to encode content to Base64 or decode Base64 content.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: Provide Input</h3>
-                    <p>Enter text, upload a file, or paste Base64 code depending on your selected mode.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Convert</h3>
-                    <p>Click the encode or decode button to process your content.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: View & Copy</h3>
-                    <p>View the results and copy or download as needed.</p>
-                </div>
-            </div>
-        </section>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Type or paste your text in the input box.</li>
+        <li>Click on "Encode" to convert to Base64 format or "Decode" to convert Base64 back to text.</li>
+        <li>The result will appear in the output box below.</li>
+      </ul>
+    </article>
+  </main>
 
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">What is Base64 encoding used for?</h3>
-                <div class="faq-answer">
-                    <p>Base64 is commonly used to encode binary data (like images or files) into ASCII text format. This is useful for embedding data in text-based formats like JSON, XML, or HTML (data URIs), or for transferring binary data over text-only protocols.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Can I encode large files to Base64?</h3>
-                <div class="faq-answer">
-                    <p>This tool can handle files up to 10MB in your browser. For larger files, consider using specialized software as very large Base64 strings can cause performance issues in browsers.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">How do I know if something is Base64 encoded?</h3>
-                <div class="faq-answer">
-                    <p>Base64 encoded data typically consists of letters, numbers, and the characters '+', '/', and '=' at the end for padding. The length is usually a multiple of 4. You can try decoding it - if it works, it was Base64!</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Is Base64 encoding secure?</h3>
-                <div class="faq-answer">
-                    <p>Base64 is not encryption - it doesn't provide security. It's simply a way to represent binary data as text. Anyone can decode Base64 data, so don't use it to hide sensitive information.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Why does my Base64 string end with equals signs?</h3>
-                <div class="faq-answer">
-                    <p>The equals signs ('=') at the end are padding characters. Base64 works with 24-bit groups (3 bytes) represented as 4 characters. If the input isn't a multiple of 3 bytes, padding is added to make it so.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <script>
+    function encodeBase64() {
+      const input = document.getElementById('inputText').value;
+      const encoded = btoa(unescape(encodeURIComponent(input)));
+      document.getElementById('outputText').value = encoded;
+    }
 
-    <script src="../js/main.js"></script>
-    <script>
-        // DOM Elements
-        const encodeModeBtn = document.getElementById('encodeModeBtn');
-        const decodeModeBtn = document.getElementById('decodeModeBtn');
-        const encodeSection = document.getElementById('encodeSection');
-        const decodeSection = document.getElementById('decodeSection');
-        
-        // Encode elements
-        const textEncodeTab = document.getElementById('textEncodeTab');
-        const fileEncodeTab = document.getElementById('fileEncodeTab');
-        const textEncodeContent = document.getElementById('textEncodeContent');
-        const fileEncodeContent = document.getElementById('fileEncodeContent');
-        const textToEncode = document.getElementById('textToEncode');
-        const fileToEncode = document.getElementById('fileToEncode');
-        const selectEncodeFileBtn = document.getElementById('selectEncodeFileBtn');
-        const fileEncodeArea = document.getElementById('fileEncodeArea');
-        const encodeFileInfo = document.getElementById('encodeFileInfo');
-        const encodeFileName = document.getElementById('encodeFileName');
-        const encodeFileSize = document.getElementById('encodeFileSize');
-        const encodeFileType = document.getElementById('encodeFileType');
-        const encodeBtn = document.getElementById('encodeBtn');
-        const base64Result = document.getElementById('base64Result');
-        const copyBase64Btn = document.getElementById('copyBase64Btn');
-        const clearBase64Btn = document.getElementById('clearBase64Btn');
-        
-        // Decode elements
-        const textDecodeTab = document.getElementById('textDecodeTab');
-        const fileDecodeTab = document.getElementById('fileDecodeTab');
-        const textDecodeContent = document.getElementById('textDecodeContent');
-        const fileDecodeContent = document.getElementById('fileDecodeContent');
-        const textToDecode = document.getElementById('textToDecode');
-        const fileToDecode = document.getElementById('fileToDecode');
-        const selectDecodeFileBtn = document.getElementById('selectDecodeFileBtn');
-        const fileDecodeArea = document.getElementById('fileDecodeArea');
-        const decodeFileInfo = document.getElementById('decodeFileInfo');
-        const decodeFileName = document.getElementById('decodeFileName');
-        const decodeFileSize = document.getElementById('decodeFileSize');
-        const decodeBtn = document.getElementById('decodeBtn');
-        const decodedResultContainer = document.getElementById('decodedResultContainer');
-        const textDecodedResult = document.getElementById('textDecodedResult');
-        const fileDecodedResult = document.getElementById('fileDecodedResult');
-        const filePreview = document.getElementById('filePreview');
-        const downloadDecodedFileBtn = document.getElementById('downloadDecodedFileBtn');
-        const copyDecodedBtn = document.getElementById('copyDecodedBtn');
-        const clearDecodedBtn = document.getElementById('clearDecodedBtn');
-        const noResult = document.getElementById('noResult');
-        
-        // Current file and state
-        let currentEncodeFile = null;
-        let currentDecodeFile = null;
-        let decodedFileBlob = null;
-
-        // Event Listeners
-        encodeModeBtn.addEventListener('click', () => switchMode('encode'));
-        decodeModeBtn.addEventListener('click', () => switchMode('decode'));
-        
-        // Encode events
-        textEncodeTab.addEventListener('click', () => switchEncodeMethod('text'));
-        fileEncodeTab.addEventListener('click', () => switchEncodeMethod('file'));
-        selectEncodeFileBtn.addEventListener('click', () => fileToEncode.click());
-        fileToEncode.addEventListener('change', handleEncodeFileSelect);
-        fileEncodeArea.addEventListener('dragover', handleDragOver);
-        fileEncodeArea.addEventListener('drop', handleEncodeFileDrop);
-        encodeBtn.addEventListener('click', encodeToBase64);
-        copyBase64Btn.addEventListener('click', copyBase64Result);
-        clearBase64Btn.addEventListener('click', clearBase64Result);
-        
-        // Decode events
-        textDecodeTab.addEventListener('click', () => switchDecodeMethod('text'));
-        fileDecodeTab.addEventListener('click', () => switchDecodeMethod('file'));
-        selectDecodeFileBtn.addEventListener('click', () => fileToDecode.click());
-        fileToDecode.addEventListener('change', handleDecodeFileSelect);
-        fileDecodeArea.addEventListener('dragover', handleDragOver);
-        fileDecodeArea.addEventListener('drop', handleDecodeFileDrop);
-        decodeBtn.addEventListener('click', decodeFromBase64);
-        copyDecodedBtn.addEventListener('click', copyDecodedResult);
-        downloadDecodedFileBtn.addEventListener('click', downloadDecodedFile);
-        clearDecodedBtn.addEventListener('click', clearDecodedResult);
-        
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
-
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Functions
-        function switchMode(mode) {
-            if (mode === 'encode') {
-                encodeModeBtn.classList.add('active');
-                decodeModeBtn.classList.remove('active');
-                encodeSection.style.display = 'block';
-                decodeSection.style.display = 'none';
-            } else {
-                encodeModeBtn.classList.remove('active');
-                decodeModeBtn.classList.add('active');
-                encodeSection.style.display = 'none';
-                decodeSection.style.display = 'block';
-            }
-        }
-        
-        function switchEncodeMethod(method) {
-            if (method === 'text') {
-                textEncodeTab.classList.add('active');
-                fileEncodeTab.classList.remove('active');
-                textEncodeContent.style.display = 'block';
-                fileEncodeContent.style.display = 'none';
-            } else {
-                textEncodeTab.classList.remove('active');
-                fileEncodeTab.classList.add('active');
-                textEncodeContent.style.display = 'none';
-                fileEncodeContent.style.display = 'block';
-            }
-        }
-        
-        function switchDecodeMethod(method) {
-            if (method === 'text') {
-                textDecodeTab.classList.add('active');
-                fileDecodeTab.classList.remove('active');
-                textDecodeContent.style.display = 'block';
-                fileDecodeContent.style.display = 'none';
-            } else {
-                textDecodeTab.classList.remove('active');
-                fileDecodeTab.classList.add('active');
-                textDecodeContent.style.display = 'none';
-                fileDecodeContent.style.display = 'block';
-            }
-        }
-        
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.currentTarget.classList.add('dragover');
-        }
-        
-        function handleEncodeFileDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            fileEncodeArea.classList.remove('dragover');
-            
-            const file = e.dataTransfer.files[0];
-            processEncodeFile(file);
-        }
-        
-        function handleDecodeFileDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            fileDecodeArea.classList.remove('dragover');
-            
-            const file = e.dataTransfer.files[0];
-            processDecodeFile(file);
-        }
-        
-        function handleEncodeFileSelect(e) {
-            const file = e.target.files[0];
-            processEncodeFile(file);
-        }
-        
-        function handleDecodeFileSelect(e) {
-            const file = e.target.files[0];
-            processDecodeFile(file);
-        }
-        
-        function processEncodeFile(file) {
-            if (!file) return;
-            
-            // Check file size (limit to 10MB)
-            if (file.size > 10 * 1024 * 1024) {
-                alert('File is too large. Maximum size is 10MB.');
-                return;
-            }
-            
-            currentEncodeFile = file;
-            
-            // Display file info
-            encodeFileName.textContent = file.name;
-            encodeFileSize.textContent = formatFileSize(file.size);
-            encodeFileType.textContent = file.type || 'Unknown';
-            
-            encodeFileInfo.style.display = 'block';
-        }
-        
-        function processDecodeFile(file) {
-            if (!file) return;
-            
-            currentDecodeFile = file;
-            
-            // Display file info
-            decodeFileName.textContent = file.name;
-            decodeFileSize.textContent = formatFileSize(file.size);
-            
-            decodeFileInfo.style.display = 'block';
-        }
-        
-        function encodeToBase64() {
-            if (textEncodeTab.classList.contains('active')) {
-                // Encode text
-                const text = textToEncode.value.trim();
-                if (!text) {
-                    alert('Please enter some text to encode');
-                    return;
-                }
-                
-                const base64 = btoa(unescape(encodeURIComponent(text)));
-                base64Result.value = base64;
-            } else {
-                // Encode file
-                if (!currentEncodeFile) {
-                    alert('Please select a file to encode');
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const base64 = event.target.result.split(',')[1];
-                    base64Result.value = base64;
-                };
-                reader.readAsDataURL(currentEncodeFile);
-            }
-        }
-        
-        function decodeFromBase64() {
-            let base64;
-            
-            if (textDecodeTab.classList.contains('active')) {
-                // Decode from text input
-                base64 = textToDecode.value.trim();
-                if (!base64) {
-                    alert('Please enter Base64 to decode');
-                    return;
-                }
-                
-                try {
-                    // Try decoding as text first
-                    const text = decodeURIComponent(escape(atob(base64)));
-                    showTextResult(text);
-                } catch (e) {
-                    // If text decoding fails, try as binary data
-                    try {
-                        const binaryString = atob(base64);
-                        const bytes = new Uint8Array(binaryString.length);
-                        for (let i = 0; i < binaryString.length; i++) {
-                            bytes[i] = binaryString.charCodeAt(i);
-                        }
-                        const blob = new Blob([bytes], { type: 'application/octet-stream' });
-                        showFileResult(blob);
-                    } catch (e) {
-                        alert('Invalid Base64 input. Could not decode as text or file.');
-                        console.error(e);
-                    }
-                }
-            } else {
-                // Decode from file
-                if (!currentDecodeFile) {
-                    alert('Please select a Base64 file to decode');
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const fileContent = event.target.result.trim();
-                    try {
-                        // Try decoding as text first
-                        const text = decodeURIComponent(escape(atob(fileContent)));
-                        showTextResult(text);
-                    } catch (e) {
-                        // If text decoding fails, try as binary data
-                        try {
-                            const binaryString = atob(fileContent);
-                            const bytes = new Uint8Array(binaryString.length);
-                            for (let i = 0; i < binaryString.length; i++) {
-                                bytes[i] = binaryString.charCodeAt(i);
-                            }
-                            const blob = new Blob([bytes], { type: 'application/octet-stream' });
-                            showFileResult(blob);
-                        } catch (e) {
-                            alert('File does not contain valid Base64 data.');
-                            console.error(e);
-                        }
-                    }
-                };
-                reader.readAsText(currentDecodeFile);
-            }
-        }
-        
-        function showTextResult(text) {
-            noResult.style.display = 'none';
-            fileDecodedResult.style.display = 'none';
-            textDecodedResult.style.display = 'block';
-            textDecodedResult.value = text;
-            copyDecodedBtn.style.display = 'inline-block';
-            decodedFileBlob = null;
-        }
-        
-        function showFileResult(blob) {
-            noResult.style.display = 'none';
-            textDecodedResult.style.display = 'none';
-            fileDecodedResult.style.display = 'block';
-            copyDecodedBtn.style.display = 'none';
-            decodedFileBlob = blob;
-            
-            // Clear previous preview
-            filePreview.innerHTML = '';
-            
-            // Try to display image if blob is an image
-            if (blob.type.startsWith('image/')) {
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(blob);
-                img.style.maxWidth = '100%';
-                filePreview.appendChild(img);
-            } else {
-                filePreview.innerHTML = `<p>Binary file (${blob.type})</p>`;
-            }
-        }
-        
-        function copyBase64Result() {
-            base64Result.select();
-            document.execCommand('copy');
-            
-            // Show feedback
-            const originalText = copyBase64Btn.textContent;
-            copyBase64Btn.textContent = 'Copied!';
-            setTimeout(() => {
-                copyBase64Btn.textContent = originalText;
-            }, 2000);
-        }
-        
-        function copyDecodedResult() {
-            textDecodedResult.select();
-            document.execCommand('copy');
-            
-            // Show feedback
-            const originalText = copyDecodedBtn.textContent;
-            copyDecodedBtn.textContent = 'Copied!';
-            setTimeout(() => {
-                copyDecodedBtn.textContent = originalText;
-            }, 2000);
-        }
-        
-        function downloadDecodedFile() {
-            if (!decodedFileBlob) return;
-            
-            const url = URL.createObjectURL(decodedFileBlob);
-            const a = document.createElement('a');
-            a.href = url;
-            
-            // Create filename
-            let filename = 'decoded_file';
-            if (decodedFileBlob.type) {
-                const ext = decodedFileBlob.type.split('/')[1] || 'bin';
-                filename += '.' + ext;
-            }
-            
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-        
-        function clearBase64Result() {
-            base64Result.value = '';
-            textToEncode.value = '';
-            
-            if (currentEncodeFile) {
-                currentEncodeFile = null;
-                encodeFileInfo.style.display = 'none';
-            }
-        }
-        
-        function clearDecodedResult() {
-            textToDecode.value = '';
-            textDecodedResult.value = '';
-            filePreview.innerHTML = '';
-            noResult.style.display = 'block';
-            textDecodedResult.style.display = 'none';
-            fileDecodedResult.style.display = 'none';
-            copyDecodedBtn.style.display = 'none';
-            
-            if (currentDecodeFile) {
-                currentDecodeFile = null;
-                decodeFileInfo.style.display = 'none';
-            }
-            
-            if (decodedFileBlob) {
-                URL.revokeObjectURL(decodedFileBlob);
-                decodedFileBlob = null;
-            }
-        }
-        
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-    </script>
+    function decodeBase64() {
+      try {
+        const input = document.getElementById('inputText').value;
+        const decoded = decodeURIComponent(escape(atob(input)));
+        document.getElementById('outputText').value = decoded;
+      } catch (e) {
+        alert('Invalid Base64 input');
+      }
+    }
+  </script>
 </body>
+
 </html>
