@@ -1,212 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MP4 to GIF Converter | TOOLGENIE</title>
-  <meta name="description" content="Convert MP4 videos to GIFs instantly with TOOLGENIE's online MP4 to GIF converter. Fast, free and no watermark." />
-  <meta name="keywords" content="MP4 to GIF, Video to GIF Converter, Online MP4 to GIF Tool, TOOLGENIE" />
+  <meta name="description" content="Convert MP4 videos to animated GIFs instantly with TOOLGENIE's fast and simple online converter.">
+  <meta name="keywords" content="MP4 to GIF, video to gif, gif converter, TOOLGENIE">
   <meta name="author" content="TOOLGENIE" />
+  <title>MP4 to GIF Converter | TOOLGENIE</title>
   <link rel="icon" href="../assets/favicon.png" type="image/png" />
   <style>
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f7f9fc, #e2eafc);
+      margin: 0;
+      background: linear-gradient(to right, #f4f6f9, #e3efff);
       color: #333;
     }
+
     header, footer {
       backdrop-filter: blur(10px);
       background: rgba(255, 255, 255, 0.7);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     nav a {
       margin: 0 1rem;
       text-decoration: none;
       color: #333;
     }
+
     .container {
       max-width: 800px;
       margin: 2rem auto;
+      padding: 2rem;
       background: rgba(255, 255, 255, 0.8);
-      padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    .upload-area {
-      border: 2px dashed #007BFF;
-      padding: 2rem;
-      text-align: center;
-      cursor: pointer;
-      border-radius: 15px;
-      margin-bottom: 1.5rem;
-      background: #f0f8ff;
-    }
-    .upload-area.dragover {
-      background-color: #e0ecff;
-    }
-    video, img {
-      width: 100%;
-      max-height: 300px;
-      border-radius: 10px;
+
+    input[type="file"] {
       margin-bottom: 1rem;
     }
+
+    video, img {
+      max-width: 100%;
+      margin-top: 1rem;
+      border-radius: 10px;
+    }
+
     button {
-      background: #007BFF;
+      background: #007bff;
       color: white;
       border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 10px;
+      font-size: 1rem;
       cursor: pointer;
+      margin-top: 1rem;
     }
+
     button:hover {
       background: #0056b3;
     }
-    #gifPreview {
-      display: none;
+
+    .preview-section {
+      margin-top: 2rem;
     }
+
     footer {
       text-align: center;
       font-size: 0.9rem;
       flex-direction: column;
-      margin-top: 2rem;
     }
+
     footer a {
       margin: 0 0.5rem;
       text-decoration: none;
-      color: #007BFF;
+      color: #007bff;
     }
-    @media (max-width: 600px) {
-      .upload-area {
-        padding: 1rem;
-      }
+
+    #gifPreview {
+      margin-top: 1rem;
+      border-radius: 10px;
     }
   </style>
 </head>
+
 <body>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
 
-<header>
-  <div style="display:flex; align-items:center;">
-    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
-    <strong>TOOLGENIE</strong>
-  </div>
-  <nav>
-    <a href="../index.html">Tools</a>
-    <a href="../about.html">About</a>
-    <a href="../contact.html">Contact</a>
-  </nav>
-</header>
+  <main class="container">
+    <h1>MP4 to GIF Converter</h1>
+    <p>Convert your MP4 video files to animated GIFs quickly and easily.</p>
 
-<main class="container">
-  <h1>MP4 to GIF Converter</h1>
-  <p style="text-align:center;">Easily convert your MP4 videos to high-quality GIFs online. No watermark, no signup.</p>
+    <input type="file" id="videoInput" accept="video/mp4" />
+    <div id="videoPreview" class="preview-section"></div>
+    <button onclick="convertToGIF()">Convert to GIF</button>
 
-  <div class="upload-area" id="dropZone" onclick="fileInput.click()">
-    <p>Drag and drop your MP4 file here or click to upload.</p>
-    <input type="file" id="fileInput" accept="video/mp4" style="display:none;" />
-  </div>
+    <div id="gifContainer" class="preview-section" style="display:none;">
+      <h3>GIF Preview:</h3>
+      <img id="gifPreview" />
+      <br>
+      <a id="downloadLink" download="converted.gif">
+        <button>Download GIF</button>
+      </a>
+    </div>
 
-  <video id="videoPreview" controls style="display:none;"></video>
-  <button id="convertBtn" style="display:none;" onclick="convertToGIF()">Convert to GIF</button>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Upload your MP4 video file using the upload button.</li>
+        <li>Preview the video and click "Convert to GIF" to start conversion.</li>
+        <li>After conversion, a GIF preview will appear with a download button.</li>
+      </ul>
+    </article>
+  </main>
 
-  <div id="gifPreview">
-    <h3>Converted GIF:</h3>
-    <img id="gifImage" />
-    <a id="downloadBtn" download="converted.gif"><button>Download GIF</button></a>
-  </div>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-  <h2>How to use this tool</h2>
-  <article>
-    <ul>
-      <li>Upload your MP4 video by dragging it into the box or using the file picker.</li>
-      <li>Preview your video to ensure it's correct.</li>
-      <li>Click "Convert to GIF" to generate the GIF.</li>
-      <li>Preview and download your GIF.</li>
-    </ul>
-  </article>
-</main>
+  <script src="https://cdn.jsdelivr.net/npm/gifshot@0.3.2/build/gifshot.min.js"></script>
+  <script>
+    const videoInput = document.getElementById('videoInput');
+    const videoPreview = document.getElementById('videoPreview');
+    let videoURL;
 
-<footer>
-  <div>
-    <a href="../about.html">About</a>
-    <a href="../contact.html">Contact</a>
-    <a href="../privacy.html">Privacy</a>
-  </div>
-  <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/gifshot/gifshot.min.js"></script>
-<script>
-  const fileInput = document.getElementById('fileInput');
-  const dropZone = document.getElementById('dropZone');
-  const videoPreview = document.getElementById('videoPreview');
-  const gifPreview = document.getElementById('gifPreview');
-  const gifImage = document.getElementById('gifImage');
-  const downloadBtn = document.getElementById('downloadBtn');
-
-  dropZone.addEventListener('dragover', e => {
-    e.preventDefault();
-    dropZone.classList.add('dragover');
-  });
-
-  dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('dragover');
-  });
-
-  dropZone.addEventListener('drop', e => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type === 'video/mp4') {
-      handleVideo(file);
-    }
-  });
-
-  fileInput.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (file && file.type === 'video/mp4') {
-      handleVideo(file);
-    }
-  });
-
-  function handleVideo(file) {
-    const url = URL.createObjectURL(file);
-    videoPreview.src = url;
-    videoPreview.style.display = 'block';
-    document.getElementById('convertBtn').style.display = 'inline-block';
-  }
-
-  function convertToGIF() {
-    gifshot.createGIF({
-      'video': [videoPreview.src],
-      'gifWidth': 320,
-      'gifHeight': 240,
-      'numFrames': 10,
-      'frameDuration': 1,
-      'progressCallback': function (captureProgress) {
-        console.log('Progress:', captureProgress);
-      }
-    }, function (obj) {
-      if (!obj.error) {
-        gifImage.src = obj.image;
-        gifPreview.style.display = 'block';
-        downloadBtn.href = obj.image;
-      } else {
-        alert('GIF creation failed.');
+    videoInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        videoURL = URL.createObjectURL(file);
+        videoPreview.innerHTML = `<video src="${videoURL}" controls width="100%" style="border-radius: 10px;"></video>`;
       }
     });
-  }
-</script>
 
+    function convertToGIF() {
+      if (!videoURL) {
+        alert('Please upload a video first.');
+        return;
+      }
+
+      gifshot.createGIF({
+        video: [videoURL],
+        gifWidth: 320,
+        gifHeight: 240,
+        numFrames: 10,
+        frameDuration: 1,
+        keepCameraOn: false,
+      }, function (obj) {
+        if (!obj.error) {
+          const image = obj.image;
+          document.getElementById('gifPreview').src = image;
+          document.getElementById('downloadLink').href = image;
+          document.getElementById('gifContainer').style.display = 'block';
+        } else {
+          alert('GIF conversion failed. Please try with a smaller video.');
+        }
+      });
+    }
+  </script>
 </body>
+
 </html>
