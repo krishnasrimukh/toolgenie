@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Lookup - Find Your Public IP Information | TOOLGENIE</title>
+    <meta name="description" content="Free online IP address lookup tool. Find your public IP address, location, ISP, and other network information.">
+    <meta name="keywords" content="ip lookup, find my ip, public ip address, ip location, network information, toolgenie">
+    <meta name="author" content="TOOLGENIE">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolgenie.in/tools/ip-address-lookup.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolgenie.in/tools/ip-address-lookup.html">
+    <meta property="og:title" content="IP Address Lookup - Find Your Public IP Information | TOOLGENIE">
+    <meta property="og:description" content="Free online IP address lookup tool. Find your public IP address, location, ISP, and other network information.">
+    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolgenie.in/tools/ip-address-lookup.html">
+    <meta property="twitter:title" content="IP Address Lookup - Find Your Public IP Information | TOOLGENIE">
+    <meta property="twitter:description" content="Free online IP address lookup tool. Find your public IP address, location, ISP, and other network information.">
+    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/icons/favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../about.html" class="nav-link">About</a>
+                <a href="../contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ad Space (Top) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- Tool Container -->
+        <section class="tool-container">
+            <h1>IP Address Lookup</h1>
+            <p class="tool-description">Find information about any IP address, including location, ISP, and network details.</p>
+            
+            <!-- Tool Interface -->
+            <div class="tool-interface">
+                <div class="ip-lookup">
+                    <div class="ip-input-section">
+                        <input type="text" id="ipInput" placeholder="Enter IP address or leave blank for your IP">
+                        <button id="lookupBtn" class="action-btn">Lookup IP</button>
+                    </div>
+                    
+                    <div class="ip-results" id="ipResults" style="display: none;">
+                        <div class="ip-info-card">
+                            <div class="ip-info-header">
+                                <h3 id="ipAddress">-</h3>
+                                <span id="ipType" class="ip-type-tag">Unknown</span>
+                            </div>
+                            
+                            <div class="ip-info-grid">
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">Country</span>
+                                    <span id="ipCountry" class="ip-info-value">-</span>
+                                </div>
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">Region</span>
+                                    <span id="ipRegion" class="ip-info-value">-</span>
+                                </div>
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">City</span>
+                                    <span id="ipCity" class="ip-info-value">-</span>
+                                </div>
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">Postal Code</span>
+                                    <span id="ipPostal" class="ip-info-value">-</span>
+                                </div>
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">ISP</span>
+                                    <span id="ipIsp" class="ip-info-value">-</span>
+                                </div>
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">Organization</span>
+                                    <span id="ipOrg" class="ip-info-value">-</span>
+                                </div>
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">Timezone</span>
+                                    <span id="ipTimezone" class="ip-info-value">-</span>
+                                </div>
+                                <div class="ip-info-item">
+                                    <span class="ip-info-label">Coordinates</span>
+                                    <span id="ipCoords" class="ip-info-value">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ip-map-container">
+                            <div id="ipMap"></div>
+                            <div class="map-zoom-controls">
+                                <button id="zoomInBtn" class="map-zoom-btn">+</button>
+                                <button id="zoomOutBtn" class="map-zoom-btn">−</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="loading-state" id="loadingState" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <p>Looking up IP address information...</p>
+                    </div>
+                    
+                    <div class="error-state" id="errorState" style="display: none;">
+                        <div class="error-icon">⚠️</div>
+                        <p id="errorMessage">An error occurred while looking up the IP address.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Features -->
+            <div class="tool-features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>IP Geolocation:</strong> Find the approximate location of any IP address</li>
+                    <li><strong>Network Details:</strong> Discover ISP, organization, and ASN information</li>
+                    <li><strong>Interactive Map:</strong> Visualize the IP location on a map</li>
+                    <li><strong>Privacy Information:</strong> Learn what your IP reveals about you</li>
+                    <li><strong>No Tracking:</strong> We don't store the IP addresses you look up</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Ad Space (Middle) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- How To Use Section -->
+        <section class="how-to-use">
+            <h2>How To Look Up IP Address Information</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Enter IP Address</h3>
+                    <p>Type an IP address in the input field or leave it blank to look up your own public IP.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Click Lookup</h3>
+                    <p>Press the "Lookup IP" button to retrieve information about the IP address.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 3: View Results</h3>
+                    <p>See detailed information including location, ISP, and network details.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 4: Explore Map</h3>
+                    <p>Check the interactive map to visualize the approximate location.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What is an IP address?</h3>
+                <div class="faq-answer">
+                    <p>An IP (Internet Protocol) address is a unique numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How accurate is the location information?</h3>
+                <div class="faq-answer">
+                    <p>IP geolocation is typically accurate to the city level, but can sometimes be less precise depending on the ISP and network configuration.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Can I find the exact physical address from an IP?</h3>
+                <div class="faq-answer">
+                    <p>No, IP geolocation can't provide exact street addresses. It shows the approximate location associated with the ISP's network infrastructure.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is my IP address stored when I use this tool?</h3>
+                <div class="faq-answer">
+                    <p>No, we don't store or log the IP addresses you look up. All processing happens in your browser.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">What's the difference between IPv4 and IPv6?</h3>
+                <div class="faq-answer">
+                    <p>IPv4 uses 32-bit addresses (e.g., 192.168.1.1) while IPv6 uses 128-bit addresses (e.g., 2001:0db8:85a3::8a2e:0370:7334). IPv6 was introduced to provide more available addresses.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // DOM Elements
+        const ipInput = document.getElementById('ipInput');
+        const lookupBtn = document.getElementById('lookupBtn');
+        const ipResults = document.getElementById('ipResults');
+        const loadingState = document.getElementById('loadingState');
+        const errorState = document.getElementById('errorState');
+        const errorMessage = document.getElementById('errorMessage');
+        const ipAddress = document.getElementById('ipAddress');
+        const ipType = document.getElementById('ipType');
+        const ipCountry = document.getElementById('ipCountry');
+        const ipRegion = document.getElementById('ipRegion');
+        const ipCity = document.getElementById('ipCity');
+        const ipPostal = document.getElementById('ipPostal');
+        const ipIsp = document.getElementById('ipIsp');
+        const ipOrg = document.getElementById('ipOrg');
+        const ipTimezone = document.getElementById('ipTimezone');
+        const ipCoords = document.getElementById('ipCoords');
+        const ipMap = document.getElementById('ipMap');
+        const zoomInBtn = document.getElementById('zoomInBtn');
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
+        
+        // Variables
+        let map;
+        let marker;
+        
+        // Event Listeners
+        lookupBtn.addEventListener('click', lookupIpAddress);
+        ipInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                lookupIpAddress();
+            }
+        });
+        zoomInBtn.addEventListener('click', () => {
+            if (map) map.zoomIn();
+        });
+        zoomOutBtn.addEventListener('click', () => {
+            if (map) map.zoomOut();
+        });
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.classList.toggle('active');
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Initialize - Lookup user's own IP on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            lookupIpAddress();
+        });
+        
+        // Functions
+        function lookupIpAddress() {
+            const ip = ipInput.value.trim();
+            
+            // Show loading state
+            ipResults.style.display = 'none';
+            errorState.style.display = 'none';
+            loadingState.style.display = 'flex';
+            
+            // Determine API URL
+            let apiUrl = 'https://ipapi.co/json/';
+            if (ip) {
+                // Validate IP format
+                if (!isValidIp(ip)) {
+                    showError('Please enter a valid IPv4 or IPv6 address');
+                    return;
+                }
+                apiUrl = `https://ipapi.co/${ip}/json/`;
+            }
+            
+            // Make API request
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.reason || 'Unknown error from API');
+                    }
+                    displayIpData(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching IP data:', error);
+                    showError(error.message || 'Failed to fetch IP information');
+                });
+        }
+
+        function isValidIp(ip) {
+            // Simple validation for IPv4 and IPv6
+            const ipv4Regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            const ipv6Regex = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
+            
+            return ipv4Regex.test(ip) || ipv6Regex.test(ip);
+        }
+
+        function displayIpData(data) {
+            // Hide loading state, show results
+            loadingState.style.display = 'none';
+            errorState.style.display = 'none';
+            ipResults.style.display = 'block';
+            
+            // Populate IP information
+            ipAddress.textContent = data.ip || '-';
+            
+            // Determine IP type
+            const isIpv6 = data.ip && data.ip.includes(':');
+            ipType.textContent = isIpv6 ? 'IPv6' : 'IPv4';
+            ipType.className = `ip-type-tag ${isIpv6 ? 'ipv6' : 'ipv4'}`;
+            
+            // Populate other fields
+            ipCountry.textContent = data.country_name || '-';
+            ipRegion.textContent = data.region || '-';
+            ipCity.textContent = data.city || '-';
+            ipPostal.textContent = data.postal || '-';
+            ipIsp.textContent = data.org ? data.org.split(' ')[0] : '-';
+            ipOrg.textContent = data.org || '-';
+            ipTimezone.textContent = data.timezone || '-';
+            
+            // Handle coordinates
+            if (data.latitude && data.longitude) {
+                ipCoords.textContent = `${data.latitude}, ${data.longitude}`;
+                updateMap(data.latitude, data.longitude, data.city, data.country_name);
+            } else {
+                ipCoords.textContent = '-';
+                if (map) {
+                    map.remove();
+                    map = null;
+                }
+            }
+        }
+
+        function updateMap(lat, lng, city, country) {
+            // Remove existing map if present
+            if (map) {
+                map.remove();
+            }
+            
+            // Create new map
+            map = L.map('ipMap').setView([lat, lng], 8);
+            
+            // Add tile layer (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Add marker
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker([lat, lng]).addTo(map);
+            
+            // Add popup if location info available
+            let popupContent = `<b>IP Location</b><br>`;
+            if (city && country) {
+                popupContent += `${city}, ${country}`;
+            } else if (country) {
+                popupContent += country;
+            } else {
+                popupContent += 'Approximate location';
+            }
+            marker.bindPopup(popupContent).openPopup();
+        }
+
+        function showError(message) {
+            loadingState.style.display = 'none';
+            ipResults.style.display = 'none';
+            errorState.style.display = 'flex';
+            errorMessage.textContent = message;
+        }
+    </script>
+</body>
+</html>
