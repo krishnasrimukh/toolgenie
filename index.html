@@ -1,88 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>ToolGenie - Free Online File Tools</title>
-  <meta name="description" content="Convert, compress, merge, and optimize files online. ToolGenie offers powerful free tools — all in one place!" />
-  <meta name="keywords" content="ToolGenie, online tools, file converter, image to pdf, pdf merger, word to pdf, mp4 to mp3, compress images" />
-  <meta name="author" content="ToolGenie Team" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph for SEO and social media -->
-  <meta property="og:title" content="ToolGenie - Free Online File Tools" />
-  <meta property="og:description" content="Convert, compress, and optimize your files with ToolGenie – fast and free." />
-  <meta property="og:image" content="https://toolgenie.in/assets/icons/android-chrome-512x512.png" />
-  <meta property="og:url" content="https://toolgenie.in/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/icons/favicon-32x32.png" />
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/styles/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOOLGENIE - Free Online Tools for Everyday Tasks</title>
+    <meta name="description" content="Free online tools for PDF conversion, image editing, file conversion and more. No installation needed. Work directly in your browser.">
+    <meta name="keywords" content="free online tools, PDF converter, image converter, file converter, word counter, QR generator, toolgenie">
+    <meta name="author" content="TOOLGENIE">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/icons/favicon.ico">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://toolgenie.in">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolgenie.in/">
+    <meta property="og:title" content="TOOLGENIE - Free Online Tools for Everyday Tasks">
+    <meta property="og:description" content="Free online tools for PDF conversion, image editing, file conversion and more. No installation needed.">
+    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolgenie.in/">
+    <meta property="twitter:title" content="TOOLGENIE - Free Online Tools for Everyday Tasks">
+    <meta property="twitter:description" content="Free online tools for PDF conversion, image editing, file conversion and more. No installation needed.">
+    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
 
-  <!-- Header with logo and search -->
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1000px; margin: auto;">
-    <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
-      <img src="assets/images/toolgenie-logo.png" alt="ToolGenie Logo" style="height: 40px; margin-right: 0.75rem;" />
-      <h1 style="font-size: 1.6rem; color: #1a1a1a;">ToolGenie</h1>
-    </a>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Your Free Online Tools Solution</h1>
+            <p>No installations. No registrations. Just free tools that work directly in your browser.</p>
+        </section>
 
-    <!-- Search bar -->
-    <input type="text" id="searchInput" placeholder="Search tools..." class="input" style="max-width: 250px;" />
-  </header>
+        <!-- Ad Space (Top) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
 
-  <!-- Hero section -->
-  <div class="hero">
-    <h2>Convert, compress, merge, and optimize your files — all in one place.</h2>
-    <p>Simple, fast, and free tools to solve your daily file problems.</p>
-  </div>
+        <!-- Tools Grid -->
+        <section class="tools-grid">
+            <h2>Popular Tools</h2>
+            <div class="grid-container">
+                <!-- PDF Tools -->
+                <div class="tool-card">
+                    <a href="tools/pdf-to-word-converter.html">
+                        <div class="tool-icon">📄➡️📝</div>
+                        <h3>PDF to Word</h3>
+                        <p>Convert PDF files to editable Word documents</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/word-to-pdf-converter.html">
+                        <div class="tool-icon">📝➡️📄</div>
+                        <h3>Word to PDF</h3>
+                        <p>Convert Word documents to PDF format</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/pdf-merger.html">
+                        <div class="tool-icon">📄➕📄</div>
+                        <h3>PDF Merger</h3>
+                        <p>Combine multiple PDFs into one document</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/pdf-splitter.html">
+                        <div class="tool-icon">📄✂️</div>
+                        <h3>PDF Splitter</h3>
+                        <p>Split PDFs into multiple documents</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/pdf-to-images.html">
+                        <div class="tool-icon">📄➡️🖼️</div>
+                        <h3>PDF to Images</h3>
+                        <p>Extract images from PDF files</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/text-pdf-generator.html">
+                        <div class="tool-icon">✍️➡️📄</div>
+                        <h3>Text to PDF</h3>
+                        <p>Create PDFs from plain text</p>
+                    </a>
+                </div>
+                
+                <!-- Image Tools -->
+                <div class="tool-card">
+                    <a href="tools/image-compressor.html">
+                        <div class="tool-icon">🖼️📉</div>
+                        <h3>Image Compressor</h3>
+                        <p>Reduce image file size without losing quality</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/jpg-to-png.html">
+                        <div class="tool-icon">JPG➡️PNG</div>
+                        <h3>JPG to PNG</h3>
+                        <p>Convert JPG images to PNG format</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/png-to-jpg.html">
+                        <div class="tool-icon">PNG➡️JPG</div>
+                        <h3>PNG to JPG</h3>
+                        <p>Convert PNG images to JPG format</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/images-to-pdf.html">
+                        <div class="tool-icon">🖼️➡️📄</div>
+                        <h3>Images to PDF</h3>
+                        <p>Combine multiple images into a PDF</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/image-cropper-resizer.html">
+                        <div class="tool-icon">✂️🖼️</div>
+                        <h3>Image Cropper</h3>
+                        <p>Crop and resize images online</p>
+                    </a>
+                </div>
+                
+                <!-- Video Tools -->
+                <div class="tool-card">
+                    <a href="tools/mp4-to-mp3.html">
+                        <div class="tool-icon">🎬➡️🎵</div>
+                        <h3>MP4 to MP3</h3>
+                        <p>Extract audio from video files</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/gif-to-mp4-converter.html">
+                        <div class="tool-icon">GIF➡️MP4</div>
+                        <h3>GIF to MP4</h3>
+                        <p>Convert animated GIFs to video</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/mp4-to-gif-converter.html">
+                        <div class="tool-icon">MP4➡️GIF</div>
+                        <h3>MP4 to GIF</h3>
+                        <p>Create GIFs from video clips</p>
+                    </a>
+                </div>
+                
+                <!-- Text Tools -->
+                <div class="tool-card">
+                    <a href="tools/word-counter.html">
+                        <div class="tool-icon">🔢📝</div>
+                        <h3>Word Counter</h3>
+                        <p>Count words and characters in text</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/grammer-and-spell-checker.html">
+                        <div class="tool-icon">🔍✍️</div>
+                        <h3>Grammar Checker</h3>
+                        <p>Check spelling and grammar in text</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/speech-to-text.html">
+                        <div class="tool-icon">🎤➡️📝</div>
+                        <h3>Speech to Text</h3>
+                        <p>Convert spoken words to written text</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/base64-encoder-decoder.html">
+                        <div class="tool-icon">🔢🔠</div>
+                        <h3>Base64 Converter</h3>
+                        <p>Encode/decode Base64 strings</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/hash-generator.html">
+                        <div class="tool-icon">#️⃣🔒</div>
+                        <h3>Hash Generator</h3>
+                        <p>Create cryptographic hashes</p>
+                    </a>
+                </div>
+                
+                <!-- Other Tools -->
+                <div class="tool-card">
+                    <a href="tools/qr-code-generator.html">
+                        <div class="tool-icon">📱🔳</div>
+                        <h3>QR Generator</h3>
+                        <p>Create QR codes for URLs and text</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/time-zone-converter.html">
+                        <div class="tool-icon">🌍🕒</div>
+                        <h3>Time Zone Converter</h3>
+                        <p>Convert between time zones</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/url-shortener.html">
+                        <div class="tool-icon">🔗✂️</div>
+                        <h3>URL Shortener</h3>
+                        <p>Create short links from long URLs</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/color-picker-&-converter.html">
+                        <div class="tool-icon">🎨🔄</div>
+                        <h3>Color Converter</h3>
+                        <p>Convert between color formats</p>
+                    </a>
+                </div>
+                
+                <div class="tool-card">
+                    <a href="tools/ip-address-lookup.html">
+                        <div class="tool-icon">🌐🔍</div>
+                        <h3>IP Lookup</h3>
+                        <p>Find location and info for IP addresses</p>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  <!-- Tool grid -->
-  <section class="tools-grid" id="toolList">
-    <a href="tools/image-compressor.html" class="tool-card-link"><span>🗜️</span>Image Compressor</a>
-    <a href="tools/jpg-to-png.html" class="tool-card-link"><span>🖼️</span>JPG to PNG</a>
-    <a href="tools/png-to-jpg.html" class="tool-card-link"><span>🖼️</span>PNG to JPG</a>
-    <a href="tools/mp4-to-mp3.html" class="tool-card-link"><span>🎵</span>MP4 to MP3</a>
-    <a href="tools/pdf-merger.html" class="tool-card-link"><span>📎</span>PDF Merger</a>
-    <a href="tools/pdf-splitter.html" class="tool-card-link"><span>✂️</span>PDF Splitter</a>
-    <a href="tools/pdf-to-images.html" class="tool-card-link"><span>🖼️</span>PDF to Images</a>
-    <a href="tools/images-to-pdf.html" class="tool-card-link"><span>📄</span>Images to PDF</a>
-    <a href="tools/pdf-to-word-converter.html" class="tool-card-link"><span>🔤</span>PDF to Word</a>
-    <a href="tools/word-to-pdf-converter.html" class="tool-card-link"><span>📄</span>Word to PDF</a>
-    <a href="tools/qr-code-generator.html" class="tool-card-link"><span>🔗</span>QR Code Generator</a>
-    <a href="tools/text-pdf-generator.html" class="tool-card-link"><span>📝</span>Text to PDF</a>
-    <a href="tools/time-zone-converter.html" class="tool-card-link"><span>🌍</span>Time Zone Converter</a>
-    <a href="tools/word-counter.html" class="tool-card-link"><span>🔢</span>Word Counter</a>
-  </section>
+        <!-- Ad Space (Middle) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 ToolGenie – All tools are free forever.
-    <div class="footer-links">
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-  </footer>
+        <!-- How To Section -->
+        <section class="how-to">
+            <h2>How To Use Our Tools</h2>
+            <ol>
+                <li>Select the tool you need from our collection</li>
+                <li>Upload your file or enter your data</li>
+                <li>Process your file/data with our tool</li>
+                <li>Download or copy your result</li>
+            </ol>
+            
+            <div class="features">
+                <h3>Why Choose TOOLGENIE?</h3>
+                <ul>
+                    <li><strong>100% Free:</strong> No hidden charges or subscriptions</li>
+                    <li><strong>No Registration:</strong> Use tools without signing up</li>
+                    <li><strong>Privacy Focused:</strong> Your data stays on your device</li>
+                    <li><strong>No Watermarks:</strong> Clean output without branding</li>
+                    <li><strong>Works Everywhere:</strong> Access from any device with a browser</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Categories Section -->
+        <section class="categories">
+            <h2>Tool Categories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <h3>PDF Tools</h3>
+                    <ul>
+                        <li><a href="tools/pdf-to-word-converter.html">PDF to Word</a></li>
+                        <li><a href="tools/word-to-pdf-converter.html">Word to PDF</a></li>
+                        <li><a href="tools/pdf-merger.html">PDF Merger</a></li>
+                        <li><a href="tools/pdf-splitter.html">PDF Splitter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Image Tools</h3>
+                    <ul>
+                        <li><a href="tools/image-compressor.html">Image Compressor</a></li>
+                        <li><a href="tools/jpg-to-png.html">JPG to PNG</a></li>
+                        <li><a href="tools/image-cropper-resizer.html">Image Cropper</a></li>
+                        <li><a href="tools/images-to-pdf.html">Images to PDF</a></li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Video Tools</h3>
+                    <ul>
+                        <li><a href="tools/mp4-to-mp3.html">MP4 to MP3</a></li>
+                        <li><a href="tools/gif-to-mp4-converter.html">GIF to MP4</a></li>
+                        <li><a href="tools/mp4-to-gif-converter.html">MP4 to GIF</a></li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Text Tools</h3>
+                    <ul>
+                        <li><a href="tools/word-counter.html">Word Counter</a></li>
+                        <li><a href="tools/grammer-and-spell-checker.html">Grammar Checker</a></li>
+                        <li><a href="tools/speech-to-text.html">Speech to Text</a></li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Other Tools</h3>
+                    <ul>
+                        <li><a href="tools/qr-code-generator.html">QR Generator</a></li>
+                        <li><a href="tools/url-shortener.html">URL Shortener</a></li>
+                        <li><a href="tools/ip-address-lookup.html">IP Lookup</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <!-- Search filtering script -->
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const tools = document.querySelectorAll('.tool-card-link');
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    searchInput.addEventListener('input', function () {
-      const keyword = this.value.toLowerCase();
-      tools.forEach(tool => {
-        const text = tool.textContent.toLowerCase();
-        tool.style.display = text.includes(keyword) ? 'block' : 'none';
-      });
-    });
-  </script>
-
+    <script src="js/main.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+            });
+        });
+        
+        // Search functionality (basic)
+        const searchBtn = document.querySelector('.search-btn');
+        const searchBar = document.querySelector('.search-bar');
+        
+        searchBtn.addEventListener('click', performSearch);
+        searchBar.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+        
+        function performSearch() {
+            const query = searchBar.value.trim().toLowerCase();
+            if (!query) return;
+            
+            // Get all tool cards
+            const toolCards = document.querySelectorAll('.tool-card');
+            let found = false;
+            
+            toolCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(query) || desc.includes(query)) {
+                    card.style.display = 'block';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (!found) {
+                alert('No tools found matching your search. Try different keywords.');
+                toolCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+        }
+    </script>
 </body>
 </html>
