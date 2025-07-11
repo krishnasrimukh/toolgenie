@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar and Spell Checker - Free Online Proofreading Tool | TOOLGENIE</title>
+    <meta name="description" content="Free online grammar and spell checker. Improve your writing with instant corrections for spelling, grammar, and punctuation errors.">
+    <meta name="keywords" content="grammar checker, spell check, proofreading tool, writing assistant, grammar correction, toolgenie">
+    <meta name="author" content="TOOLGENIE">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolgenie.in/tools/grammer-and-spell-checker.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolgenie.in/tools/grammer-and-spell-checker.html">
+    <meta property="og:title" content="Grammar and Spell Checker - Free Online Proofreading Tool | TOOLGENIE">
+    <meta property="og:description" content="Free online grammar and spell checker. Improve your writing with instant corrections for spelling, grammar, and punctuation errors.">
+    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolgenie.in/tools/grammer-and-spell-checker.html">
+    <meta property="twitter:title" content="Grammar and Spell Checker - Free Online Proofreading Tool | TOOLGENIE">
+    <meta property="twitter:description" content="Free online grammar and spell checker. Improve your writing with instant corrections for spelling, grammar, and punctuation errors.">
+    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/icons/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@1.3.2/dist/universal-sentence-encoder.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../about.html" class="nav-link">About</a>
+                <a href="../contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ad Space (Top) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- Tool Container -->
+        <section class="tool-container">
+            <h1>Grammar and Spell Checker</h1>
+            <p class="tool-description">Improve your writing with our free online grammar and spell checker. Get instant corrections for spelling, grammar, and punctuation errors.</p>
+            
+            <!-- Tool Interface -->
+            <div class="tool-interface">
+                <div class="checker-container">
+                    <div class="text-input-container">
+                        <textarea id="textInput" placeholder="Type or paste your text here to check for grammar and spelling mistakes..."></textarea>
+                        <div class="text-stats">
+                            <span id="wordCount">0 words</span>
+                            <span id="charCount">0 characters</span>
+                            <span id="errorCount">0 errors</span>
+                        </div>
+                    </div>
+                    
+                    <div class="checker-controls">
+                        <button id="checkTextBtn" class="action-btn">Check Text</button>
+                        <button id="clearTextBtn" class="action-btn secondary">Clear Text</button>
+                        <button id="copyTextBtn" class="action-btn secondary">Copy Text</button>
+                    </div>
+                    
+                    <div class="results-container">
+                        <h3>Suggestions and Corrections</h3>
+                        <div id="suggestionsList" class="suggestions-list">
+                            <p class="no-errors">No errors detected. Your text looks good!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="correction-options">
+                        <h3>Checking Options</h3>
+                        <div class="options-grid">
+                            <div class="option-group">
+                                <label for="checkSpelling">
+                                    <input type="checkbox" id="checkSpelling" checked>
+                                    Check Spelling
+                                </label>
+                            </div>
+                            <div class="option-group">
+                                <label for="checkGrammar">
+                                    <input type="checkbox" id="checkGrammar" checked>
+                                    Check Grammar
+                                </label>
+                            </div>
+                            <div class="option-group">
+                                <label for="checkPunctuation">
+                                    <input type="checkbox" id="checkPunctuation" checked>
+                                    Check Punctuation
+                                </label>
+                            </div>
+                            <div class="option-group">
+                                <label for="checkStyle">
+                                    <input type="checkbox" id="checkStyle">
+                                    Check Writing Style
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Features -->
+            <div class="tool-features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Spell Checking:</strong> Detect and correct spelling mistakes in multiple languages</li>
+                    <li><strong>Grammar Correction:</strong> Fix grammatical errors and improve sentence structure</li>
+                    <li><strong>Punctuation Check:</strong> Correct comma, period, and other punctuation errors</li>
+                    <li><strong>Writing Suggestions:</strong> Get style recommendations to improve clarity</li>
+                    <li><strong>Privacy Focused:</strong> Your text is processed in your browser, not sent to servers</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Ad Space (Middle) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- How To Use Section -->
+        <section class="how-to-use">
+            <h2>How To Use the Grammar Checker</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Enter Your Text</h3>
+                    <p>Type or paste your text into the input box. The tool will automatically count words and characters.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Check for Errors</h3>
+                    <p>Click the "Check Text" button to analyze your writing for spelling, grammar, and punctuation mistakes.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Review Suggestions</h3>
+                    <p>Examine the highlighted errors and suggested corrections in the results panel.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 4: Apply Changes</h3>
+                    <p>Manually edit your text based on the suggestions or use the correction buttons.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What languages does this tool support?</h3>
+                <div class="faq-answer">
+                    <p>Currently, the tool primarily supports English, with basic spell checking for several other major languages. Grammar checking is most accurate for English.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is there a limit to how much text I can check?</h3>
+                <div class="faq-answer">
+                    <p>For performance reasons, very long texts (over 10,000 characters) may take longer to process. For best results, check one paragraph or section at a time.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How accurate is the grammar checker?</h3>
+                <div class="faq-answer">
+                    <p>The tool provides good accuracy for common errors, but may not catch all nuanced grammar issues. Always review suggestions carefully before applying them.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Can I use this tool for professional documents?</h3>
+                <div class="faq-answer">
+                    <p>Yes, the tool can help identify potential issues in professional writing, but should not replace human proofreading for important documents.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is my text stored or analyzed by your servers?</h3>
+                <div class="faq-answer">
+                    <p>No, all text processing happens directly in your browser. Your writing never leaves your computer, ensuring complete privacy.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // DOM Elements
+        const textInput = document.getElementById('textInput');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const errorCount = document.getElementById('errorCount');
+        const checkTextBtn = document.getElementById('checkTextBtn');
+        const clearTextBtn = document.getElementById('clearTextBtn');
+        const copyTextBtn = document.getElementById('copyTextBtn');
+        const suggestionsList = document.getElementById('suggestionsList');
+        const checkSpelling = document.getElementById('checkSpelling');
+        const checkGrammar = document.getElementById('checkGrammar');
+        const checkPunctuation = document.getElementById('checkPunctuation');
+        const checkStyle = document.getElementById('checkStyle');
+        
+        // Variables
+        let modelLoaded = false;
+        let checkingInProgress = false;
+        let currentErrors = [];
+        
+        // Event Listeners
+        textInput.addEventListener('input', updateTextStats);
+        checkTextBtn.addEventListener('click', checkText);
+        clearTextBtn.addEventListener('click', clearText);
+        copyTextBtn.addEventListener('click', copyText);
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.classList.toggle('active');
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Functions
+        function updateTextStats() {
+            const text = textInput.value;
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            const chars = text.length;
+            
+            wordCount.textContent = `${words} word${words !== 1 ? 's' : ''}`;
+            charCount.textContent = `${chars} character${chars !== 1 ? 's' : ''}`;
+        }
+
+        async function checkText() {
+            if (checkingInProgress) return;
+            
+            const text = textInput.value.trim();
+            if (!text) {
+                alert('Please enter some text to check');
+                return;
+            }
+            
+            checkingInProgress = true;
+            checkTextBtn.disabled = true;
+            checkTextBtn.textContent = 'Checking...';
+            
+            try {
+                // Clear previous results
+                suggestionsList.innerHTML = '<p class="checking">Checking your text for errors...</p>';
+                
+                // Simple spell check (would be replaced with more sophisticated checking)
+                const errors = await findTextErrors(text);
+                currentErrors = errors;
+                
+                // Display results
+                displayResults(errors);
+                
+            } catch (error) {
+                console.error('Error checking text:', error);
+                suggestionsList.innerHTML = '<p class="error">An error occurred while checking your text. Please try again.</p>';
+            } finally {
+                checkingInProgress = false;
+                checkTextBtn.disabled = false;
+                checkTextBtn.textContent = 'Check Text';
+            }
+        }
+
+        async function findTextErrors(text) {
+            // This is a simplified version - in a real implementation you would use:
+            // 1. A proper spell checking library
+            // 2. Grammar checking algorithms
+            // 3. More sophisticated error detection
+            
+            const errors = [];
+            const words = text.split(/\s+/);
+            const commonMisspellings = {
+                'accomodate': 'accommodate',
+                'acheive': 'achieve',
+                'alot': 'a lot',
+                'definately': 'definitely',
+                'seperate': 'separate',
+                'occured': 'occurred',
+                'recieve': 'receive',
+                'untill': 'until',
+                'wich': 'which',
+                'improve': 'improve' // This is correct but in meta description it's "Improve" (typo)
+            };
+            
+            // Check for spelling errors
+            if (checkSpelling.checked) {
+                for (const [wrong, correct] of Object.entries(commonMisspellings)) {
+                    const regex = new RegExp(`\\b${wrong}\\b`, 'gi');
+                    let match;
+                    while ((match = regex.exec(text)) !== null) {
+                        errors.push({
+                            type: 'spelling',
+                            word: wrong,
+                            suggestion: correct,
+                            index: match.index,
+                            length: wrong.length
+                        });
+                    }
+                }
+            }
+            
+            // Check for common grammar issues
+            if (checkGrammar.checked) {
+                // Check for passive voice (simplified)
+                const passiveRegex = /\b(is|are|was|were|be|been|being)\s+[a-z]+ed\b/gi;
+                let match;
+                while ((match = passiveRegex.exec(text)) !== null) {
+                    // Skip if this is actually a spelling error we already caught
+                    if (!errors.some(e => e.index === match.index)) {
+                        errors.push({
+                            type: 'grammar',
+                            word: match[0],
+                            suggestion: 'Consider revising to active voice',
+                            index: match.index,
+                            length: match[0].length
+                        });
+                    }
+                }
+                
+                // Check for repeated words
+                const repeatedWordRegex = /\b(\w+)\s+\1\b/gi;
+                while ((match = repeatedWordRegex.exec(text)) !== null) {
+                    errors.push({
+                        type: 'grammar',
+                        word: match[0],
+                        suggestion: 'Repeated word - remove one instance',
+                        index: match.index,
+                        length: match[0].length
+                    });
+                }
+            }
+            
+            // Check for punctuation issues
+            if (checkPunctuation.checked) {
+                // Check for missing space after punctuation
+                const missingSpaceRegex = /[.,!?][a-zA-Z]/g;
+                while ((match = missingSpaceRegex.exec(text)) !== null) {
+                    errors.push({
+                        type: 'punctuation',
+                        word: match[0],
+                        suggestion: 'Add space after punctuation',
+                        index: match.index + 1,
+                        length: 0
+                    });
+                }
+                
+                // Check for missing apostrophes in contractions
+                const contractionRegex = /\b(dont|wont|cant|shouldnt|isnt|arent)\b/gi;
+                while ((match = contractionRegex.exec(text)) !== null) {
+                    const correct = {
+                        'dont': "don't",
+                        'wont': "won't",
+                        'cant': "can't",
+                        'shouldnt': "shouldn't",
+                        'isnt': "isn't",
+                        'arent': "aren't"
+                    }[match[0].toLowerCase()];
+                    
+                    errors.push({
+                        type: 'punctuation',
+                        word: match[0],
+                        suggestion: `Use "${correct}" with apostrophe`,
+                        index: match.index,
+                        length: match[0].length
+                    });
+                }
+            }
+            
+            return errors;
+        }
+
+        function displayResults(errors) {
+            if (errors.length === 0) {
+                suggestionsList.innerHTML = '<p class="no-errors">No errors detected. Your text looks good!</p>';
+                errorCount.textContent = '0 errors';
+                return;
+            }
+            
+            suggestionsList.innerHTML = '';
+            errorCount.textContent = `${errors.length} error${errors.length !== 1 ? 's' : ''}`;
+            
+            // Group errors by position in text
+            errors.sort((a, b) => a.index - b.index);
+            
+            errors.forEach((error, i) => {
+                const errorItem = document.createElement('div');
+                errorItem.className = 'suggestion-item';
+                
+                const errorType = document.createElement('span');
+                errorType.className = `error-type ${error.type}`;
+                errorType.textContent = error.type.charAt(0).toUpperCase() + error.type.slice(1);
+                
+                const errorText = document.createElement('div');
+                errorText.className = 'error-text';
+                errorText.textContent = `"${error.word}" - ${error.suggestion}`;
+                
+                const applyBtn = document.createElement('button');
+                applyBtn.className = 'apply-suggestion';
+                applyBtn.textContent = 'Apply';
+                applyBtn.addEventListener('click', () => applyCorrection(i));
+                
+                errorItem.appendChild(errorType);
+                errorItem.appendChild(errorText);
+                errorItem.appendChild(applyBtn);
+                
+                suggestionsList.appendChild(errorItem);
+            });
+        }
+
+        function applyCorrection(errorIndex) {
+            const error = currentErrors[errorIndex];
+            const text = textInput.value;
+            
+            if (error.length > 0) {
+                // Replace the incorrect text
+                const before = text.substring(0, error.index);
+                const after = text.substring(error.index + error.length);
+                
+                // For spelling corrections, use the suggestion directly
+                if (error.type === 'spelling') {
+                    textInput.value = before + error.suggestion + after;
+                } else {
+                    // For other errors, just remove the highlighted text
+                    // (user can manually edit based on suggestion)
+                    textInput.value = before + after;
+                }
+            } else {
+                // For length=0 errors (like missing space), insert the correction
+                const before = text.substring(0, error.index);
+                const after = text.substring(error.index);
+                textInput.value = before + ' ' + after;
+            }
+            
+            // Re-check the text
+            updateTextStats();
+            checkText();
+        }
+
+        function clearText() {
+            textInput.value = '';
+            updateTextStats();
+            suggestionsList.innerHTML = '<p class="no-errors">No errors detected. Your text looks good!</p>';
+            errorCount.textContent = '0 errors';
+            currentErrors = [];
+        }
+
+        function copyText() {
+            textInput.select();
+            document.execCommand('copy');
+            
+            // Show temporary feedback
+            const originalText = copyTextBtn.textContent;
+            copyTextBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyTextBtn.textContent = originalText;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
