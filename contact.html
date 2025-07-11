@@ -3,93 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contact ToolGenie – Send us your feedback or questions." />
-  <title>Contact - ToolGenie</title>
-  <link rel="stylesheet" href="assets/styles/style.css" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <title>Contact TOOLGENIE</title>
+  <meta name="description" content="Get in touch with the TOOLGENIE team. Fill out our quick contact form to share feedback, questions, or suggestions.">
+  <meta name="keywords" content="contact TOOLGENIE, feedback form, toolgenie contact, customer support, contact toolgenie.in">
+  <meta name="author" content="TOOLGENIE">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
     body {
-      font-family: sans-serif;
-      padding: 2rem;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      color: #222;
+      min-height: 100vh;
+    }
+    header, footer {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {display: flex; align-items: center; gap: 10px;}
+    .logo img {width: 32px;}
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
       color: #333;
-      max-width: 800px;
-      margin: 0 auto;
-      background: #f9fbff;
+      font-weight: 500;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    p {
-      text-align: center;
-      color: #666;
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
     form {
-      margin-top: 2rem;
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-      margin-bottom: 0.3rem;
+      display: flex;
+      flex-direction: column;
     }
     input, textarea {
-      width: 100%;
-      padding: 0.7rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
+      margin: 0.5rem 0;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 10px;
     }
     button {
-      margin-top: 1.5rem;
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      background: #007bff;
+      background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 6px;
+      padding: 0.8rem;
+      border-radius: 10px;
       cursor: pointer;
     }
     button:hover {
-      background: #0056b3;
+      background-color: #45a049;
     }
-    footer {
-      margin-top: 4rem;
-      text-align: center;
-      color: #888;
-      font-size: 0.9rem;
-    }
+    footer {justify-content: center;}
+    footer a {margin: 0 15px;}
   </style>
 </head>
 <body>
 
+<header>
+  <div class="logo">
+    <img src="assets/favicon.png" alt="TOOLGENIE Logo">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="index.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<div class="container">
   <h1>Contact Us</h1>
-  <p>If you have questions, suggestions, or found a bug — we’d love to hear from you!</p>
-
-  <form action="https://formsubmit.co/krishnasrimukh@gmail.com" method="POST">
-    <!-- Prevent spam -->
-    <input type="hidden" name="_captcha" value="false">
-    <!-- Redirect after submission (optional) -->
-    <input type="hidden" name="_next" value="https://toolgenie.in/thank-you.html">
-    
-    <label for="name">Your Name</label>
-    <input type="text" name="name" id="name" required />
-
-    <label for="email">Your Email</label>
-    <input type="email" name="email" id="email" required />
-
-    <label for="message">Message</label>
-    <textarea name="message" id="message" rows="5" required></textarea>
-
-    <button type="submit">Send Message</button>
+  <p>We love to hear from our users! Whether it's feedback, suggestions, or reporting issues — feel free to contact us.</p>
+  <form action="thank-you.html" method="get">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Submit</button>
   </form>
+</div>
 
-  <footer>
-    &copy; 2025 ToolGenie – We're listening 📩
-  </footer>
+<footer>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy.html">Privacy Policy</a>
+</footer>
 
 </body>
 </html>
