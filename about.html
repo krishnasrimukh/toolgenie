@@ -1,49 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Learn more about ToolGenie – our mission and the team behind the tools." />
-  <title>About - ToolGenie</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      line-height: 1.6;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h1 {
-      text-align: center;
-    }
-    a {
-      color: #007bff;
-    }
-    footer {
-      margin-top: 4rem;
-      text-align: center;
-      color: #888;
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About TOOLGENIE - Free Online Tools</title>
+    <meta name="description" content="Learn about TOOLGENIE and our mission to provide free, easy-to-use online tools for everyone.">
+    <meta name="keywords" content="about toolgenie, free tools mission, online tools about">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/icons/favicon.ico">
 </head>
 <body>
+    <!-- Navigation Bar (same as index.html) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
 
-  <h1>About ToolGenie</h1>
-  <p><strong>ToolGenie</strong> was created with a simple goal: to provide fast, reliable, and free online tools for everyone. Whether you need to compress images, convert file types, merge PDFs, or generate QR codes — we’ve got you covered.</p>
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="about-section">
+            <h1>About TOOLGENIE</h1>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Our Mission</h2>
+                    <p>TOOLGENIE was created with a simple goal: to provide free, easy-to-use online tools that help people with their everyday digital tasks. We believe that useful tools should be accessible to everyone without the need for downloads, installations, or subscriptions.</p>
+                    
+                    <h2>What We Offer</h2>
+                    <p>Our growing collection of tools includes solutions for file conversion, PDF manipulation, image editing, text processing, and more. All our tools work directly in your browser, ensuring your files never leave your device unless you choose to download the results.</p>
+                    
+                    <h2>Privacy Focused</h2>
+                    <p>We take your privacy seriously. Most of our tools process your files entirely in your browser, meaning your data never touches our servers. For tools that require server processing, we delete all uploaded files immediately after processing.</p>
+                    
+                    <h2>No Accounts Needed</h2>
+                    <p>Unlike many online services, we don't require you to create an account to use our tools. Just visit the tool you need and start using it immediately.</p>
+                </div>
+                <div class="about-image">
+                    <img src="assets/images/about-image.jpg" alt="About TOOLGENIE" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <p>We're a small, passionate team of developers who believe productivity tools should be accessible and hassle-free. Our tools are constantly evolving to stay modern, lightweight, and user-focused.</p>
+    <!-- Footer (same as index.html) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-  <p>ToolGenie is completely free to use and supported by optional ads and donations. We never compromise on user privacy or add unnecessary bloat.</p>
-
-  <p>Have suggestions or feedback? <a href="contact.html">Reach out to us here</a>.</p>
-
-  <footer>
-    &copy; 2025 ToolGenie – Built with ❤️ for creators and learners.
-  </footer>
-
+    <script src="js/main.js"></script>
 </body>
 </html>
