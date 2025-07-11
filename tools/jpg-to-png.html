@@ -1,436 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JPG to PNG - Convert JPG Images to PNG Online | TOOLGENIE</title>
-    <meta name="description" content="Free online tool to convert JPG images to PNG format. No installation needed. Preserves transparency and quality.">
-    <meta name="keywords" content="jpg to png, convert jpg to png, jpg to png converter, image converter, toolgenie">
-    <meta name="author" content="TOOLGENIE">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolgenie.in/tools/jpg-to-png.html">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://toolgenie.in/tools/jpg-to-png.html">
-    <meta property="og:title" content="JPG to PNG - Convert JPG Images to PNG Online | TOOLGENIE">
-    <meta property="og:description" content="Free online tool to convert JPG images to PNG format. No installation needed. Preserves transparency and quality.">
-    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://toolgenie.in/tools/jpg-to-png.html">
-    <meta property="twitter:title" content="JPG to PNG - Convert JPG Images to PNG Online | TOOLGENIE">
-    <meta property="twitter:description" content="Free online tool to convert JPG images to PNG format. No installation needed. Preserves transparency and quality.">
-    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
-    
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../assets/icons/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free JPG to PNG converter. Instantly convert your images with drag and drop, preview, and download. 100% browser-based and free." />
+  <meta name="keywords" content="jpg to png, convert image, image converter, online jpg to png, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>JPG to PNG Converter | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      color: #333;
+    }
+    header, footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    .dropzone {
+      border: 2px dashed #007BFF;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      color: #666;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+    .preview img {
+      max-width: 100%;
+      margin: 1rem 0;
+      border-radius: 10px;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
-                <span>TOOLGENIE</span>
-            </a>
-            <div class="search-container">
-                <input type="text" placeholder="Search tools..." class="search-bar">
-                <button class="search-btn">Search</button>
-            </div>
-            <div class="nav-links">
-                <a href="../index.html" class="nav-link">Home</a>
-                <a href="../about.html" class="nav-link">About</a>
-                <a href="../contact.html" class="nav-link">Contact</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
     </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Ad Space (Top) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+  <main class="container">
+    <h1>JPG to PNG Converter</h1>
+    <p>Convert your JPG images to high-quality PNG format in one click. Easy, fast, and free!</p>
 
-        <!-- Tool Container -->
-        <section class="tool-container">
-            <h1>JPG to PNG Converter</h1>
-            <p class="tool-description">Convert your JPG images to PNG format with this free online tool. PNG format supports transparency and is lossless, making it ideal for graphics and web use.</p>
-            
-            <!-- Tool Interface -->
-            <div class="tool-interface">
-                <div class="jpg-to-png">
-                    <div class="upload-area" id="dropArea">
-                        <input type="file" id="fileInput" accept="image/jpeg,image/jpg" style="display: none;">
-                        <div class="upload-icon">📁</div>
-                        <h3>Drag & Drop your JPG image here</h3>
-                        <p>or</p>
-                        <button id="selectFileBtn" class="upload-btn">Select JPG File</button>
-                    </div>
-                    <div class="options" style="display: none;">
-                        <h3>Preview</h3>
-                        <div class="preview-container">
-                            <div class="original">
-                                <h4>Original JPG</h4>
-                                <img id="originalImage" src="" alt="Original JPG">
-                                <p id="originalSize"></p>
-                            </div>
-                            <div class="converted">
-                                <h4>Converted PNG</h4>
-                                <canvas id="pngPreview"></canvas>
-                                <p id="convertedSize">Processing...</p>
-                            </div>
-                        </div>
-                        <button id="convertBtn" class="action-btn">Convert to PNG</button>
-                        <button id="downloadBtn" class="action-btn" style="display: none;">Download PNG</button>
-                        <button id="newFileBtn" class="action-btn secondary">New File</button>
-                    </div>
-                </div>
-            </div>
+    <div class="dropzone" onclick="document.getElementById('fileInput').click()">
+      Drag and drop your JPG image here or click to upload
+    </div>
+    <input type="file" id="fileInput" accept="image/jpeg" style="display:none;" onchange="handleFile(this.files[0])">
 
-            <!-- Tool Features -->
-            <div class="tool-features">
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>High Quality:</strong> Convert JPG to PNG without quality loss</li>
-                    <li><strong>Batch Conversion:</strong> Convert multiple JPGs to PNGs at once</li>
-                    <li><strong>Fast Processing:</strong> Quick conversion with instant results</li>
-                    <li><strong>Privacy Guaranteed:</strong> All processing happens in your browser</li>
-                    <li><strong>No Watermarks:</strong> Your converted images are completely clean</li>
-                </ul>
-            </div>
-        </section>
+    <div class="preview" id="preview"></div>
+    <button onclick="convertToPNG()">Convert to PNG</button>
 
-        <!-- Ad Space (Middle) -->
-        <div class="ad-space">
-            <!-- Google AdSense Code will go here -->
-            <p>Advertisement</p>
-        </div>
+    <div id="downloadArea" style="margin-top: 1rem;"></div>
 
-        <!-- How To Use Section -->
-        <section class="how-to-use">
-            <h2>How To Convert JPG to PNG</h2>
-            <div class="steps">
-                <div class="step">
-                    <h3>Step 1: Upload JPG</h3>
-                    <p>Click "Select JPG File" or drag and drop your JPG image into the upload area.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 2: Preview</h3>
-                    <p>Your JPG image will be displayed with estimated file size after conversion.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 3: Convert</h3>
-                    <p>Click "Convert to PNG" to process your image to PNG format.</p>
-                </div>
-                <div class="step">
-                    <h3>Step 4: Download</h3>
-                    <p>Click "Download PNG" to save your converted image to your device.</p>
-                </div>
-            </div>
-        </section>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Click or drag and drop a JPG image file to upload it.</li>
+        <li>Preview the uploaded image.</li>
+        <li>Click "Convert to PNG" to begin the conversion.</li>
+        <li>Download your converted PNG image instantly.</li>
+        <li>All processing is done in your browser. No files are uploaded to any server.</li>
+      </ul>
+    </article>
+  </main>
 
-        <!-- FAQ Section -->
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">What's the difference between JPG and PNG?</h3>
-                <div class="faq-answer">
-                    <p>JPG is a lossy compression format ideal for photographs, while PNG is a lossless format that supports transparency and is better for graphics, logos, and images with text.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Will converting JPG to PNG improve quality?</h3>
-                <div class="faq-answer">
-                    <p>No, converting from JPG to PNG won't recover lost quality from JPG compression. However, PNG will prevent further quality loss if you edit the image again.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Can I convert multiple JPGs at once?</h3>
-                <div class="faq-answer">
-                    <p>Yes, you can select multiple JPG files when uploading, and they will be converted one by one.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Why is my PNG file larger than the original JPG?</h3>
-                <div class="faq-answer">
-                    <p>PNG uses lossless compression, which typically results in larger file sizes than JPG's lossy compression, especially for photographic content.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">Are my images stored on your servers?</h3>
-                <div class="faq-answer">
-                    <p>No, all image processing happens directly in your browser. Your images never leave your device.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
-                <span>TOOLGENIE</span>
-            </div>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
-            <div class="footer-contact">
-                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <script>
+    let originalImage;
 
-    <script src="../js/main.js"></script>
-    <script>
-        // DOM Elements
-        const fileInput = document.getElementById('fileInput');
-        const selectFileBtn = document.getElementById('selectFileBtn');
-        const dropArea = document.getElementById('dropArea');
-        const originalImage = document.getElementById('originalImage');
-        const pngPreview = document.getElementById('pngPreview');
-        const originalSize = document.getElementById('originalSize');
-        const convertedSize = document.getElementById('convertedSize');
-        const convertBtn = document.getElementById('convertBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const newFileBtn = document.getElementById('newFileBtn');
-        const optionsSection = document.querySelector('.options');
+    function handleFile(file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        originalImage = e.target.result;
+        document.getElementById('preview').innerHTML = `<img src="${originalImage}" alt="Preview">`;
+      };
+      reader.readAsDataURL(file);
+    }
 
-        // Current file and converted data
-        let currentFile = null;
-        let pngBlob = null;
+    function convertToPNG() {
+      if (!originalImage) return alert('Please upload a JPG image first.');
 
-        // Event Listeners
-        selectFileBtn.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', handleFileSelect);
-        dropArea.addEventListener('dragover', handleDragOver);
-        dropArea.addEventListener('drop', handleDrop);
-        convertBtn.addEventListener('click', convertToPng);
-        downloadBtn.addEventListener('click', downloadPng);
-        newFileBtn.addEventListener('click', resetTool);
+      const img = new Image();
+      img.src = originalImage;
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
 
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.classList.toggle('active');
-            });
-        });
+        const pngData = canvas.toDataURL('image/png');
+        document.getElementById('preview').innerHTML = `<img src="${pngData}" alt="PNG Image">`;
 
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Functions
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            processFile(file);
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            dropArea.classList.add('dragover');
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            dropArea.classList.remove('dragover');
-            
-            const file = e.dataTransfer.files[0];
-            processFile(file);
-        }
-
-        function processFile(file) {
-            if (!file.type.match('image/jpeg') && !file.name.match(/\.(jpg|jpeg)$/i)) {
-                alert('Please select a JPG/JPEG image file');
-                return;
-            }
-
-            currentFile = file;
-            
-            // Display options
-            dropArea.style.display = 'none';
-            optionsSection.style.display = 'block';
-            downloadBtn.style.display = 'none';
-            
-            // Preview original image
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                originalImage.src = e.target.result;
-                originalSize.textContent = formatFileSize(file.size);
-                
-                // Set up canvas
-                const img = new Image();
-                img.onload = function() {
-                    pngPreview.width = img.width;
-                    pngPreview.height = img.height;
-                    const ctx = pngPreview.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    
-                    // Estimate PNG size
-                    pngPreview.toBlob(function(blob) {
-                        if (blob) {
-                            convertedSize.textContent = `Estimated size: ${formatFileSize(blob.size)}`;
-                        }
-                    }, 'image/png');
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function convertToPng() {
-            if (!currentFile) return;
-            
-            pngPreview.toBlob(function(blob) {
-                pngBlob = blob;
-                convertedSize.textContent = `Final size: ${formatFileSize(blob.size)}`;
-                downloadBtn.style.display = 'inline-block';
-                convertBtn.style.display = 'none';
-            }, 'image/png');
-        }
-
-        function downloadPng() {
-            if (!pngBlob) return;
-            
-            const url = URL.createObjectURL(pngBlob);
-            const a = document.createElement('a');
-            a.href = url;
-            
-            // Create filename (original name with .png extension)
-            const originalName = currentFile.name.replace(/\.[^/.]+$/, "");
-            a.download = `${originalName}.png`;
-            
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        function resetTool() {
-            // Reset all elements
-            fileInput.value = '';
-            currentFile = null;
-            pngBlob = null;
-            
-            dropArea.style.display = 'flex';
-            optionsSection.style.display = 'none';
-            
-            originalImage.src = '';
-            pngPreview.width = 0;
-            pngPreview.height = 0;
-            originalSize.textContent = '';
-            convertedSize.textContent = 'Processing...';
-            downloadBtn.style.display = 'none';
-            convertBtn.style.display = 'inline-block';
-        }
-
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-    </script>
-    <style>
-        /* JPG to PNG Specific Styles */
-        .jpg-to-png {
-            width: 100%;
-        }
-        
-        .upload-area {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-            transition: var(--transition);
-        }
-        
-        .upload-area:hover, .upload-area.dragover {
-            border-color: var(--primary-color);
-            background: rgba(74, 107, 255, 0.05);
-        }
-        
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .upload-btn, .action-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            transition: var(--transition);
-        }
-        
-        .action-btn.secondary {
-            background: var(--secondary-color);
-            margin-left: 1rem;
-        }
-        
-        .upload-btn:hover, .action-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        .preview-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .preview-container h4 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-        
-        .preview-container img, .preview-container canvas {
-            max-width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            display: block;
-            margin: 0 auto;
-        }
-        
-        .preview-container p {
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--secondary-color);
-        }
-        
-        @media (max-width: 768px) {
-            .preview-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+        document.getElementById('downloadArea').innerHTML = `<a href="${pngData}" download="converted.png">
+          <button>Download PNG</button>
+        </a>`;
+      };
+    }
+  </script>
 </body>
+
 </html>
