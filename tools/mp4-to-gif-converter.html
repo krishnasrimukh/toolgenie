@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP4 to GIF Converter - Convert Videos to Animated GIFs | TOOLGENIE</title>
+    <meta name="description" content="Free online tool to convert MP4 videos to animated GIFs. Create GIFs from video clips with custom settings. No installation required.">
+    <meta name="keywords" content="mp4 to gif, video to gif, convert video to gif, create gif from video, toolgenie">
+    <meta name="author" content="TOOLGENIE">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolgenie.in/tools/mp4-to-gif-converter.html">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolgenie.in/tools/mp4-to-gif-converter.html">
+    <meta property="og:title" content="MP4 to GIF Converter - Convert Videos to Animated GIFs | TOOLGENIE">
+    <meta property="og:description" content="Free online tool to convert MP4 videos to animated GIFs. Create GIFs from video clips with custom settings.">
+    <meta property="og:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://toolgenie.in/tools/mp4-to-gif-converter.html">
+    <meta property="twitter:title" content="MP4 to GIF Converter - Convert Videos to Animated GIFs | TOOLGENIE">
+    <meta property="twitter:description" content="Free online tool to convert MP4 videos to animated GIFs. Create GIFs from video clips with custom settings.">
+    <meta property="twitter:image" content="https://toolgenie.in/assets/images/toolgenie-logo.png">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/icons/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ffmpeg.js/4.2.9003/ffmpeg.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="logo">
+                <span>TOOLGENIE</span>
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Search tools..." class="search-bar">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../about.html" class="nav-link">About</a>
+                <a href="../contact.html" class="nav-link">Contact</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ad Space (Top) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- Tool Container -->
+        <section class="tool-container">
+            <h1>MP4 to GIF Converter</h1>
+            <p class="tool-description">Convert your MP4 video files to animated GIFs. Perfect for memes, reactions, and short animations.</p>
+            
+            <!-- Tool Interface -->
+            <div class="tool-interface">
+                <div class="converter">
+                    <div class="upload-section">
+                        <div class="upload-area" id="uploadArea">
+                            <input type="file" id="fileInput" accept="video/mp4,video/*" style="display: none;">
+                            <div class="upload-icon">🎬</div>
+                            <h3>Drag & Drop your MP4 here</h3>
+                            <p>or</p>
+                            <button id="selectFileBtn" class="upload-btn">Select Video File</button>
+                        </div>
+                        <div class="file-info" id="fileInfo" style="display: none;">
+                            <p><strong>File Name:</strong> <span id="fileName"></span></p>
+                            <p><strong>File Size:</strong> <span id="fileSize"></span></p>
+                            <p><strong>Duration:</strong> <span id="fileDuration"></span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="conversion-section" style="display: none;">
+                        <div class="video-preview">
+                            <video id="videoPreview" controls>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="trim-controls">
+                                <h3>Trim Video</h3>
+                                <div class="trim-range">
+                                    <label for="startTime">Start:</label>
+                                    <input type="range" id="startTime" min="0" max="100" value="0">
+                                    <span id="startTimeValue">00:00</span>
+                                </div>
+                                <div class="trim-range">
+                                    <label for="endTime">End:</label>
+                                    <input type="range" id="endTime" min="0" max="100" value="100">
+                                    <span id="endTimeValue">00:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="options-container">
+                            <h3>Conversion Options</h3>
+                            
+                            <div class="option-group">
+                                <label for="gifQuality">GIF Quality:</label>
+                                <select id="gifQuality">
+                                    <option value="high">High Quality</option>
+                                    <option value="medium" selected>Medium Quality</option>
+                                    <option value="low">Low Quality (Smaller File)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <label for="gifFrameRate">Frame Rate (fps):</label>
+                                <select id="gifFrameRate">
+                                    <option value="15">15 fps (Smooth)</option>
+                                    <option value="12" selected>12 fps (Balanced)</option>
+                                    <option value="10">10 fps (Smaller File)</option>
+                                    <option value="8">8 fps (Minimal)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <label for="gifWidth">Width (pixels):</label>
+                                <input type="number" id="gifWidth" min="100" max="1000" value="500">
+                            </div>
+                            
+                            <div class="option-group">
+                                <label for="gifColors">Color Reduction:</label>
+                                <select id="gifColors">
+                                    <option value="256">256 colors (Best Quality)</option>
+                                    <option value="128" selected>128 colors (Good Quality)</option>
+                                    <option value="64">64 colors (Smaller File)</option>
+                                    <option value="32">32 colors (Minimal)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button id="convertBtn" class="action-btn">Convert to GIF</button>
+                                <button id="newFileBtn" class="action-btn secondary">New File</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-section" style="display: none;">
+                        <h3>Conversion Result</h3>
+                        <div class="result-container">
+                            <img id="gifResult" src="" alt="GIF Result">
+                            <div class="result-info">
+                                <p><strong>Output Size:</strong> <span id="outputFileSize"></span></p>
+                                <p><strong>Dimensions:</strong> <span id="outputDimensions"></span></p>
+                                <p><strong>Frame Count:</strong> <span id="outputFrames"></span></p>
+                            </div>
+                            <button id="downloadBtn" class="action-btn">Download GIF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Features -->
+            <div class="tool-features">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Video Trimming:</strong> Select exact portion to convert to GIF</li>
+                    <li><strong>Customizable Output:</strong> Control frame rate, size, and quality</li>
+                    <li><strong>Color Optimization:</strong> Reduce colors for smaller file sizes</li>
+                    <li><strong>Fast Processing:</strong> Convert videos quickly in your browser</li>
+                    <li><strong>Privacy Focused:</strong> All processing happens locally</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Ad Space (Middle) -->
+        <div class="ad-space">
+            <!-- Google AdSense Code will go here -->
+            <p>Advertisement</p>
+        </div>
+
+        <!-- How To Use Section -->
+        <section class="how-to-use">
+            <h2>How To Convert MP4 to GIF</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Upload Video</h3>
+                    <p>Select an MP4 video file from your computer or drag and drop it into the upload area.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Trim & Adjust</h3>
+                    <p>Select the portion of the video you want to convert and adjust the output settings.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Convert</h3>
+                    <p>Click the "Convert to GIF" button and wait for the process to complete.</p>
+                </div>
+                <div class="step">
+                    <h3>Step 4: Download</h3>
+                    <p>Preview the result and download your animated GIF file.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What's the maximum video length I can convert?</h3>
+                <div class="faq-answer">
+                    <p>For performance reasons, we recommend videos under 30 seconds. Longer videos may take significant time to process and result in very large GIF files.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Why is my GIF file so large?</h3>
+                <div class="faq-answer">
+                    <p>GIFs are inherently large compared to video formats. To reduce size, try lowering the frame rate, dimensions, or color count in the conversion settings.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Can I convert other video formats besides MP4?</h3>
+                <div class="faq-answer">
+                    <p>Yes, the tool supports most common video formats including MOV, AVI, and WEBM, though MP4 is recommended for best results.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Will the GIF have sound?</h3>
+                <div class="faq-answer">
+                    <p>No, GIFs don't support audio. Only the visual portion of your video will be converted.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Are my videos stored on your servers?</h3>
+                <div class="faq-answer">
+                    <p>No, all conversion happens directly in your browser. Your files never leave your computer, ensuring complete privacy.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/images/toolgenie-logo.png" alt="TOOLGENIE Logo" class="footer-logo">
+                <span>TOOLGENIE</span>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:krishnasrimukh@gmail.com">krishnasrimukh@gmail.com</a></p>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="year"></span> TOOLGENIE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const fileDuration = document.getElementById('fileDuration');
+        const conversionSection = document.querySelector('.conversion-section');
+        const videoPreview = document.getElementById('videoPreview');
+        const startTime = document.getElementById('startTime');
+        const startTimeValue = document.getElementById('startTimeValue');
+        const endTime = document.getElementById('endTime');
+        const endTimeValue = document.getElementById('endTimeValue');
+        const gifQuality = document.getElementById('gifQuality');
+        const gifFrameRate = document.getElementById('gifFrameRate');
+        const gifWidth = document.getElementById('gifWidth');
+        const gifColors = document.getElementById('gifColors');
+        const convertBtn = document.getElementById('convertBtn');
+        const newFileBtn = document.getElementById('newFileBtn');
+        const resultSection = document.querySelector('.result-section');
+        const gifResult = document.getElementById('gifResult');
+        const outputFileSize = document.getElementById('outputFileSize');
+        const outputDimensions = document.getElementById('outputDimensions');
+        const outputFrames = document.getElementById('outputFrames');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        // Variables
+        let videoFile = null;
+        let videoUrl = null;
+        let gifBlob = null;
+        let ffmpeg = null;
+        let videoDuration = 0;
+        
+        // Event Listeners
+        selectFileBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('drop', handleDrop);
+        startTime.addEventListener('input', updateTrimTimes);
+        endTime.addEventListener('input', updateTrimTimes);
+        convertBtn.addEventListener('click', convertMp4ToGif);
+        newFileBtn.addEventListener('click', resetTool);
+        downloadBtn.addEventListener('click', downloadGif);
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.classList.toggle('active');
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Functions
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            processVideoFile(file);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadArea.classList.add('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadArea.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            processVideoFile(file);
+        }
+
+        function processVideoFile(file) {
+            if (!file.type.match('video.*') && !file.name.match(/\.(mp4|mov|avi|webm)$/i)) {
+                alert('Please select a video file (MP4, MOV, AVI, WEBM)');
+                return;
+            }
+            
+            videoFile = file;
+            videoUrl = URL.createObjectURL(file);
+            
+            // Display file info
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            
+            // Load video for preview
+            videoPreview.src = videoUrl;
+            videoPreview.onloadedmetadata = function() {
+                videoDuration = this.duration;
+                fileDuration.textContent = formatTime(videoDuration);
+                
+                // Set trim range max values
+                startTime.max = Math.floor(videoDuration);
+                endTime.max = Math.floor(videoDuration);
+                endTime.value = Math.floor(videoDuration);
+                
+                // Update time displays
+                updateTrimTimes();
+                
+                // Show conversion section
+                uploadArea.style.display = 'none';
+                fileInfo.style.display = 'block';
+                conversionSection.style.display = 'block';
+            };
+        }
+
+        function updateTrimTimes() {
+            const start = parseFloat(startTime.value);
+            const end = parseFloat(endTime.value);
+            
+            // Ensure end time is after start time
+            if (end <= start) {
+                endTime.value = start + 1;
+                if (endTime.value > endTime.max) {
+                    endTime.value = endTime.max;
+                    startTime.value = endTime.max - 1;
+                }
+            }
+            
+            startTimeValue.textContent = formatTime(start);
+            endTimeValue.textContent = formatTime(end);
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        async function convertMp4ToGif() {
+            if (!videoFile) {
+                alert('Please select a video file first');
+                return;
+            }
+            
+            // Show loading state
+            convertBtn.disabled = true;
+            convertBtn.textContent = 'Converting...';
+            
+            try {
+                // Load FFmpeg if not already loaded
+                if (!ffmpeg) {
+                    ffmpeg = createFFmpeg({ log: true });
+                    await ffmpeg.load();
+                }
+                
+                // Write the video file to FFmpeg's file system
+                const data = await fetch(videoUrl).then(res => res.arrayBuffer());
+                ffmpeg.FS('writeFile', 'input.mp4', new Uint8Array(data));
+                
+                // Get trim times
+                const start = parseFloat(startTime.value);
+                const end = parseFloat(endTime.value);
+                const duration = end - start;
+                
+                // Prepare FFmpeg command based on user settings
+                let command = [
+                    '-i', 'input.mp4',
+                    '-ss', start.toString(),
+                    '-t', duration.toString(),
+                    '-vf'
+                ];
+                
+                // Add scale filter
+                const width = parseInt(gifWidth.value);
+                command.push(`scale=${width}:-1:flags=lanczos`);
+                
+                // Add frame rate
+                const fps = parseInt(gifFrameRate.value);
+                command.push(`fps=${fps}`);
+                
+                // Add palette generation
+                command.push(
+                    '-f', 'gif',
+                    '-loop', '0',
+                    '-an' // Disable audio
+                );
+                
+                // Add color reduction
+                const colors = parseInt(gifColors.value);
+                command.push('-colors', colors.toString());
+                
+                // Add quality settings
+                if (gifQuality.value === 'high') {
+                    command.push('-gifflags', '+transdiff');
+                } else if (gifQuality.value === 'low') {
+                    command.push('-gifflags', '-offsetting');
+                }
+                
+                command.push('output.gif');
+                
+                // Run FFmpeg command
+                await ffmpeg.run(...command);
+                
+                // Read the result
+                const output = ffmpeg.FS('readFile', 'output.gif');
+                gifBlob = new Blob([output.buffer], { type: 'image/gif' });
+                
+                // Display result
+                const gifUrl = URL.createObjectURL(gifBlob);
+                gifResult.src = gifUrl;
+                
+                // Get GIF info (approximate)
+                const frameCount = Math.floor(duration * fps);
+                outputDimensions.textContent = `${width} × ? px`;
+                outputFrames.textContent = frameCount;
+                outputFileSize.textContent = formatFileSize(gifBlob.size);
+                
+                // Show result section
+                conversionSection.style.display = 'none';
+                resultSection.style.display = 'block';
+                
+            } catch (error) {
+                console.error('Conversion error:', error);
+                alert('Conversion failed. Please try a different video or adjust settings.');
+            } finally {
+                convertBtn.disabled = false;
+                convertBtn.textContent = 'Convert to GIF';
+            }
+        }
+
+        function downloadGif() {
+            if (!gifBlob) {
+                alert('No GIF file to download');
+                return;
+            }
+            
+            const url = URL.createObjectURL(gifBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = videoFile.name.replace(/\.[^/.]+$/, '') + '.gif';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function resetTool() {
+            // Reset UI
+            uploadArea.style.display = 'flex';
+            fileInfo.style.display = 'none';
+            conversionSection.style.display = 'none';
+            resultSection.style.display = 'none';
+            fileInput.value = '';
+            
+            // Clean up URLs
+            if (videoUrl) URL.revokeObjectURL(videoUrl);
+            if (gifResult.src) URL.revokeObjectURL(gifResult.src);
+            
+            // Reset variables
+            videoFile = null;
+            videoUrl = null;
+            gifBlob = null;
+            videoDuration = 0;
+            
+            // Reset video element
+            videoPreview.src = '';
+            
+            // Reset trim controls
+            startTime.value = 0;
+            endTime.value = 100;
+            startTimeValue.textContent = '00:00';
+            endTimeValue.textContent = '00:00';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
