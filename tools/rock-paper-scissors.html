@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play Rock Paper Scissors online against the computer on TOOLGENIE. Test your luck and strategy in this classic hand game!">
+  <meta name="keywords" content="Rock Paper Scissors, Game, Online Game, TOOLGENIE">
+  <meta name="author" content="TOOLGENIE">
+  <title>Rock Paper Scissors | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+      color: #333;
+      text-align: center;
+    }
+
+    header, footer {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #00796b;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .choices button {
+      background: #00796b;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.4rem;
+      margin: 0.5rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .choices button:hover {
+      background: #004d40;
+    }
+
+    .result {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+
+    footer {
+      flex-direction: column;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #00796b;
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Rock Paper Scissors</h1>
+    <p>Choose your move and see if you can beat the computer!</p>
+
+    <div class="choices">
+      <button onclick="play('rock')">🪨 Rock</button>
+      <button onclick="play('paper')">📄 Paper</button>
+      <button onclick="play('scissors')">✂️ Scissors</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Select Rock, Paper, or Scissors by clicking the buttons.</li>
+        <li>The computer will randomly select its choice.</li>
+        <li>The result of the game will be displayed below the buttons.</li>
+        <li>Play as many rounds as you like!</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
+
+  <script>
+    function play(userChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+      let result = '';
+
+      if (userChoice === computerChoice) {
+        result = `It's a draw! You both chose ${userChoice}.`;
+      } else if (
+        (userChoice === 'rock' && computerChoice === 'scissors') ||
+        (userChoice === 'paper' && computerChoice === 'rock') ||
+        (userChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        result = `You win! ${userChoice} beats ${computerChoice}.`;
+      } else {
+        result = `You lose! ${computerChoice} beats ${userChoice}.`;
+      }
+
+      document.getElementById('result').textContent = result;
+    }
+  </script>
+</body>
+</html>
