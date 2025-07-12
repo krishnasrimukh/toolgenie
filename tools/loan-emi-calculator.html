@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Calculate your monthly EMI, interest, and total payment with TOOLGENIE's Loan/EMI Calculator tool." />
+  <meta name="keywords" content="Loan EMI calculator, EMI calculator, finance tool, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Loan EMI Calculator | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f0f4ff;
+      color: #222;
+    }
+
+    header, footer {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      margin: 0.8rem 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #01579b;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    footer {
+      flex-direction: column;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #0288d1;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="../index.html">Tools</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Loan EMI Calculator</h1>
+  <label for="loanAmount">Loan Amount (₹):</label>
+  <input type="number" id="loanAmount" placeholder="Enter loan amount" />
+
+  <label for="interestRate">Annual Interest Rate (%):</label>
+  <input type="number" id="interestRate" placeholder="Enter interest rate" />
+
+  <label for="loanTenure">Tenure:</label>
+  <input type="number" id="loanTenure" placeholder="Enter tenure" />
+  <select id="tenureType">
+    <option value="months">Months</option>
+    <option value="years">Years</option>
+  </select>
+
+  <button onclick="calculateEMI()">Calculate</button>
+
+  <div id="result"></div>
+
+  <h2>How to use this tool</h2>
+  <article>
+    <p>Enter the total loan amount you want to borrow, the annual interest rate, and your preferred loan tenure (in months or years). The tool will calculate your monthly EMI, total interest to be paid, and the total payment amount over the loan period.</p>
+  </article>
+</main>
+
+<footer>
+  <div>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+</footer>
+
+<script>
+  function calculateEMI() {
+    const P = parseFloat(document.getElementById('loanAmount').value);
+    const R = parseFloat(document.getElementById('interestRate').value) / 12 / 100;
+    let N = parseInt(document.getElementById('loanTenure').value);
+    const type = document.getElementById('tenureType').value;
+
+    if (type === 'years') {
+      N *= 12;
+    }
+
+    const result = document.getElementById('result');
+
+    if (isNaN(P) || isNaN(R) || isNaN(N) || P <= 0 || R <= 0 || N <= 0) {
+      result.textContent = "Please enter valid input values.";
+      return;
+    }
+
+    const emi = P * R * Math.pow(1 + R, N) / (Math.pow(1 + R, N) - 1);
+    const totalPayment = emi * N;
+    const totalInterest = totalPayment - P;
+
+    result.innerHTML = `
+      Monthly EMI: ₹${emi.toFixed(2)}<br>
+      Total Interest: ₹${totalInterest.toFixed(2)}<br>
+      Total Payment: ₹${totalPayment.toFixed(2)}
+    `;
+  }
+</script>
+
+</body>
+</html>
