@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play the classic Minesweeper game online. Reveal all the safe cells without triggering any mines.">
+  <meta name="keywords" content="minesweeper, puzzle game, TOOLGENIE games, logic game">
+  <meta name="author" content="TOOLGENIE">
+  <title>Minesweeper Game | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #8e9eab);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.7);
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .container {
+      padding: 2rem;
+      text-align: center;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      grid-template-rows: repeat(10, 30px);
+      gap: 2px;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      background-color: #ddd;
+      border: 1px solid #aaa;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .cell.revealed {
+      background-color: #fff;
+      cursor: default;
+    }
+    .cell.mine {
+      background-color: red;
+      color: white;
+    }
+    footer a {
+      margin: 0 10px;
+      color: #333;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Minesweeper Game | TOOLGENIE</h1>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Click to reveal. Avoid the mines!</h2>
+    <div id="board"></div>
+    <p id="status"></p>
+
+    <h3>How to use this tool</h3>
+    <article>
+      <ul>
+        <li>Click a cell to reveal it.</li>
+        <li>If it contains a number, that number shows how many mines are adjacent to it.</li>
+        <li>Avoid clicking on mines (red cells).</li>
+        <li>Reveal all safe cells to win.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../privacy.html">Privacy</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const board = document.getElementById('board');
+    const statusText = document.getElementById('status');
+    const size = 10;
+    const mineCount = 10;
+    let cells = [];
+
+    function initBoard() {
+      cells = [];
+      board.innerHTML = '';
+      board.style.pointerEvents = 'auto';
+      statusText.textContent = '';
+
+      for (let i = 0; i < size * size; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.dataset.index = i;
+        board.appendChild(cell);
+        cells.push({ mine: false, revealed: false, neighborMines: 0, element: cell });
+      }
+
+      // Add mines
+      let minesPlaced = 0;
+      while (minesPlaced < mineCount) {
+        let index = Math.floor(Math.random() * size * size);
+        if (!cells[index].mine) {
+          cells[index].mine = true;
+          minesPlaced++;
+        }
+      }
+
+      // Calculate numbers
+      for (let i = 0; i < size * size; i++) {
+        if (cells[i].mine) continue;
+        const neighbors = getNeighbors(i);
+        cells[i].neighborMines = neighbors.filter(n => n.mine).length;
+      }
+
+      cells.forEach((cell, i) => {
+        cell.element.addEventListener('click', () => revealCell(i));
+      });
+    }
+
+    function getNeighbors(index) {
+      const row = Math.floor(index / size);
+      const col = index % size;
+      const neighbors = [];
+
+      for (let r = row - 1; r <= row + 1; r++) {
+        for (let c = col - 1; c <= col + 1; c++) {
+          if (r >= 0 && r < size && c >= 0 && c < size && (r !== row || c !== col)) {
+            neighbors.push(cells[r * size + c]);
+          }
+        }
+      }
+      return neighbors;
+    }
+
+    function revealCell(index) {
+      const cell = cells[index];
+      if (cell.revealed) return;
+
+      cell.revealed = true;
+      cell.element.classList.add('revealed');
+      if (cell.mine) {
+        cell.element.classList.add('mine');
+        statusText.textContent = 'Game Over! You clicked on a mine.';
+        board.style.pointerEvents = 'none';
+        return;
+      }
+
+      if (cell.neighborMines > 0) {
+        cell.element.textContent = cell.neighborMines;
+      } else {
+        getNeighbors(index).forEach((n, i) => revealCell(cells.indexOf(n)));
+      }
+
+      checkWin();
+    }
+
+    function checkWin() {
+      if (cells.every(cell => cell.revealed || cell.mine)) {
+        statusText.textContent = 'You Win! All safe cells revealed.';
+        board.style.pointerEvents = 'none';
+      }
+    }
+
+    initBoard();
+  </script>
+</body>
+</html>
