@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Play the Mini Memory Game on TOOLGENIE! Match cards, improve your memory, and have fun."/>
+  <meta name="keywords" content="Memory Game, Mini Game, TOOLGENIE, Card Match, Brain Game"/>
+  <meta name="author" content="TOOLGENIE"/>
+  <title>Mini Memory Game | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f3f4f6, #ffffff);
+      margin: 0;
+      color: #333;
+    }
+
+    header, footer {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-items: center;
+    }
+
+    .card {
+      width: 80px;
+      height: 80px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: none;
+    }
+
+    .card.flipped {
+      background: #4caf50;
+      color: white;
+    }
+
+    .card.matched {
+      background: #66bb6a;
+      color: white;
+      pointer-events: none;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #43a047;
+    }
+
+    footer {
+      font-size: 0.9rem;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    footer a {
+      color: #4caf50;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    @media(max-width: 600px) {
+      .game-board {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Mini Memory Game</h1>
+    <p>Click on the cards to find matching pairs. Sharpen your brain while having fun!</p>
+    <div class="game-board" id="gameBoard"></div>
+    <button onclick="startGame()">Restart Game</button>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Click a card to reveal it.</li>
+        <li>Click another card to find a match.</li>
+        <li>If both cards match, they stay flipped. Otherwise, they flip back.</li>
+        <li>Try to match all pairs with fewer moves!</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const emojis = ['🍎', '🍌', '🍇', '🍉', '🍒', '🍍', '🥝', '🍓'];
+    let cards = [];
+    let flipped = [];
+    let matched = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function startGame() {
+      const board = document.getElementById('gameBoard');
+      board.innerHTML = '';
+      cards = [...emojis, ...emojis];
+      shuffle(cards);
+      flipped = [];
+      matched = 0;
+
+      cards.forEach((emoji, index) => {
+        const div = document.createElement('div');
+        div.classList.add('card');
+        div.dataset.index = index;
+        div.dataset.emoji = emoji;
+        div.textContent = '';
+        div.onclick = handleFlip;
+        board.appendChild(div);
+      });
+    }
+
+    function handleFlip(e) {
+      const card = e.currentTarget;
+      if (card.classList.contains('flipped') || card.classList.contains('matched') || flipped.length >= 2) return;
+
+      card.textContent = card.dataset.emoji;
+      card.classList.add('flipped');
+      flipped.push(card);
+
+      if (flipped.length === 2) {
+        const [first, second] = flipped;
+        if (first.dataset.emoji === second.dataset.emoji) {
+          first.classList.add('matched');
+          second.classList.add('matched');
+          matched += 2;
+          flipped = [];
+        } else {
+          setTimeout(() => {
+            first.textContent = '';
+            second.textContent = '';
+            first.classList.remove('flipped');
+            second.classList.remove('flipped');
+            flipped = [];
+          }, 1000);
+        }
+      }
+
+      if (matched === cards.length) {
+        setTimeout(() => alert('🎉 You matched all pairs!'), 300);
+      }
+    }
+
+    window.onload = startGame;
+  </script>
+</body>
+</html>
