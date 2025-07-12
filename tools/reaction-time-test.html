@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reaction Time Test | TOOLGENIE</title>
+  <meta name="description" content="Test your reaction time with this fast and fun online tool by TOOLGENIE." />
+  <meta name="keywords" content="Reaction Time Test, Speed Test, Reflex Tester, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      color: #333;
+    }
+
+    header,
+    footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    #gameBox {
+      margin-top: 2rem;
+      padding: 100px 20px;
+      border-radius: 20px;
+      background-color: #e0e0e0;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #gameBox.ready {
+      background-color: #00e676;
+      color: white;
+    }
+
+    #result {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    @media (max-width: 600px) {
+      #gameBox {
+        font-size: 1.2rem;
+        padding: 70px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Reaction Time Test</h1>
+    <p>Click the box as soon as it turns green. Let's see how fast your reflexes are!</p>
+
+    <div id="gameBox" onclick="boxClicked()">Click to start</div>
+    <div id="result"></div>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul style="text-align:left; max-width:600px; margin:auto;">
+        <li>Click the box to start the test.</li>
+        <li>Wait until the color changes to green.</li>
+        <li>Click as fast as you can when it turns green.</li>
+        <li>Your reaction time will be displayed in milliseconds.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
+
+  <script>
+    let startTime, timeoutID;
+    let isWaiting = false;
+
+    function boxClicked() {
+      const box = document.getElementById("gameBox");
+      const result = document.getElementById("result");
+
+      if (!isWaiting && !box.classList.contains("ready")) {
+        result.textContent = "";
+        box.textContent = "Wait for green...";
+        box.style.backgroundColor = "#f44336";
+        isWaiting = true;
+
+        timeoutID = setTimeout(() => {
+          box.textContent = "Click!";
+          box.classList.add("ready");
+          startTime = new Date().getTime();
+        }, Math.random() * 3000 + 2000);
+      } else if (box.classList.contains("ready")) {
+        const endTime = new Date().getTime();
+        const reactionTime = endTime - startTime;
+        box.textContent = `Click to try again`;
+        result.textContent = `Your reaction time: ${reactionTime} ms`;
+        box.classList.remove("ready");
+        box.style.backgroundColor = "#e0e0e0";
+        isWaiting = false;
+      } else if (isWaiting) {
+        clearTimeout(timeoutID);
+        box.textContent = "Too soon! Click to try again.";
+        box.style.backgroundColor = "#ffc107";
+        isWaiting = false;
+      }
+    }
+  </script>
+</body>
+
+</html>
