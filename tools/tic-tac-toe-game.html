@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Play Tic Tac Toe game online with TOOLGENIE. A fun two-player game to kill time and enjoy with friends." />
+  <meta name="keywords" content="tic tac toe, XO game, noughts and crosses, 2 player game, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Tic Tac Toe Game | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #e0f7fa, #f0f4f8);
+      color: #333;
+      text-align: center;
+    }
+
+    header, footer {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 2rem 0;
+    }
+
+    .cell {
+      width: 100px;
+      height: 100px;
+      background: #e3f2fd;
+      font-size: 2.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .cell:hover {
+      background: #bbdefb;
+    }
+
+    #status {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0d47a1;
+    }
+
+    footer {
+      flex-direction: column;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #1976d2;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="../index.html">Tools</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Tic Tac Toe</h1>
+  <p>Play this classic 2-player game. Take turns and try to get 3 in a row!</p>
+
+  <div id="status">Player ❌'s turn</div>
+  <div class="board" id="board">
+    <div class="cell" onclick="makeMove(0)"></div>
+    <div class="cell" onclick="makeMove(1)"></div>
+    <div class="cell" onclick="makeMove(2)"></div>
+    <div class="cell" onclick="makeMove(3)"></div>
+    <div class="cell" onclick="makeMove(4)"></div>
+    <div class="cell" onclick="makeMove(5)"></div>
+    <div class="cell" onclick="makeMove(6)"></div>
+    <div class="cell" onclick="makeMove(7)"></div>
+    <div class="cell" onclick="makeMove(8)"></div>
+  </div>
+
+  <button onclick="resetGame()">Reset Game</button>
+
+  <h2>How to use this tool</h2>
+  <article>
+    <ul>
+      <li>This is a 2-player game: ❌ goes first, then ⭕️.</li>
+      <li>Click on a square to make a move.</li>
+      <li>The first to align 3 symbols wins the game.</li>
+      <li>Click "Reset Game" to play again.</li>
+    </ul>
+  </article>
+</main>
+
+<footer>
+  <div>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+</footer>
+
+<script>
+  let currentPlayer = "❌";
+  let board = ["", "", "", "", "", "", "", "", ""];
+  let gameOver = false;
+
+  function makeMove(index) {
+    if (board[index] === "" && !gameOver) {
+      board[index] = currentPlayer;
+      document.querySelectorAll(".cell")[index].textContent = currentPlayer;
+      if (checkWin()) {
+        document.getElementById("status").textContent = `Player ${currentPlayer} wins! 🎉`;
+        gameOver = true;
+      } else if (board.every(cell => cell !== "")) {
+        document.getElementById("status").textContent = "It's a draw!";
+        gameOver = true;
+      } else {
+        currentPlayer = currentPlayer === "❌" ? "⭕️" : "❌";
+        document.getElementById("status").textContent = `Player ${currentPlayer}'s turn`;
+      }
+    }
+  }
+
+  function checkWin() {
+    const winPatterns = [
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
+    ];
+
+    return winPatterns.some(pattern =>
+      pattern.every(index => board[index] === currentPlayer)
+    );
+  }
+
+  function resetGame() {
+    board = ["", "", "", "", "", "", "", "", ""];
+    document.querySelectorAll(".cell").forEach(cell => cell.textContent = "");
+    currentPlayer = "❌";
+    gameOver = false;
+    document.getElementById("status").textContent = `Player ${currentPlayer}'s turn`;
+  }
+</script>
+
+</body>
+</html>
