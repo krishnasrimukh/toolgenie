@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Get fun and quirky Would You Rather questions instantly. Perfect for parties, games, or breaking the ice!" />
+  <meta name="keywords" content="Would you rather, question generator, party games, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Would You Rather Generator | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f9;
+      color: #222;
+    }
+
+    header, footer {
+      background: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #444;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    #question {
+      font-size: 1.3rem;
+      text-align: center;
+      background: #f7f9fc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #d3dce6;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto 1rem auto;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    article {
+      margin-top: 2rem;
+    }
+
+    footer {
+      flex-direction: column;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="../index.html">Tools</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Would You Rather Generator</h1>
+
+  <div id="question">Click the button to generate a question!</div>
+
+  <button onclick="generateQuestion()">Generate Question</button>
+  <button onclick="copyToClipboard()">Copy Question</button>
+
+  <h2>How to use this tool</h2>
+  <article>
+    <p>This tool generates random "Would You Rather" questions for games, parties, or just for fun. Click the generate button to get started, and copy the question if you'd like to share it with friends!</p>
+  </article>
+</main>
+
+<footer>
+  <div>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2025 TOOLGENIE. All rights reserved.</p>
+</footer>
+
+<script>
+  const questions = [
+    "Would you rather always be 10 minutes late or always be 20 minutes early?",
+    "Would you rather have the ability to fly or be invisible?",
+    "Would you rather live without music or without movies?",
+    "Would you rather read minds or see the future?",
+    "Would you rather give up sugar or salt forever?",
+    "Would you rather explore space or the deep sea?",
+    "Would you rather have a rewind button or a pause button on your life?",
+    "Would you rather be able to speak all languages or play every instrument?",
+    "Would you rather live in the past or the future?",
+    "Would you rather lose internet access or your phone contacts?"
+  ];
+
+  function generateQuestion() {
+    const random = questions[Math.floor(Math.random() * questions.length)];
+    document.getElementById("question").textContent = random;
+  }
+
+  function copyToClipboard() {
+    const text = document.getElementById("question").textContent;
+    if (text && text !== "Click the button to generate a question!") {
+      navigator.clipboard.writeText(text)
+        .then(() => alert("Question copied to clipboard!"))
+        .catch(() => alert("Failed to copy!"));
+    }
+  }
+</script>
+
+</body>
+</html>
