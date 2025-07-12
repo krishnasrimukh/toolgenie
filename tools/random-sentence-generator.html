@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Generate random sentences for writing prompts, inspiration, or fun. Use TOOLGENIE's Random Sentence Generator tool." />
+  <meta name="keywords" content="random sentence generator, writing prompt, TOOLGENIE, sentence creator" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Random Sentence Generator | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f8f9ff;
+      color: #222;
+    }
+
+    header, footer {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.8rem 0;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    #sentenceOutput {
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 1rem 0;
+      font-style: italic;
+    }
+
+    .copy-btn {
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background-color: #01579b;
+    }
+
+    footer {
+      flex-direction: column;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #0288d1;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="../index.html">Tools</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Random Sentence Generator</h1>
+
+  <label for="sentenceType">Choose Sentence Type:</label>
+  <select id="sentenceType">
+    <option value="all">All</option>
+    <option value="funny">Funny</option>
+    <option value="motivational">Motivational</option>
+    <option value="creative">Creative</option>
+  </select>
+
+  <button onclick="generateSentence()">Generate Sentence</button>
+
+  <div id="sentenceOutput">Click the button to get a random sentence</div>
+  <button class="copy-btn" onclick="copySentence()">Copy to Clipboard</button>
+
+  <h2>How to use this tool</h2>
+  <article>
+    <p>Select a sentence type or keep it as "All", then click the "Generate Sentence" button. A random sentence will appear — great for writing, humor, speeches, or inspiration. Click "Copy to Clipboard" to use it elsewhere instantly.</p>
+  </article>
+</main>
+
+<footer>
+  <div>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+</footer>
+
+<script>
+  const sentences = {
+    funny: [
+      "I told my computer I needed a break, and it gave me a blue screen.",
+      "Why don't skeletons fight? They don't have the guts.",
+      "The early bird might get the worm, but the second mouse gets the cheese."
+    ],
+    motivational: [
+      "Dream big and dare to fail.",
+      "Your limitation—it's only your imagination.",
+      "Push yourself, because no one else is going to do it for you."
+    ],
+    creative: [
+      "The clouds whispered secrets to the moon.",
+      "A dragon sleeps beneath the city streets, unnoticed by the rush above.",
+      "She painted silence with colors no one had ever seen."
+    ]
+  };
+
+  function generateSentence() {
+    const type = document.getElementById("sentenceType").value;
+    let allSentences = [];
+
+    if (type === "all") {
+      allSentences = [...sentences.funny, ...sentences.motivational, ...sentences.creative];
+    } else {
+      allSentences = sentences[type] || [];
+    }
+
+    const randomSentence = allSentences[Math.floor(Math.random() * allSentences.length)];
+    document.getElementById("sentenceOutput").textContent = randomSentence || "No sentence found.";
+  }
+
+  function copySentence() {
+    const sentence = document.getElementById("sentenceOutput").textContent;
+    if (sentence && sentence !== "Click the button to get a random sentence") {
+      navigator.clipboard.writeText(sentence).then(() => {
+        alert("Sentence copied to clipboard!");
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
