@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test your typing speed with TOOLGENIE's simple and accurate typing speed test tool." />
+  <meta name="keywords" content="Typing Speed Test, Typing Test, WPM Calculator, Online Tool, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Typing Speed Test | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f7, #d9e2ec);
+      color: #333;
+    }
+
+    header,
+    footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+      margin-top: 1rem;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .stats {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Typing Speed Test</h1>
+    <p>Type the text shown below as quickly and accurately as you can:</p>
+
+    <div id="testText" style="padding:1rem; background:#f5f5f5; border-radius:10px;">
+      The quick brown fox jumps over the lazy dog.
+    </div>
+
+    <textarea id="userInput" placeholder="Start typing here..." oninput="startTest()"></textarea>
+    <button onclick="resetTest()">Reset</button>
+
+    <div class="stats" id="results"></div>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Read the sentence shown above.</li>
+        <li>Type it in the text box as quickly and accurately as possible.</li>
+        <li>Your typing speed and accuracy will be shown below.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
+
+  <script>
+    let startTime, endTime;
+    let started = false;
+    const testText = document.getElementById("testText").innerText;
+
+    function startTest() {
+      const input = document.getElementById("userInput").value;
+      if (!started) {
+        startTime = new Date();
+        started = true;
+      }
+      if (input === testText) {
+        endTime = new Date();
+        const timeDiff = (endTime - startTime) / 1000;
+        const words = testText.split(" ").length;
+        const wpm = Math.round((words / timeDiff) * 60);
+        document.getElementById("results").innerHTML =
+          `Time taken: ${timeDiff.toFixed(2)} seconds<br>Words per minute: ${wpm}`;
+      }
+    }
+
+    function resetTest() {
+      document.getElementById("userInput").value = "";
+      document.getElementById("results").innerHTML = "";
+      started = false;
+    }
+  </script>
+</body>
+
+</html>
