@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test your reflexes with TOOLGENIE's Don't Touch the White Tile game! Click only black tiles to keep going.">
+  <meta name="keywords" content="White Tile Game, Reflex Game, Don't Tap, Reaction, TOOLGENIE">
+  <meta name="author" content="TOOLGENIE">
+  <title>Don't Touch the White Tile | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #f1f1f1;
+    }
+
+    h1 {
+      margin: 20px;
+    }
+
+    #gameArea {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      grid-auto-rows: 80px;
+      gap: 2px;
+      background: #333;
+    }
+
+    .tile {
+      width: 80px;
+      height: 80px;
+      background: white;
+    }
+
+    .black {
+      background: black;
+    }
+
+    .game-over {
+      color: red;
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Don't Touch the White Tile</h1>
+  <div id="gameArea"></div>
+  <div id="gameOverMsg" class="game-over"></div>
+
+  <script>
+    const gameArea = document.getElementById('gameArea');
+    const gameOverMsg = document.getElementById('gameOverMsg');
+
+    let tiles = [];
+    let gameOver = false;
+    let score = 0;
+
+    function createRow() {
+      const row = [];
+      const blackIndex = Math.floor(Math.random() * 4);
+      for (let i = 0; i < 4; i++) {
+        const div = document.createElement('div');
+        div.classList.add('tile');
+        if (i === blackIndex) div.classList.add('black');
+        div.addEventListener('click', function () {
+          if (gameOver) return;
+          if (div.classList.contains('black')) {
+            score++;
+            shiftTiles();
+          } else {
+            endGame();
+          }
+        });
+        row.push(div);
+      }
+      return row;
+    }
+
+    function shiftTiles() {
+      gameArea.innerHTML = '';
+      tiles.pop();
+      tiles.unshift(createRow());
+      tiles.forEach(row => row.forEach(tile => gameArea.appendChild(tile)));
+    }
+
+    function startGame() {
+      tiles = [];
+      for (let i = 0; i < 5; i++) {
+        tiles.unshift(createRow());
+      }
+      tiles.forEach(row => row.forEach(tile => gameArea.appendChild(tile)));
+    }
+
+    function endGame() {
+      gameOver = true;
+      gameOverMsg.textContent = `Game Over! Score: ${score}`;
+    }
+
+    startGame();
+  </script>
+</body>
+
+</html>
