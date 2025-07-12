@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Play the classic Snake Game online with TOOLGENIE. Challenge your reflexes and score high!" />
+  <meta name="keywords" content="Snake Game, Classic Snake, Online Snake, TOOLGENIE Game" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Snake Game | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f2f5, #d9e2ec);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      padding: 2rem;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    canvas {
+      border: 2px solid #333;
+      background: #fff;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Snake Game</h1>
+    <p>Use arrow keys to control the snake. Eat food to grow. Don’t hit the walls or yourself!</p>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <h2 id="score">Score: 0</h2>
+
+    <h3>How to use this tool</h3>
+    <article>
+      <ul>
+        <li>Start playing immediately by using the arrow keys on your keyboard.</li>
+        <li>The snake will grow as it eats food blocks.</li>
+        <li>Avoid crashing into the walls or your own body to keep the game going.</li>
+        <li>Your score will be displayed below the canvas.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const grid = 20;
+    let count = 0;
+    let snake = [{ x: 160, y: 160 }];
+    let direction = "right";
+    let food = { x: 320, y: 320 };
+    let score = 0;
+
+    function getRandomGrid() {
+      return Math.floor(Math.random() * 20) * grid;
+    }
+
+    function gameLoop() {
+      requestAnimationFrame(gameLoop);
+
+      if (++count < 4) return;
+
+      count = 0;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const head = { ...snake[0] };
+
+      if (direction === "left") head.x -= grid;
+      if (direction === "right") head.x += grid;
+      if (direction === "up") head.y -= grid;
+      if (direction === "down") head.y += grid;
+
+      snake.unshift(head);
+
+      if (head.x === food.x && head.y === food.y) {
+        food.x = getRandomGrid();
+        food.y = getRandomGrid();
+        score += 10;
+        document.getElementById("score").innerText = "Score: " + score;
+      } else {
+        snake.pop();
+      }
+
+      ctx.fillStyle = "green";
+      snake.forEach(part => ctx.fillRect(part.x, part.y, grid - 1, grid - 1));
+
+      ctx.fillStyle = "red";
+      ctx.fillRect(food.x, food.y, grid - 1, grid - 1);
+
+      if (
+        head.x < 0 || head.x >= canvas.width ||
+        head.y < 0 || head.y >= canvas.height ||
+        snake.slice(1).some(seg => seg.x === head.x && seg.y === head.y)
+      ) {
+        alert("Game Over! Your score: " + score);
+        snake = [{ x: 160, y: 160 }];
+        direction = "right";
+        food = { x: getRandomGrid(), y: getRandomGrid() };
+        score = 0;
+        document.getElementById("score").innerText = "Score: 0";
+      }
+    }
+
+    document.addEventListener("keydown", e => {
+      const dirs = {
+        ArrowLeft: "left",
+        ArrowUp: "up",
+        ArrowRight: "right",
+        ArrowDown: "down"
+      };
+      const opposite = {
+        left: "right",
+        right: "left",
+        up: "down",
+        down: "up"
+      };
+
+      if (dirs[e.key] && dirs[e.key] !== opposite[direction]) {
+        direction = dirs[e.key];
+      }
+    });
+
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+</html>
