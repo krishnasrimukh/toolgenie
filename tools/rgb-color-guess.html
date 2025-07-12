@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RGB Color Guessing Game | TOOLGENIE</title>
+  <meta name="description" content="Guess the right color from the RGB value with this fun game by TOOLGENIE!" />
+  <meta name="keywords" content="RGB Color Guessing Game, Color Quiz, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      color: #333;
+    }
+
+    header,
+    footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    #rgbDisplay {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    #message {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .squares {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .square {
+      width: 100%;
+      padding-top: 100%;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .square:hover {
+      transform: scale(1.05);
+    }
+
+    .square-inner {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: 15px;
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    @media (max-width: 600px) {
+      .square {
+        padding-top: 80%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>RGB Color Guessing Game</h1>
+    <p>Guess which square matches the displayed RGB value!</p>
+
+    <div id="rgbDisplay">rgb(???, ???, ???)</div>
+    <div class="squares" id="squaresContainer"></div>
+    <div id="message"></div>
+    <button onclick="resetGame()">Play Again</button>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul style="text-align:left; max-width:600px; margin:auto;">
+        <li>The RGB value of a color is shown above.</li>
+        <li>Click on the square that matches the color.</li>
+        <li>It will tell you whether you guessed right or wrong!</li>
+        <li>Click "Play Again" to try a new color challenge.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
+
+  <script>
+    const squaresContainer = document.getElementById("squaresContainer");
+    const rgbDisplay = document.getElementById("rgbDisplay");
+    const message = document.getElementById("message");
+    let correctColor = "";
+
+    function randomColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function resetGame() {
+      squaresContainer.innerHTML = "";
+      message.textContent = "";
+      const colors = [];
+      for (let i = 0; i < 6; i++) {
+        colors.push(randomColor());
+      }
+
+      correctColor = colors[Math.floor(Math.random() * colors.length)];
+      rgbDisplay.textContent = correctColor;
+
+      colors.forEach(color => {
+        const square = document.createElement("div");
+        square.classList.add("square");
+        const inner = document.createElement("div");
+        inner.classList.add("square-inner");
+        inner.style.backgroundColor = color;
+        square.appendChild(inner);
+        square.addEventListener("click", () => {
+          if (color === correctColor) {
+            message.textContent = "🎉 Correct!";
+            document.body.style.backgroundColor = correctColor;
+          } else {
+            message.textContent = "❌ Try Again!";
+          }
+        });
+        squaresContainer.appendChild(square);
+      });
+    }
+
+    resetGame();
+  </script>
+</body>
+
+</html>
