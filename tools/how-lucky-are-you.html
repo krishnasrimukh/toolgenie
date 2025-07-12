@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Check how lucky you are today! Play the fun and shareable 'How Lucky Are You?' game on TOOLGENIE."/>
+  <meta name="keywords" content="How Lucky Are You, Luck Game, Fun Tool, Shareable Game, TOOLGENIE"/>
+  <meta name="author" content="TOOLGENIE" />
+  <title>How Lucky Are You? | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(120deg, #f9f9f9, #dff6ff);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    header, footer {
+      width: 100%;
+      background: rgba(255,255,255,0.8);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+    .container {
+      text-align: center;
+      max-width: 600px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .result {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+    #shareLink {
+      margin-top: 1rem;
+      word-break: break-word;
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 6px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>How Lucky Are You?</h1>
+    <p>Click the button to find out your luck percentage today!</p>
+    <button onclick="calculateLuck()">Check Luck</button>
+    <div class="result" id="result"></div>
+    <div id="shareLink"></div>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Click the button to generate your luck percentage.</li>
+        <li>Get a sharable link with your result to send to friends.</li>
+        <li>Have fun and see who's luckier today!</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function calculateLuck() {
+      const luck = Math.floor(Math.random() * 101);
+      const resultText = `You are ${luck}% lucky today! 🍀`;
+      document.getElementById("result").innerText = resultText;
+
+      const shareableText = encodeURIComponent(resultText);
+      const url = `${window.location.origin}${window.location.pathname}?luck=${luck}`;
+      document.getElementById("shareLink").innerHTML = `<strong>Sharable Link:</strong><br><a href='${url}' target='_blank'>${url}</a>`;
+      document.getElementById("shareLink").style.display = 'block';
+    }
+
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has("luck")) {
+        const luck = params.get("luck");
+        const resultText = `You are ${luck}% lucky today! 🍀`;
+        document.getElementById("result").innerText = resultText;
+        document.getElementById("shareLink").style.display = 'none';
+      }
+    };
+  </script>
+</body>
+</html>
