@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flag Quiz | TOOLGENIE</title>
+  <meta name="description" content="Test your knowledge of world flags with this fun and interactive flag quiz!" />
+  <meta name="keywords" content="flag quiz, world flags, geography game, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f9f9f9, #e3f2fd);
+      color: #333;
+    }
+    header, footer {
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.8);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.8);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    img {
+      width: 250px;
+      height: auto;
+      border: 2px solid #ccc;
+      margin-bottom: 1rem;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 1rem;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #score {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Flag Quiz</h1>
+    <img id="flag" src="" alt="Flag" />
+    <div id="choices"></div>
+    <div id="score"></div>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
+
+  <script>
+    const flags = [
+      { country: "France", url: "https://flagcdn.com/fr.svg" },
+      { country: "Germany", url: "https://flagcdn.com/de.svg" },
+      { country: "Brazil", url: "https://flagcdn.com/br.svg" },
+      { country: "Japan", url: "https://flagcdn.com/jp.svg" },
+      { country: "India", url: "https://flagcdn.com/in.svg" },
+      { country: "Australia", url: "https://flagcdn.com/au.svg" },
+      { country: "Canada", url: "https://flagcdn.com/ca.svg" }
+    ];
+
+    let currentFlag = {}, score = 0, questionCount = 0;
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function nextQuestion() {
+      questionCount++;
+      if (questionCount > 5) {
+        document.getElementById('score').innerText = `Quiz Finished! Final Score: ${score}/5`;
+        return;
+      }
+
+      const shuffled = shuffle([...flags]);
+      currentFlag = shuffled[0];
+      document.getElementById("flag").src = currentFlag.url;
+
+      const options = shuffle(shuffled.slice(0, 4).map(f => f.country));
+      document.getElementById("choices").innerHTML = options.map(country => `
+        <button onclick="checkAnswer('${country}')">${country}</button>
+      `).join("");
+    }
+
+    function checkAnswer(selected) {
+      if (selected === currentFlag.country) score++;
+      nextQuestion();
+    }
+
+    nextQuestion();
+  </script>
+</body>
+</html>
