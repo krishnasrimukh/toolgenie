@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Generate a fake tweet with username and tweet content for fun. Download the image and share!" />
+  <meta name="keywords" content="Fake Tweet Generator, Funny Tweet Maker, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Fake Tweet Generator | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f2f5, #d9e2ec);
+      color: #333;
+    }
+    header, footer {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    button {
+      background: #1DA1F2;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+    button:hover {
+      background: #0d8ddb;
+    }
+    .tweet-preview {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-top: 2rem;
+      border: 1px solid #ccc;
+      position: relative;
+    }
+    .tweet-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tweet-header img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+    .tweet-body {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+    }
+    .twitter-icon {
+      width: 24px;
+      height: 24px;
+      fill: #1DA1F2;
+      margin-left: auto;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      flex-direction: column;
+      margin-top: 2rem;
+    }
+    footer a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right:10px;">
+      <strong>TOOLGENIE</strong>
+    </div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Fake Tweet Generator</h1>
+    <p>Create a fake tweet for fun and download it as an image.</p>
+
+    <input type="text" id="username" placeholder="Enter Twitter username" />
+    <textarea id="tweetContent" placeholder="Write your tweet here..." rows="4"></textarea>
+
+    <div>
+      <button onclick="generateTweet()">Generate</button>
+      <button onclick="downloadTweet()">Download JPG</button>
+    </div>
+
+    <div id="tweetPreview" class="tweet-preview" style="display:none;">
+      <div class="tweet-header">
+        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" alt="Avatar">
+        <div>
+          <strong id="previewUsername">@user</strong>
+        </div>
+        <svg class="twitter-icon" viewBox="0 0 24 24"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.95.564-2.005.974-3.127 1.195-.896-.959-2.173-1.559-3.591-1.559-3.179 0-5.515 2.966-4.797 6.045C7.728 8.087 4.1 6.128 1.67 3.149c-.35.6-.554 1.3-.554 2.051 0 1.416.722 2.667 1.823 3.396-.672-.021-1.305-.206-1.861-.513v.051c0 1.978 1.404 3.63 3.261 4.007-.342.093-.703.143-1.073.143-.261 0-.515-.026-.763-.074.516 1.604 2.015 2.772 3.79 2.804-1.39 1.09-3.14 1.743-5.042 1.743-.328 0-.653-.019-.975-.057 1.796 1.151 3.933 1.825 6.223 1.825 7.457 0 11.538-6.178 11.538-11.537 0-.175-.004-.35-.012-.522.79-.571 1.476-1.287 2.018-2.104z"/></svg>
+      </div>
+      <div class="tweet-body" id="previewContent"></div>
+    </div>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Enter a fake Twitter username and a tweet message.</li>
+        <li>Click "Generate" to preview your tweet.</li>
+        <li>Click "Download JPG" to save your fake tweet.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    function generateTweet() {
+      const username = document.getElementById("username").value.trim();
+      const tweet = document.getElementById("tweetContent").value.trim();
+
+      if (!username || !tweet) {
+        alert("Please enter both username and tweet.");
+        return;
+      }
+
+      document.getElementById("previewUsername").textContent = "@" + username;
+      document.getElementById("previewContent").textContent = tweet;
+      document.getElementById("tweetPreview").style.display = "block";
+    }
+
+    function downloadTweet() {
+      const tweetDiv = document.getElementById("tweetPreview");
+      html2canvas(tweetDiv).then(canvas => {
+        canvas.toBlob(blob => {
+          const link = document.createElement("a");
+          link.download = "fake-tweet.jpg";
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        }, 'image/jpeg');
+      });
+    }
+  </script>
+</body>
+</html>
