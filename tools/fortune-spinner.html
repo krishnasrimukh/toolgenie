@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Spin the fortune wheel and discover your destiny with TOOLGENIE's fun Fortune Spinner!" />
+  <meta name="keywords" content="Fortune Spinner, Fortune Wheel, Spin Game, Random Spinner, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Fortune Spinner | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #wheel {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 8px solid #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .segment {
+      width: 50%;
+      height: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: 0% 0%;
+      background: #fff;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    #pointer {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid red;
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    button {
+      margin-top: 2rem;
+      background: #f44336;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #d32f2f;
+    }
+
+    #result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Fortune Spinner</h1>
+  <div id="pointer"></div>
+  <div id="wheel"></div>
+  <button onclick="spinWheel()">Spin the Wheel</button>
+  <div id="result"></div>
+
+  <script>
+    const fortunes = [
+      'You will have great luck today!',
+      'A pleasant surprise is waiting for you.',
+      'Expect good news soon.',
+      'You might find money!',
+      'A challenge will bring success.',
+      'Spend time with loved ones today.',
+      'Try something new and exciting.',
+      'Happiness is around the corner.'
+    ];
+
+    const wheel = document.getElementById('wheel');
+
+    function createWheel() {
+      const angleStep = 360 / fortunes.length;
+      fortunes.forEach((fortune, i) => {
+        const seg = document.createElement('div');
+        seg.className = 'segment';
+        seg.style.background = i % 2 === 0 ? '#ffecb3' : '#ffe082';
+        seg.style.transform = `rotate(${i * angleStep}deg) skewY(-${90 - angleStep}deg)`;
+        seg.textContent = fortune;
+        wheel.appendChild(seg);
+      });
+    }
+
+    let spinning = false;
+    function spinWheel() {
+      if (spinning) return;
+      spinning = true;
+      const spinDeg = 360 * 5 + Math.floor(Math.random() * 360);
+      wheel.style.transition = 'transform 5s ease-out';
+      wheel.style.transform = `rotate(${spinDeg}deg)`;
+      setTimeout(() => {
+        const finalDeg = spinDeg % 360;
+        const index = Math.floor((360 - finalDeg + 360 / fortunes.length / 2) % 360 / (360 / fortunes.length));
+        document.getElementById('result').textContent = fortunes[index];
+        spinning = false;
+      }, 5100);
+    }
+
+    createWheel();
+  </script>
+</body>
+
+</html>
