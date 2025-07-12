@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Play Truth or Dare online with this fun random question generator. Perfect for parties or game night!" />
+  <meta name="keywords" content="truth or dare, party game, question generator, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Truth or Dare Generator | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f8fc;
+      color: #222;
+    }
+
+    header, footer {
+      background: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #444;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    #output {
+      font-size: 1.3rem;
+      text-align: center;
+      background: #f7f9fc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #d3dce6;
+    }
+
+    button {
+      display: block;
+      margin: 0.5rem auto;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    article {
+      margin-top: 2rem;
+    }
+
+    footer {
+      flex-direction: column;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    footer a {
+      margin: 0 0.5rem;
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="../index.html">Tools</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Truth or Dare Generator</h1>
+
+  <div id="output">Click a button to get started!</div>
+
+  <button onclick="generate('truth')">Generate Truth</button>
+  <button onclick="generate('dare')">Generate Dare</button>
+  <button onclick="copyToClipboard()">Copy</button>
+
+  <h2>How to use this tool</h2>
+  <article>
+    <p>Need fun Truth or Dare ideas? Click one of the buttons above to randomly generate a question. Use this during parties, sleepovers, or game nights for instant fun!</p>
+  </article>
+</main>
+
+<footer>
+  <div>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2025 TOOLGENIE. All rights reserved.</p>
+</footer>
+
+<script>
+  const truths = [
+    "What’s the most embarrassing thing you’ve ever done?",
+    "Have you ever lied to get out of trouble?",
+    "What’s a secret you’ve never told anyone?",
+    "Who do you have a crush on right now?",
+    "What’s your biggest fear?",
+    "What’s the worst thing you’ve ever said to someone?",
+    "Have you ever cheated on a test?",
+    "What's something you’re glad your parents don’t know about you?"
+  ];
+
+  const dares = [
+    "Do 10 jumping jacks right now!",
+    "Text your crush something random.",
+    "Sing the chorus of your favorite song.",
+    "Let the group look through your recent photos.",
+    "Say something embarrassing in a funny voice.",
+    "Post a weird selfie on your story.",
+    "Act like a cat for the next 30 seconds.",
+    "Dance without music for 1 minute!"
+  ];
+
+  function generate(type) {
+    let item = '';
+    if (type === 'truth') {
+      item = truths[Math.floor(Math.random() * truths.length)];
+      document.getElementById("output").textContent = `🟢 Truth: ${item}`;
+    } else if (type === 'dare') {
+      item = dares[Math.floor(Math.random() * dares.length)];
+      document.getElementById("output").textContent = `🔴 Dare: ${item}`;
+    }
+  }
+
+  function copyToClipboard() {
+    const text = document.getElementById("output").textContent;
+    if (text && text !== "Click a button to get started!") {
+      navigator.clipboard.writeText(text)
+        .then(() => alert("Copied to clipboard!"))
+        .catch(() => alert("Failed to copy!"));
+    }
+  }
+</script>
+
+</body>
+</html>
