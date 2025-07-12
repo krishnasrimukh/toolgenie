@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Play the Number Guessing Game on TOOLGENIE. Guess a number between 1 and 100 with smart hints and challenge yourself." />
+  <meta name="keywords" content="number guessing game, guess the number, TOOLGENIE game, fun number game" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Number Guessing Game | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+      color: #333;
+      text-align: center;
+    }
+
+    header, footer {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 120px;
+      margin-right: 1rem;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background: #0288d1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #01579b;
+    }
+
+    #message {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    #attempts {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+
+    footer {
+      flex-direction: column;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #0288d1;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="../index.html">Tools</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Number Guessing Game</h1>
+  <p>Guess a number between 1 and 100</p>
+
+  <input type="number" id="guessInput" placeholder="Enter guess" min="1" max="100" />
+  <button onclick="checkGuess()">Submit</button>
+  <button onclick="resetGame()" style="background: #c62828; margin-left: 10px;">Reset</button>
+
+  <div id="message"></div>
+  <div id="attempts"></div>
+
+  <h2>How to use this tool</h2>
+  <article>
+    <ul>
+      <li>Guess a number between 1 and 100.</li>
+      <li>You’ll get feedback: “Too high”, “Too low”, or “Correct!”.</li>
+      <li>Track your number of attempts.</li>
+      <li>Click "Reset" to play again.</li>
+    </ul>
+  </article>
+</main>
+
+<footer>
+  <div>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+</footer>
+
+<script>
+  let secretNumber = Math.floor(Math.random() * 100) + 1;
+  let attempts = 0;
+
+  function checkGuess() {
+    const guess = parseInt(document.getElementById("guessInput").value);
+    const message = document.getElementById("message");
+    const attemptsDisplay = document.getElementById("attempts");
+
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+      message.textContent = "Please enter a number between 1 and 100.";
+      return;
+    }
+
+    attempts++;
+    if (guess === secretNumber) {
+      message.textContent = `🎉 Correct! The number was ${secretNumber}.`;
+    } else if (guess < secretNumber) {
+      message.textContent = "Too low! Try again.";
+    } else {
+      message.textContent = "Too high! Try again.";
+    }
+
+    attemptsDisplay.textContent = `Attempts: ${attempts}`;
+  }
+
+  function resetGame() {
+    secretNumber = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
+    document.getElementById("guessInput").value = "";
+    document.getElementById("message").textContent = "";
+    document.getElementById("attempts").textContent = "";
+  }
+</script>
+
+</body>
+</html>
