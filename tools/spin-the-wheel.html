@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Spin the Wheel game by TOOLGENIE. Create custom options and spin the wheel for a random choice." />
+  <meta name="keywords" content="Spin the Wheel, Random Picker, TOOLGENIE, Wheel Game" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Spin the Wheel | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+    }
+
+    header,
+    footer {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 70%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin: 1rem 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    canvas {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    #result {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      font-weight: bold;
+      color: #d6336c;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div><img src="../assets/favicon.png" width="40" style="vertical-align: middle;"> <strong>TOOLGENIE</strong></div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Spin the Wheel</h1>
+    <p>Enter comma-separated options and click spin!</p>
+
+    <input type="text" id="options" placeholder="e.g. Pizza, Burger, Salad, Pasta" />
+    <br>
+    <button onclick="drawWheel()">Update Wheel</button>
+    <button onclick="spinWheel()">Spin</button>
+
+    <canvas id="wheelCanvas" width="300" height="300"></canvas>
+    <div id="result"></div>
+
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Enter your options separated by commas (e.g. Red, Blue, Green).</li>
+        <li>Click "Update Wheel" to generate the wheel.</li>
+        <li>Click "Spin" to rotate the wheel and choose a random option.</li>
+        <li>The selected option will be displayed below.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let options = [];
+    let startAngle = 0;
+    const canvas = document.getElementById("wheelCanvas");
+    const ctx = canvas.getContext("2d");
+    let arc;
+
+    function drawWheel() {
+      const text = document.getElementById("options").value;
+      options = text.split(",").map(o => o.trim()).filter(o => o);
+      if (options.length === 0) return;
+      arc = Math.PI * 2 / options.length;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < options.length; i++) {
+        const angle = startAngle + i * arc;
+        ctx.fillStyle = `hsl(${i * 360 / options.length}, 80%, 70%)`;
+        ctx.beginPath();
+        ctx.moveTo(150, 150);
+        ctx.arc(150, 150, 140, angle, angle + arc);
+        ctx.lineTo(150, 150);
+        ctx.fill();
+        ctx.fillStyle = "#333";
+        ctx.font = "14px sans-serif";
+        ctx.save();
+        ctx.translate(150, 150);
+        ctx.rotate(angle + arc / 2);
+        ctx.fillText(options[i], 60, 5);
+        ctx.restore();
+      }
+    }
+
+    function spinWheel() {
+      if (!options.length) return;
+      const spins = Math.floor(Math.random() * 10 + 10);
+      let totalAngle = spins * 2 * Math.PI;
+      const resultIndex = Math.floor(Math.random() * options.length);
+      totalAngle += (resultIndex + 0.5) * arc;
+
+      let current = 0;
+      const animate = () => {
+        current += (totalAngle - current) * 0.1;
+        startAngle = current;
+        drawWheel();
+        if (Math.abs(totalAngle - current) > 0.01) {
+          requestAnimationFrame(animate);
+        } else {
+          document.getElementById("result").textContent = `🎉 Result: ${options[resultIndex]}!`;
+        }
+      };
+      animate();
+    }
+  </script>
+</body>
+
+</html>
