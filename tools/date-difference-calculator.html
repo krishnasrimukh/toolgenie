@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Calculate the difference between two dates using TOOLGENIE's free Date Difference Calculator. Find days, months, and years between dates." />
+  <meta name="keywords" content="date difference calculator, days between dates, date duration calculator, TOOLGENIE" />
+  <meta name="author" content="TOOLGENIE" />
+  <title>Date Difference Calculator | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #f4faff, #ffffff);
+      color: #222;
+    }
+
+    header, footer {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      margin: 0.8rem 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #01579b;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    footer {
+      flex-direction: column;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #0288d1;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="../assets/favicon.png" alt="TOOLGENIE Logo" width="40" style="margin-right: 10px;">
+    <strong>TOOLGENIE</strong>
+  </div>
+  <nav>
+    <a href="../index.html">Tools</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Date Difference Calculator</h1>
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" />
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" />
+  <button onclick="calculateDifference()">Calculate</button>
+  <div id="result"></div>
+
+  <h2>How to use this tool</h2>
+  <article>
+    <p>Pick two dates (start and end) to calculate the time difference between them. This tool shows the total number of days, months, and years between the selected dates.</p>
+  </article>
+</main>
+
+<footer>
+  <div>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2025 TOOLGENIE. All rights reserved. ™</p>
+</footer>
+
+<script>
+  function calculateDifference() {
+    const start = new Date(document.getElementById("startDate").value);
+    const end = new Date(document.getElementById("endDate").value);
+    const result = document.getElementById("result");
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      result.textContent = "Please select both dates.";
+      return;
+    }
+
+    if (end < start) {
+      result.textContent = "End date must be after start date.";
+      return;
+    }
+
+    let totalDays = Math.floor((end - start) / (1000 * 60 * 60 * 24));
+    
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    let days = end.getDate() - start.getDate();
+
+    if (days < 0) {
+      months--;
+      const prevMonth = new Date(end.getFullYear(), end.getMonth(), 0);
+      days += prevMonth.getDate();
+    }
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    result.textContent = `Difference: ${years} year(s), ${months} month(s), and ${days} day(s) — Total: ${totalDays} day(s).`;
+  }
+</script>
+
+</body>
+</html>
