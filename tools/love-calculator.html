@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Check your love compatibility using TOOLGENIE's Love Calculator.">
+  <meta name="keywords" content="Love Calculator, Compatibility Test, TOOLGENIE">
+  <meta name="author" content="TOOLGENIE">
+  <title>Love Calculator | TOOLGENIE</title>
+  <link rel="icon" href="../assets/favicon.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe0ec, #fff);
+      color: #333;
+    }
+    header, footer {
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #d6336c;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      background: #d6336c;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #b02653;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #b02653;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>TOOLGENIE</strong></div>
+    <nav>
+      <a href="../index.html">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+  <main class="container">
+    <h1>Love Calculator</h1>
+    <p>Enter your name and your partner's name to see your love compatibility!</p>
+    <input type="text" id="yourName" placeholder="Your Name">
+    <input type="text" id="partnerName" placeholder="Partner's Name">
+    <button onclick="calculateLove()">Calculate</button>
+    <div class="result" id="result"></div>
+    <h2>How to use this tool</h2>
+    <article>
+      <ul>
+        <li>Enter your name and your partner's name.</li>
+        <li>Click the Calculate button.</li>
+        <li>See the love compatibility percentage and fun message!</li>
+      </ul>
+    </article>
+  </main>
+  <footer>
+    <div>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <p>&copy; 2025 TOOLGENIE. All rights reserved.</p>
+  </footer>
+  <script>
+    function calculateLove() {
+      const yourName = document.getElementById("yourName").value.trim();
+      const partnerName = document.getElementById("partnerName").value.trim();
+      if (!yourName || !partnerName) {
+        alert("Please enter both names.");
+        return;
+      }
+      const score = Math.floor((yourName.length * 3 + partnerName.length * 4 + Math.random() * 100) % 100);
+      let message = "";
+      if (score > 80) message = "You're a match made in heaven! ❤️";
+      else if (score > 60) message = "There's real potential here 💞";
+      else if (score > 40) message = "Some ups and downs, but it could work 💫";
+      else message = "Hmm... maybe just friends? 🤔";
+      document.getElementById("result").innerHTML = `<strong>${score}%</strong> - ${message}`;
+    }
+  </script>
+</body>
+</html>
