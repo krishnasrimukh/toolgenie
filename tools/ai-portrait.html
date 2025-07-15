@@ -111,6 +111,15 @@
     const MAX_GENERATIONS = 5;
     const USER_KEY = "ai_portrait_uses";
 
+    const stylePrompts = {
+      "pixar": "portrait of a person in pixar 3D animated style",
+      "surreal": "surreal dreamy portrait with soft tones and glowing background",
+      "neo noir": "cinematic neo-noir portrait with high contrast and moody lighting",
+      "haunted": "haunted gothic horror style portrait with dark shadows"
+    };
+
+    const DEEPAI_API_KEY = "876113e9-6495-46f8-ba4a-c91330681fc8"; // <-- Replace with your actual API key
+
     if (!localStorage.getItem(USER_KEY)) localStorage.setItem(USER_KEY, "0");
 
     upload.addEventListener("change", () => {
@@ -129,9 +138,9 @@
       });
     });
 
-    generateBtn.addEventListener("click", () => {
-      const file = upload.files[0];
+    generateBtn.addEventListener("click", async () => {
       const count = parseInt(localStorage.getItem(USER_KEY));
+      const file = upload.files[0];
       if (count >= MAX_GENERATIONS) {
         alert("You've reached the daily limit of 5 generations.");
         return;
@@ -141,20 +150,37 @@
         return;
       }
 
+      const prompt = stylePrompts[selectedStyle];
       loadingBar.classList.remove("hidden");
       result.innerHTML = "";
 
-      // Placeholder - integrate DeepAI or other API here
-      setTimeout(() => {
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("text", prompt);
+
+      try {
+        const response = await fetch("https://api.deepai.org/api/text2img", {
+          method: "POST",
+          headers: { "api-key": DEEPAI_API_KEY },
+          body: formData
+        });
+        const data = await response.json();
         loadingBar.classList.add("hidden");
-        result.innerHTML = `<img src="${URL.createObjectURL(file)}" class="rounded-xl max-h-64 mx-auto" alt="generated">`;
-        downloadBtn.classList.remove("hidden");
-        localStorage.setItem(USER_KEY, (count + 1).toString());
-      }, 3000);
+        if (data.output_url) {
+          result.innerHTML = `<img src="${data.output_url}" class="rounded-xl max-h-64 mx-auto" alt="AI result">`;
+          downloadBtn.classList.remove("hidden");
+          localStorage.setItem(USER_KEY, (count + 1).toString());
+        } else {
+          alert("Failed to generate image. Please try again.");
+        }
+      } catch (error) {
+        loadingBar.classList.add("hidden");
+        alert("Error calling DeepAI API.");
+        console.error(error);
+      }
     });
 
     downloadBtn.addEventListener("click", () => {
-      // Optional: show an ad or interstitial popup
       const img = result.querySelector("img");
       const link = document.createElement("a");
       link.href = img.src;
