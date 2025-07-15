@@ -1,129 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Text Behind Image – TOOLGENIE</title>
+  <meta charset="UTF-8">
+  <title>Text Behind Image Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
-      color: #fff;
-      padding: 2rem;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 2rem;
+      margin: 0;
     }
     .glass {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
       border-radius: 20px;
       padding: 2rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      max-width: 500px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       width: 100%;
+      max-width: 500px;
     }
     input, select, button {
       width: 100%;
-      margin-top: 1rem;
       padding: 0.75rem;
-      font-size: 1rem;
-      border: none;
+      margin-bottom: 1rem;
       border-radius: 10px;
+      border: none;
+      font-size: 1rem;
     }
     button {
-      background: #00c6ff;
+      background-color: #007bff;
       color: white;
       cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s ease;
     }
     button:hover {
-      background: #0072ff;
+      background-color: #0056b3;
     }
-    img#result {
+    #result {
       margin-top: 2rem;
-      max-width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
-    h1 {
-      margin-bottom: 1rem;
-      font-size: 2rem;
-      color: #fff;
+    #outputImage {
+      max-width: 100%;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>🖋️ Text Behind Image Tool</h1>
   <div class="glass">
-    <form id="image-form">
-      <label>Upload Image</label>
-      <input type="file" name="image" accept="image/*" required />
+    <h2>🖋️ Text Behind Image Generator</h2>
+    <form id="imageForm">
+      <input type="file" name="file" required><br>
+      <input type="text" name="text" placeholder="Enter your text" required><br>
 
-      <label>Enter Text</label>
-      <input type="text" name="text" placeholder="Type your text here..." required />
-
-      <label>Select Font</label>
       <select name="font_name" required>
         <option value="Anton">Anton</option>
-        <option value="Poppins-Bold">Poppins Bold</option>
-        <option value="Roboto-Bold">Roboto Bold</option>
-      </select>
+        <option value="Poppins-Bold">Poppins-Bold</option>
+        <option value="Roboto-Bold">Roboto-Bold</option>
+      </select><br>
 
-      <label>Choose Text Color</label>
-      <input type="color" name="color" value="#ffffff" required />
+      <input type="text" name="color" placeholder="Color (e.g., red or #ff0000)" required><br>
+      <input type="number" name="size" placeholder="Font size (e.g., 48)" required><br>
 
-      <label>Font Size (px)</label>
-      <input type="number" name="size" value="64" required />
-
-      <label>Text Position</label>
       <select name="position" required>
         <option value="center">Center</option>
         <option value="top-left">Top Left</option>
-        <option value="top-right">Top Right</option>
-        <option value="bottom-left">Bottom Left</option>
         <option value="bottom-right">Bottom Right</option>
-      </select>
+      </select><br>
 
       <button type="submit">Generate</button>
     </form>
+
+    <div id="result">
+      <h3>Preview:</h3>
+      <img id="outputImage" src="" alt="Generated Image">
+    </div>
   </div>
 
-  <img id="result" src="" alt="Generated Image" style="display: none;" />
-
   <script>
-    document.getElementById("image-form").addEventListener("submit", async function (e) {
+    const form = document.getElementById('imageForm');
+    const resultImg = document.getElementById('outputImage');
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const formData = new FormData(form);
 
-      const form = e.target;
-      const formData = new FormData();
+      const response = await fetch("https://807a0a50-ac82-425e-a569-06c26ddf3077-00-l94v40y8nfp0.sisko.replit.dev/generate", {
+        method: "POST",
+        body: formData
+      });
 
-      formData.append("file", form.image.files[0]);
-      formData.append("text", form.text.value);
-      formData.append("font_name", form.font_name.value);
-      formData.append("color", form.color.value);
-      formData.append("size", form.size.value);
-      formData.append("position", form.position.value);
-
-      try {
-        const response = await fetch("https://807a0a50-ac82-425e-a569-06c26ddf3077-00-l94v40y8nfp0.sisko.replit.dev/generate", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (!response.ok) throw new Error("Failed to generate image");
-
-        const blob = await response.blob();
-        const imageURL = URL.createObjectURL(blob);
-        const resultImg = document.getElementById("result");
-        resultImg.src = imageURL;
-        resultImg.style.display = "block";
-      } catch (err) {
-        alert("❌ Error: " + err.message);
+      if (!response.ok) {
+        alert("Error generating image. Please check your inputs and server.");
+        return;
       }
+
+      const blob = await response.blob();
+      resultImg.src = URL.createObjectURL(blob);
     });
   </script>
 </body>
