@@ -1,106 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Text Behind Image Tool</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Text Behind Subject — Reliable, Download Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Pacifico&family=Orbitron:wght@700&family=Satisfy&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.0"></script>
   <style>
     body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(to right, #e0eafc, #cfdef3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-      margin: 0;
+      background: linear-gradient(135deg, #667eea, #764ba2 100%);
+      font-family: 'Montserrat', 'Inter', 'Segoe UI', Arial, sans-serif; margin:0; padding:0;
+      color: #2d3748;
     }
-    .glass {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      width: 100%;
-      max-width: 500px;
+    .container {
+      max-width: 1100px; margin: 40px auto;
+      background: rgba(255,255,255,0.23); backdrop-filter: blur(15px);
+      border-radius: 24px; box-shadow: 0px 6px 22px 0px #2223;
+      padding: 40px 5vw; display: flex; flex-wrap: wrap; gap: 32px;
     }
-    input, select, button {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
+    .panel { flex:1; min-width: 360px; }
+    h1 { font-size: 2.5rem; color: #fff; margin-bottom: 18px; text-align: center; }
+    label { display:block; font-weight:600; margin-bottom:7px }
+    .form-group { margin-bottom: 18px; }
+    input[type="range"], select, input[type="color"], input[type="text"] {
+      margin-top:4px; width:100%; border-radius:10px;
+      border: 2px solid #d6d6ec; padding: 10px 13px; font-size: 1rem;
+      background: rgba(255,255,255,0.32); font-family: inherit;
     }
+    input[type="color"] { padding:2px; height: 45px; width: 70px;}
+    .slider-labels { display: flex; justify-content: space-between; font-size:.98em; color:#666; margin-bottom:3px;}
+    .drop-zone {
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.13); border: 3px dashed #fff8;
+      border-radius: 16px; padding: 40px; cursor: pointer; margin-bottom: 17px;
+      height: 120px; box-sizing: border-box; transition: background .24s;
+      position: relative; font-size: 1.05rem;
+    }
+    .drop-zone.dragover { background: rgba(255,255,255,0.20); }
+    .drop-info { margin-top:7px; font-size:.96rem; color:#555; }
+    .loading-bar-wrap {
+      width: 100%; margin: 24px 0 18px 0; height:34px; background: rgba(255,255,255,0.14);
+      border-radius:10px; position:relative; overflow: hidden; box-shadow: 0 0 10px #aaa2;
+    }
+    .loading-bar { height: 100%; background: linear-gradient(85deg,#32c7b5,#698bf1);
+      width: 0; transition: width 0.28s; border-radius:inherit;
+    }
+    .loading-status {
+      position:absolute;left:0;top:0;width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      color:#232b; font-weight:600; letter-spacing:.03em;
+      font-size:1.09rem;text-shadow: 0 1px 5px #fafafa99; pointer-events:none;
+    }
+    .preview-container { position: relative; background: #fff; border-radius:16px; box-shadow: 0px 4px 21px #0002; min-height: 300px; display: flex; align-items: center; justify-content: center;}
+    canvas { width: 100%; border-radius: 16px; max-width:700px; max-height:500px; background: #fff }
+    .button-group { display: flex; gap: 12px; margin-top:22px;}
     button {
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
+      flex:1; padding: 13px 0; font-size:1rem; font-weight:600;
+      border-radius: 10px; border: none; background: linear-gradient(45deg, #667eea, #764ba2);
+      color:#fff; cursor:pointer; transition:background .16s;
+      letter-spacing: .03em;
     }
-    button:hover {
-      background-color: #0056b3;
+    button:active { background: linear-gradient(45deg, #5559d3, #6b449f); }
+    button:disabled { opacity: .52; cursor: not-allowed; background:#bfcbe9; color: #fff; }
+    .ready-dot {
+      display:inline-block; width:18px; height:18px; border-radius:50%;
+      margin-right:7px; vertical-align:middle;
+      background: #ed8936; box-shadow: 0 0 8px #ed893680;
+      transition: background .22s;
     }
-    #result {
-      margin-top: 2rem;
-    }
-    #outputImage {
-      max-width: 100%;
-      border-radius: 10px;
-    }
+    .ready-dot.ready{ background: #38a169; box-shadow: 0 0 8px #38a16988; }
+    .ready-status-txt { display:inline; font-size:1.08em; color: #222; vertical-align: middle;}
+    @media (max-width: 900px) { .container{flex-direction:column; padding:2vw 6vw} .panel{min-width:200px} }
   </style>
 </head>
 <body>
-  <div class="glass">
-    <h2>🖋️ Text Behind Image Generator</h2>
-    <form id="imageForm">
-      <input type="file" name="file" required><br>
-      <input type="text" name="text" placeholder="Enter your text" required><br>
-
-      <select name="font_name" required>
-        <option value="Anton">Anton</option>
-        <option value="Poppins-Bold">Poppins-Bold</option>
-        <option value="Roboto-Bold">Roboto-Bold</option>
-      </select><br>
-
-      <input type="text" name="color" placeholder="Color (e.g., red or #ff0000)" required><br>
-      <input type="number" name="size" placeholder="Font size (e.g., 48)" required><br>
-
-      <select name="position" required>
-        <option value="center">Center</option>
-        <option value="top-left">Top Left</option>
-        <option value="bottom-right">Bottom Right</option>
-      </select><br>
-
-      <button type="submit">Generate</button>
-    </form>
-
-    <div id="result">
-      <h3>Preview:</h3>
-      <img id="outputImage" src="" alt="Generated Image">
+<h1>Text Behind Subject (Preview Download)</h1>
+<div class="container">
+  <div class="panel">
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-zone-content">Drag &amp; Drop Image or Click to Select</div>
+      <div class="drop-info"><span id="imgStatus"><span class="ready-dot"></span><span class="ready-status-txt">No image loaded</span></span></div>
+    </div>
+    <input class="hidden" id="fileInput" type="file" accept="image/*" style="display:none;" />
+    <div class="form-group">
+      <label for="textInput">Text</label>
+      <input type="text" id="textInput" value="POV" />
+    </div>
+    <div class="form-group">
+      <label for="colorInput">Text Color</label>
+      <input type="color" id="colorInput" value="#FFD136" />
+    </div>
+    <div class="form-group">
+      <label for="fontSizeInput">Font Size</label>
+      <input type="range" min="24" max="180" step="1" id="fontSizeInput" value="120" />
+    </div>
+    <div class="form-group">
+      <label for="fontSelect">Text Font</label>
+      <select id="fontSelect">
+        <option value="'Montserrat', Arial, sans-serif">Montserrat (Bold)</option>
+        <option value="'Pacifico', cursive">Pacifico (Handwritten)</option>
+        <option value="'Orbitron', 'Arial Black', sans-serif">Orbitron (Tech)</option>
+        <option value="'Satisfy', cursive">Satisfy (Script)</option>
+        <option value="Arial, Helvetica, sans-serif">Arial</option>
+        <option value="Impact, 'Arial Black', sans-serif">Impact</option>
+        <option value="'Times New Roman', serif">Times New Roman</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <div class="slider-labels">
+        <span>X Position</span>
+        <span id="xPercLabel"></span>
+      </div>
+      <input type="range" min="0" max="100" step="1" id="xPosInput" value="50" />
+    </div>
+    <div class="form-group">
+      <div class="slider-labels">
+        <span>Y Position</span>
+        <span id="yPercLabel"></span>
+      </div>
+      <input type="range" min="0" max="100" step="1" id="yPosInput" value="50" />
+    </div>
+    <div class="button-group">
+      <button id="generateBtn" disabled>Generate</button>
+      <button id="downloadBtn" disabled>Download</button>
+    </div>
+    <div class="loading-bar-wrap">
+      <div id="loadingBar" class="loading-bar"></div>
+      <div id="loadingStatus" class="loading-status"></div>
     </div>
   </div>
+  <div class="panel preview-container">
+    <canvas id="canvas" width="600" height="400"></canvas>
+  </div>
+</div>
+<script>
+let img=null, imgReady=false, imgStatusDot, imgStatusText;
+let resizedImg=null, imagesPrepared=false;
+let bodyPixNet=null, segmentationReady=false;
+let fgImgData=null, bgImgData=null;
+let loadingBar=document.getElementById('loadingBar'), loadingStatus=document.getElementById('loadingStatus');
+let canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d');
 
-  <script>
-    const form = document.getElementById('imageForm');
-    const resultImg = document.getElementById('outputImage');
+// Visual status element
+(function(){
+  let dot = document.querySelector('.ready-dot');
+  let txt = document.querySelector('.ready-status-txt');
+  imgStatusDot = dot; imgStatusText = txt;
+})();
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
+// Loading bar function
+function setLoadingBar(pct=0, text="") {
+  loadingBar.style.width = `${pct}%`;
+  loadingStatus.textContent = text?(pct<100?`${text} (${pct}%)`:text):"";
+}
 
-      const response = await fetch("https://807a0a50-ac82-425e-a569-06c26ddf3077-00-l94v40y8nfp0.sisko.replit.dev/generate", {
-        method: "POST",
-        body: formData
-      });
+// Resize image for canvas (max 700x480px, should cover most cases)
+function resizeImage(image, maxW=700, maxH=480) {
+  let iw=image.width, ih=image.height, scale = Math.min(maxW/iw, maxH/ih, 1);
+  let newW=Math.round(iw*scale), newH=Math.round(ih*scale);
+  let c = document.createElement('canvas'); c.width=newW; c.height=newH;
+  c.getContext('2d').drawImage(image,0,0,newW,newH);
+  let result=new Image(); result.crossOrigin = "";
+  result.src = c.toDataURL();
+  return new Promise(res=>{ result.onload=()=>res(result); });
+}
 
-      if (!response.ok) {
-        alert("Error generating image. Please check your inputs and server.");
-        return;
-      }
+// Drag/drop & file input
+let dropZone=document.getElementById('dropZone');
+let fileInput=document.getElementById('fileInput');
+dropZone.addEventListener('click',()=>fileInput.click());
+dropZone.addEventListener('dragover',e=>{
+  e.preventDefault(); dropZone.classList.add('dragover');
+});
+dropZone.addEventListener('dragleave',e=>dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop',e=>{
+  e.preventDefault(); dropZone.classList.remove('dragover');
+  handleFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change',e=>handleFiles(e.target.files));
 
-      const blob = await response.blob();
-      resultImg.src = URL.createObjectURL(blob);
-    });
-  </script>
+// Handle file input
+function handleFiles(files) {
+  if(!files || !files[0]) return;
+  const file = files[0];
+  if(!file.type.startsWith('image/')) return;
+  setLoadingBar(3,"Reading image");
+  imgReady = false;
+  imgStatusDot.classList.remove('ready');
+  imgStatusText.textContent = "Loading image...";
+  let reader=new FileReader();
+  reader.onload=(ev)=>{
+    let image=new Image();
+    image.onload=async()=>{
+      setLoadingBar(13,"Resizing for preview");
+      resizedImg=await resizeImage(image, 700, 480);
+      canvas.width=resizedImg.width; canvas.height=resizedImg.height;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(resizedImg,0,0,resizedImg.width,resizedImg.height);
+      img=resizedImg;
+      imgReady=true;
+      imgStatusDot.classList.add('ready');
+      imgStatusText.textContent = "Image ready!";
+      document.getElementById('generateBtn').disabled=false;
+      setLoadingBar(17,"Ready for generation");
+      imagesPrepared = false; fgImgData=null; bgImgData=null;
+      updatePreview();
+    };
+    image.onerror=()=>{imgStatusText.textContent='Invalid image format';};
+    image.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// Model loading
+async function loadBodyPix() {
+  setLoadingBar(2,"Loading AI Model...");
+  bodyPixNet = await bodyPix.load();
+  segmentationReady = true;
+  setLoadingBar(8,"AI Model Ready");
+}
+loadBodyPix();
+
+// UI inputs
+["textInput","fontSizeInput","colorInput","fontSelect","xPosInput","yPosInput"].forEach(
+  id=>document.getElementById(id).addEventListener('input',()=>{
+    if(imagesPrepared) updatePreview();
+    updateXYLabels();
+  })
+);
+// Sliders
+function updateXYLabels() {
+  document.getElementById('xPercLabel').textContent = document.getElementById('xPosInput').value + "%";
+  document.getElementById('yPercLabel').textContent = document.getElementById('yPosInput').value + "%";
+}
+updateXYLabels();
+
+// Text Position Utility: slider
+function getSliderCoords(xPerc, yPerc, w, h) {
+  let mx = w * (xPerc/100), my = h * (yPerc/100);
+  return [mx, my];
+}
+
+// Robust Preview
+function updatePreview() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(!imgReady) {
+    ctx.font = '28px Arial'; ctx.fillStyle="#dbdbdb";
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText("Upload image to preview",canvas.width/2,canvas.height/2);
+    return;
+  }
+  if(!imagesPrepared || !(bgImgData && fgImgData)) {
+    ctx.drawImage(img,0,0,img.width,img.height);
+    return;
+  }
+  ctx.drawImage(bgImgData,0,0,canvas.width,canvas.height);
+  let text = document.getElementById('textInput').value;
+  let fontSize = +document.getElementById('fontSizeInput').value;
+  let color = document.getElementById('colorInput').value;
+  let font = `bold ${fontSize}px ${document.getElementById('fontSelect').value}`;
+  ctx.save();
+  ctx.font = font;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.lineWidth = Math.ceil(fontSize/15);
+  ctx.strokeStyle = "#fff7";
+  ctx.fillStyle = color;
+  let xPerc = +document.getElementById('xPosInput').value;
+  let yPerc = +document.getElementById('yPosInput').value;
+  let [x,y] = getSliderCoords(xPerc,yPerc,canvas.width,canvas.height);
+  ctx.strokeText(text,x,y);
+  ctx.fillText(text,x,y);
+  ctx.restore();
+  ctx.drawImage(fgImgData,0,0,canvas.width,canvas.height);
+}
+
+// Generate with segmentation
+document.getElementById('generateBtn').addEventListener('click', async ()=>{
+  if(!(imgReady && segmentationReady && img)) return;
+  imagesPrepared = false; setLoadingBar(18,"Running segmentation...");
+  imgStatusText.textContent = "Segmenting subject...";
+  // Segmentation is always just at preview size
+  let iw=img.width, ih=img.height;
+  let c=document.createElement("canvas"); c.width=iw;c.height=ih;
+  let mctx=c.getContext("2d");
+  mctx.drawImage(img,0,0,iw,ih);
+  let seg = await bodyPixNet.segmentPerson(img, { internalResolution:"medium", segmentationThreshold:0.77 });
+  setLoadingBar(32,"Building layers...");
+  let fmask=seg.data;
+  mctx.drawImage(img,0,0,iw,ih);
+  let src=mctx.getImageData(0,0,iw,ih);
+  let fgImg = mctx.createImageData(iw,ih);
+  let bgImg = mctx.createImageData(iw,ih);
+  for(let i=0;i<fmask.length;++i) {
+    let j=i*4;
+    if(fmask[i]===1) {
+      fgImg.data[j]=src.data[j]; fgImg.data[j+1]=src.data[j+1]; fgImg.data[j+2]=src.data[j+2]; fgImg.data[j+3]=src.data[j+3];
+      bgImg.data[j]=0;bgImg.data[j+1]=0;bgImg.data[j+2]=0;bgImg.data[j+3]=0;
+    } else {
+      bgImg.data[j]=src.data[j];bgImg.data[j+1]=src.data[j+1];bgImg.data[j+2]=src.data[j+2]; bgImg.data[j+3]=src.data[j+3];
+      fgImg.data[j]=0;fgImg.data[j+1]=0;fgImg.data[j+2]=0;fgImg.data[j+3]=0;
+    }
+  }
+  function imgFromImgData(imgData) {
+    let tempC=document.createElement("canvas");
+    tempC.width=iw; tempC.height=ih;
+    tempC.getContext("2d").putImageData(imgData,0,0);
+    let result=new Image(); result.crossOrigin="";
+    result.src=tempC.toDataURL();
+    return new Promise(res=>{ result.onload=()=>res(result); });
+  }
+  setLoadingBar(60,"Preparing layers...");
+  [bgImgData,fgImgData]=await Promise.all([
+    imgFromImgData(bgImg), imgFromImgData(fgImg)
+  ]);
+  imagesPrepared = true;
+  setLoadingBar(95,"Compositing…");
+  imgStatusDot.classList.add('ready');
+  imgStatusText.textContent = "Generation ready!";
+  document.getElementById('downloadBtn').disabled=false;
+  updatePreview();
+  setTimeout(()=>setLoadingBar(100,"Done!"),200);
+  setTimeout(()=>setLoadingBar(0,""),600);
+});
+
+// Download preview
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  if(!imagesPrepared) {
+    alert("Please click Generate first.");
+    return;
+  }
+  let link=document.createElement('a');
+  link.download=`text-behind-image.png`;
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+});
+</script>
 </body>
 </html>
