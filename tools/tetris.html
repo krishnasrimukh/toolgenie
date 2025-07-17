@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Clone - Toolgenie Games</title>
+    <meta name="description" content="Play a classic Tetris clone game online. Enjoy endless fun with this retro puzzle game, brought to you by Toolgenie.">
+    <meta name="keywords" content="Tetris, puzzle game, online game, classic game, retro game, Toolgenie, free game, browser game">
+    <meta name="author" content="Toolgenie">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #a7bfe8, #6190e8); /* Soft gradient background */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #e0e7ff; /* Light text color */
+        }
+
+        /* Glassmorphism effect base */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* Specific styles for game canvas */
+        #gameCanvas {
+            background-color: rgba(0, 0, 0, 0.7); /* Darker background for visibility */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            margin: 0 auto; /* Center the canvas */
+            display: block;
+        }
+
+        /* Full screen specific styles */
+        .fullscreen-active #gameContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.95); /* Darker background in full screen */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 0; /* No border-radius in full screen */
+        }
+
+        .fullscreen-active #gameCanvas {
+            max-width: 95vw;
+            max-height: 90vh;
+            width: auto; /* Allow canvas to scale */
+            height: auto; /* Allow canvas to scale */
+        }
+
+        .fullscreen-active #gameControls,
+        .fullscreen-active #scoreDisplay,
+        .fullscreen-active #nextPieceDisplay,
+        .fullscreen-active #gameInfo {
+            display: none; /* Hide other elements in full screen */
+        }
+
+        .fullscreen-active #gameContainer .absolute.top-4.right-4 {
+            display: block; /* Show full screen exit button */
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10000;
+        }
+
+        /* Button styling */
+        .btn-glass {
+            @apply glassmorphism px-6 py-3 text-lg font-semibold text-white transition-all duration-300 ease-in-out;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        .btn-glass:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(0);
+        }
+
+        /* Responsive adjustments for game container */
+        @media (max-width: 768px) {
+            #gameContainer {
+                flex-direction: column;
+                align-items: center;
+            }
+            #gameCanvas {
+                margin-bottom: 1rem;
+            }
+            #gameControls {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .btn-glass {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation Bar -->
+    <header class="w-full py-4 px-6 md:px-12 glassmorphism rounded-none mb-8 flex justify-between items-center z-50">
+        <div class="text-2xl font-bold text-white">TOOLGENIE</div>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="text-white hover:text-blue-200 transition-colors duration-200">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8">
+
+        <!-- Game Island -->
+        <section id="gameInfo" class="glassmorphism p-8 max-w-lg w-full text-center lg:text-left">
+            <h1 class="text-4xl font-bold mb-4 text-white">Tetris Clone</h1>
+            <p class="text-lg text-blue-100 leading-relaxed">
+                Dive into the timeless classic! Our Tetris clone brings the addictive block-dropping puzzle experience right to your browser.
+                Strategize, rotate, and clear lines to achieve the highest score. Perfect for a quick brain teaser or hours of fun.
+            </p>
+            <p class="mt-4 text-md text-blue-200">
+                Use the arrow keys to move and rotate blocks. Press 'P' to pause, 'S' to start, and 'R' to restart.
+            </p>
+        </section>
+
+        <!-- Game Window -->
+        <section id="gameContainer" class="glassmorphism p-6 relative flex flex-col items-center justify-center">
+            <!-- Fullscreen Toggle Button - Hidden by default, shown in fullscreen-active -->
+            <button id="fullscreenExitBtn" class="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full hidden" title="Exit Fullscreen">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </button>
+
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 w-full max-w-full">
+                <!-- Game Canvas -->
+                <canvas id="gameCanvas" width="300" height="600" class="flex-shrink-0"></canvas>
+
+                <div class="flex flex-col gap-4 w-full md:w-auto">
+                    <!-- Score Display -->
+                    <div id="scoreDisplay" class="glassmorphism p-4 text-center text-white text-2xl font-bold">
+                        Score: <span id="score">0</span>
+                    </div>
+
+                    <!-- Next Piece Display -->
+                    <div id="nextPieceDisplay" class="glassmorphism p-4 text-center text-white text-xl font-bold">
+                        Next Piece:
+                        <canvas id="nextPieceCanvas" width="120" height="120" class="bg-gray-800 rounded-md mt-2 mx-auto"></canvas>
+                    </div>
+
+                    <!-- Game Controls -->
+                    <div id="gameControls" class="flex flex-col gap-3 mt-4">
+                        <button id="startButton" class="btn-glass">Start Game</button>
+                        <button id="pauseButton" class="btn-glass">Pause Game</button>
+                        <button id="restartButton" class="btn-glass">Restart Game</button>
+                        <button id="fullscreenButton" class="btn-glass flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm1.47 1.47A.75.75 0 015 6.25v2.5a.75.75 0 01-1.5 0v-2.5a.75.75 0 01.97-.72zM15 6.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5zM5 13.75a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5zM15 13.75a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z" clip-rule="evenodd" />
+                            </svg>
+                            Full Screen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 px-6 md:px-12 glassmorphism rounded-none mt-8 text-center text-sm text-blue-100">
+        <p>&copy; Copyright Toolgenie 2025</p>
+        <nav class="mt-2">
+            <ul class="flex justify-center space-x-4">
+                <li><a href="#" class="hover:text-blue-200 transition-colors duration-200">About</a></li>
+                <li><a href="#" class="hover:text-blue-200 transition-colors duration-200">Contact</a></li>
+                <li><a href="#" class="hover:text-blue-200 transition-colors duration-200">Privacy</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script>
+        // Get canvas and context
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const nextPieceCanvas = document.getElementById('nextPieceCanvas');
+        const nextPieceCtx = nextPieceCanvas.getContext('2d');
+        const scoreDisplay = document.getElementById('score');
+
+        // Game constants
+        const COLS = 10;
+        const ROWS = 20;
+        const BLOCK_SIZE = 30; // Size of each Tetris block in pixels
+        const EMPTY_COLOR = '#000000'; // Color for empty cells
+        const BORDER_COLOR = '#444444'; // Color for grid lines
+
+        // Game state variables
+        let board = [];
+        let currentPiece;
+        let nextPiece;
+        let score = 0;
+        let gameOver = false;
+        let gamePaused = false;
+        let gameInterval;
+        let dropInterval = 1000; // Initial drop speed (1 second)
+
+        // Tetromino shapes and colors
+        const TETROMINOS = {
+            'I': {
+                shape: [
+                    [0, 0, 0, 0],
+                    [1, 1, 1, 1],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0]
+                ],
+                color: '#00FFFF' // Cyan
+            },
+            'J': {
+                shape: [
+                    [1, 0, 0],
+                    [1, 1, 1],
+                    [0, 0, 0]
+                ],
+                color: '#0000FF' // Blue
+            },
+            'L': {
+                shape: [
+                    [0, 0, 1],
+                    [1, 1, 1],
+                    [0, 0, 0]
+                ],
+                color: '#FFA500' // Orange
+            },
+            'O': {
+                shape: [
+                    [1, 1],
+                    [1, 1]
+                ],
+                color: '#FFFF00' // Yellow
+            },
+            'S': {
+                shape: [
+                    [0, 1, 1],
+                    [1, 1, 0],
+                    [0, 0, 0]
+                ],
+                color: '#00FF00' // Green
+            },
+            'T': {
+                shape: [
+                    [0, 1, 0],
+                    [1, 1, 1],
+                    [0, 0, 0]
+                ],
+                color: '#800080' // Purple
+            },
+            'Z': {
+                shape: [
+                    [1, 1, 0],
+                    [0, 1, 1],
+                    [0, 0, 0]
+                ],
+                color: '#FF0000' // Red
+            }
+        };
+
+        // Piece class to manage current tetromino
+        class Piece {
+            constructor(tetromino) {
+                this.shape = tetromino.shape;
+                this.color = tetromino.color;
+                this.x = Math.floor(COLS / 2) - Math.floor(this.shape[0].length / 2); // Center horizontally
+                this.y = 0; // Start at the top
+            }
+
+            // Draw the piece on the main game canvas
+            draw(context, offsetX = 0, offsetY = 0) {
+                for (let r = 0; r < this.shape.length; r++) {
+                    for (let c = 0; c < this.shape[r].length; c++) {
+                        if (this.shape[r][c]) {
+                            drawBlock(context, this.x + c + offsetX, this.y + r + offsetY, this.color);
+                        }
+                    }
+                }
+            }
+
+            // Move the piece down
+            moveDown() {
+                if (!this.collide(0, 1, this.shape)) {
+                    this.y++;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            // Move the piece left or right
+            move(dx) {
+                if (!this.collide(dx, 0, this.shape)) {
+                    this.x += dx;
+                }
+            }
+
+            // Rotate the piece
+            rotate() {
+                const originalShape = this.shape;
+                const newShape = this.getRotatedShape();
+                if (!this.collide(0, 0, newShape)) {
+                    this.shape = newShape;
+                }
+            }
+
+            // Get the rotated shape (clockwise)
+            getRotatedShape() {
+                // Transpose matrix
+                const newShape = Array.from({ length: this.shape[0].length }, () => Array(this.shape.length).fill(0));
+                for (let r = 0; r < this.shape.length; r++) {
+                    for (let c = 0; c < this.shape[r].length; c++) {
+                        newShape[c][this.shape.length - 1 - r] = this.shape[r][c];
+                    }
+                }
+                return newShape;
+            }
+
+            // Check for collision with board boundaries or existing blocks
+            collide(dx, dy, newShape) {
+                for (let r = 0; r < newShape.length; r++) {
+                    for (let c = 0; c < newShape[r].length; c++) {
+                        if (newShape[r][c]) {
+                            let newX = this.x + c + dx;
+                            let newY = this.y + r + dy;
+
+                            // Check wall collision
+                            if (newX < 0 || newX >= COLS || newY >= ROWS) {
+                                return true;
+                            }
+                            // Check collision with existing blocks on the board (ignore negative Y for spawning)
+                            if (newY >= 0 && board[newY][newX] !== EMPTY_COLOR) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+
+        // Initialize the game board with empty cells
+        function initBoard() {
+            for (let r = 0; r < ROWS; r++) {
+                board[r] = [];
+                for (let c = 0; c < COLS; c++) {
+                    board[r][c] = EMPTY_COLOR;
+                }
+            }
+        }
+
+        // Draw a single block on the canvas
+        function drawBlock(context, x, y, color) {
+            context.fillStyle = color;
+            context.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+            context.strokeStyle = BORDER_COLOR;
+            context.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        }
+
+        // Draw the entire game board
+        function drawBoard() {
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    drawBlock(ctx, c, r, board[r][c]);
+                }
+            }
+        }
+
+        // Generate a random new piece
+        function generatePiece() {
+            const pieceKeys = Object.keys(TETROMINOS);
+            const randomKey = pieceKeys[Math.floor(Math.random() * pieceKeys.length)];
+            return new Piece(TETROMINOS[randomKey]);
+        }
+
+        // Lock the current piece onto the board
+        function lockPiece() {
+            for (let r = 0; r < currentPiece.shape.length; r++) {
+                for (let c = 0; c < currentPiece.shape[r].length; c++) {
+                    if (currentPiece.shape[r][c]) {
+                        // Check for game over (piece locked above the board)
+                        if (currentPiece.y + r < 0) {
+                            gameOver = true;
+                            clearInterval(gameInterval);
+                            showMessage("Game Over! Score: " + score);
+                            return;
+                        }
+                        board[currentPiece.y + r][currentPiece.x + c] = currentPiece.color;
+                    }
+                }
+            }
+            clearLines(); // Check and clear any full lines
+            currentPiece = nextPiece; // Set next piece as current
+            nextPiece = generatePiece(); // Generate a new next piece
+            drawNextPiece(); // Update next piece display
+        }
+
+        // Clear full lines and update score
+        function clearLines() {
+            let linesCleared = 0;
+            for (let r = ROWS - 1; r >= 0; r--) {
+                let isLineFull = true;
+                for (let c = 0; c < COLS; c++) {
+                    if (board[r][c] === EMPTY_COLOR) {
+                        isLineFull = false;
+                        break;
+                    }
+                }
+                if (isLineFull) {
+                    linesCleared++;
+                    // Remove the full line and add a new empty line at the top
+                    for (let rowToMove = r; rowToMove > 0; rowToMove--) {
+                        board[rowToMove] = [...board[rowToMove - 1]];
+                    }
+                    board[0] = Array(COLS).fill(EMPTY_COLOR);
+                    r++; // Recheck the new line at the current row index
+                }
+            }
+            if (linesCleared > 0) {
+                score += linesCleared * 100; // Basic scoring
+                scoreDisplay.textContent = score;
+                // Increase speed for every 1000 points or 10 lines cleared
+                if (score % 1000 === 0 && dropInterval > 100) {
+                    dropInterval -= 50; // Speed up
+                    clearInterval(gameInterval);
+                    gameInterval = setInterval(gameLoop, dropInterval);
+                }
+            }
+        }
+
+        // Draw the next piece preview
+        function drawNextPiece() {
+            nextPieceCtx.clearRect(0, 0, nextPieceCanvas.width, nextPieceCanvas.height);
+            nextPieceCtx.fillStyle = '#1a202c'; // Dark background for next piece canvas
+            nextPieceCtx.fillRect(0, 0, nextPieceCanvas.width, nextPieceCanvas.height);
+
+            if (nextPiece) {
+                // Calculate offset to center the piece in the preview canvas
+                const pieceWidth = nextPiece.shape[0].length;
+                const pieceHeight = nextPiece.shape.length;
+                const offsetX = (nextPieceCanvas.width / BLOCK_SIZE - pieceWidth) / 2;
+                const offsetY = (nextPieceCanvas.height / BLOCK_SIZE - pieceHeight) / 2;
+                nextPiece.draw(nextPieceCtx, offsetX - nextPiece.x, offsetY - nextPiece.y); // Adjust piece's own x,y
+            }
+        }
+
+        // Main game loop
+        function gameLoop() {
+            if (gameOver || gamePaused) return;
+
+            if (!currentPiece.moveDown()) {
+                lockPiece();
+                if (gameOver) return; // Check game over again after locking
+            }
+            draw();
+        }
+
+        // Draw everything on the canvas
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            drawBoard(); // Draw the fixed blocks
+            if (currentPiece) {
+                currentPiece.draw(ctx); // Draw the current falling piece
+            }
+        }
+
+        // Handle keyboard input
+        document.addEventListener('keydown', (e) => {
+            if (gameOver || gamePaused || !currentPiece) return;
+
+            switch (e.key) {
+                case 'ArrowLeft':
+                    currentPiece.move(-1);
+                    break;
+                case 'ArrowRight':
+                    currentPiece.move(1);
+                    break;
+                case 'ArrowDown':
+                    if (!currentPiece.moveDown()) {
+                        lockPiece();
+                    }
+                    break;
+                case 'ArrowUp':
+                    currentPiece.rotate();
+                    break;
+                case ' ': // Spacebar for hard drop
+                    while (currentPiece.moveDown()) {} // Drop until collision
+                    lockPiece();
+                    break;
+                case 'p': // 'P' for pause
+                case 'P':
+                    togglePause();
+                    break;
+                case 's': // 'S' for start (if not started)
+                case 'S':
+                    if (!gameInterval) startGame();
+                    break;
+                case 'r': // 'R' for restart
+                case 'R':
+                    restartGame();
+                    break;
+            }
+            draw();
+        });
+
+        // Game control functions
+        function startGame() {
+            if (gameInterval) return; // Prevent starting multiple times
+            gameOver = false;
+            gamePaused = false;
+            score = 0;
+            scoreDisplay.textContent = score;
+            dropInterval = 1000;
+            initBoard();
+            currentPiece = generatePiece();
+            nextPiece = generatePiece();
+            drawNextPiece();
+            gameInterval = setInterval(gameLoop, dropInterval);
+            showMessage("Game Started!");
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('pauseButton').textContent = 'Pause Game';
+        }
+
+        function togglePause() {
+            gamePaused = !gamePaused;
+            if (gamePaused) {
+                clearInterval(gameInterval);
+                gameInterval = null;
+                showMessage("Game Paused");
+                document.getElementById('pauseButton').textContent = 'Resume Game';
+            } else {
+                gameInterval = setInterval(gameLoop, dropInterval);
+                showMessage("Game Resumed");
+                document.getElementById('pauseButton').textContent = 'Pause Game';
+            }
+        }
+
+        function restartGame() {
+            clearInterval(gameInterval);
+            gameInterval = null;
+            gameOver = false;
+            gamePaused = false;
+            score = 0;
+            scoreDisplay.textContent = score;
+            dropInterval = 1000;
+            initBoard();
+            currentPiece = generatePiece();
+            nextPiece = generatePiece();
+            drawNextPiece();
+            draw(); // Initial draw of empty board
+            showMessage("Game Restarted. Press Start!");
+            document.getElementById('startButton').disabled = false;
+            document.getElementById('pauseButton').textContent = 'Pause Game';
+        }
+
+        // Message box for game status (instead of alert)
+        function showMessage(message) {
+            const messageBox = document.createElement('div');
+            messageBox.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-700 text-white px-6 py-4 rounded-lg shadow-lg z-[10000] text-xl animate-fade-in-out';
+            messageBox.textContent = message;
+            document.body.appendChild(messageBox);
+
+            // Add animation styles (Tailwind doesn't have native fade-in-out, so custom CSS)
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fade-in-out {
+                    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                    10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                    90% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                }
+                .animate-fade-in-out {
+                    animation: fade-in-out 3s forwards;
+                }
+            `;
+            document.head.appendChild(style);
+
+            setTimeout(() => {
+                messageBox.remove();
+                style.remove(); // Clean up style tag
+            }, 3000);
+        }
+
+
+        // Fullscreen functionality
+        const fullscreenButton = document.getElementById('fullscreenButton');
+        const fullscreenExitBtn = document.getElementById('fullscreenExitBtn');
+        const gameContainer = document.getElementById('gameContainer');
+
+        fullscreenButton.addEventListener('click', () => {
+            try {
+                if (gameContainer.requestFullscreen) {
+                    gameContainer.requestFullscreen();
+                } else if (gameContainer.mozRequestFullScreen) { // Firefox
+                    gameContainer.mozRequestFullScreen();
+                } else if (gameContainer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    gameContainer.webkitRequestFullscreen();
+                } else if (gameContainer.msRequestFullscreen) { // IE/Edge
+                    gameContainer.msRequestFullscreen();
+                } else {
+                    showMessage("Fullscreen not supported by this browser.");
+                }
+            } catch (error) {
+                console.error("Fullscreen error:", error);
+                showMessage("Fullscreen blocked by browser or embedding environment. Ensure 'allowfullscreen' is enabled if embedded.");
+            }
+        });
+
+        fullscreenExitBtn.addEventListener('click', () => {
+            try {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) { // Firefox
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { // IE/Edge
+                    document.msExitFullscreen();
+                } else {
+                    showMessage("Cannot exit fullscreen: API not available.");
+                }
+            } catch (error) {
+                console.error("Exit fullscreen error:", error);
+                showMessage("Error exiting fullscreen. Try pressing ESC.");
+            }
+        });
+
+        // Event listener for fullscreen change
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                document.body.classList.add('fullscreen-active');
+                fullscreenExitBtn.classList.remove('hidden');
+            } else {
+                document.body.classList.remove('fullscreen-active');
+                fullscreenExitBtn.classList.add('hidden');
+            }
+        });
+        document.addEventListener('mozfullscreenchange', () => { /* Firefox */ });
+        document.addEventListener('webkitfullscreenchange', () => { /* Chrome, Safari and Opera */ });
+        document.addEventListener('msfullscreenchange', () => { /* IE/Edge */ });
+
+
+        // Event listeners for game controls
+        document.getElementById('startButton').addEventListener('click', startGame);
+        document.getElementById('pauseButton').addEventListener('click', togglePause);
+        document.getElementById('restartButton').addEventListener('click', restartGame);
+
+        // Initial setup on window load
+        window.onload = function() {
+            // Set canvas dimensions
+            canvas.width = COLS * BLOCK_SIZE;
+            canvas.height = ROWS * BLOCK_SIZE;
+            // Initial draw of empty board
+            initBoard();
+            draw();
+            showMessage("Welcome to Tetris! Press Start to begin.");
+        };
+
+    </script>
+</body>
+</html>
