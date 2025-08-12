@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO & Social -->
+  <title>BeatBot — AI‑assisted Music Generator for Directors | ToolGenie</title>
+  <meta name="description" content="BeatBot — a futuristic, mobile-first music generator built for music directors and beginners. Create, arrange, preview and download MP3/WAV stems. Includes tempo, key, instruments, visual controls, blog & usage guide — single-page for GitHub Pages." />
+  <meta name="keywords" content="music generator, beat maker, mp3 download, online daw, tone.js, beatbot, toolgenie, garageband, beat maker, stems" />
+  <meta name="author" content="ToolGenie" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="BeatBot — AI‑assisted Music Generator for Directors" />
+  <meta property="og:description" content="Generate professional music quickly. Tempo, key, instruments, export MP3/WAV. Mobile & desktop optimized." />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BeatBot — Music Generator" />
+  <meta name="twitter:description" content="Create and download beats and stems. Perfect for music directors and content creators." />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BeatBot by ToolGenie",
+    "operatingSystem": "Web",
+    "applicationCategory": "MultimediaApplication",
+    "description": "A web music generator that creates beats and melodies, allows previewing and exporting to WAV/MP3.",
+    "url": "https://yourdomain.example/beatbot"
+  }
+  </script>
+
+  <!-- Fonts & libs -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/tone@latest/build/Tone.js"></script>
+  <script src="https://unpkg.com/lamejs@1.2.0/lame.min.js"></script>
+
+  <style>
+    :root{--bg:linear-gradient(120deg,#e6fbff 0%,#f6f8ff 100%);--card:#fff;--accent:#0b8b76;--accent2:#0aa3a3;--muted:#6b6b6b;--glass:rgba(255,255,255,0.7);--radius:16px;--shadow:0 18px 36px rgba(7,18,20,0.06);font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:#07141a}
+    .wrap{max-width:1100px;margin:28px auto;padding:16px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 8px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font-weight:800}
+    nav a{color:rgba(7,20,24,0.8);text-decoration:none;margin:0 8px;font-weight:600}
+
+    .top-controls{display:flex;align-items:center;gap:12px}
+    .btn{background:#fff;border:1px solid #e9f4f0;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .dark-toggle{display:flex;align-items:center;gap:8px;padding:6px;background:#fff;border-radius:999px;border:1px solid #e6f0ee}
+
+    main{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .panel{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+    h1{margin:0;font-size:28px}
+    .subtitle{color:var(--muted);margin-top:8px}
+
+    /* visual stage */
+    .stage{display:flex;flex-direction:column;gap:14px}
+    .visual-card{background:linear-gradient(180deg,rgba(11,139,118,0.03),rgba(10,163,163,0.02));border-radius:12px;padding:16px}
+
+    .controls-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    select,input[type=number],.small-input{width:100%;padding:10px;border-radius:10px;border:1px solid #eef7f3;background:transparent}
+
+    /* sliders and knobs */
+    .slider{display:flex;flex-direction:column;gap:8px}
+    input[type=range]{-webkit-appearance:none;height:8px;border-radius:20px;background:#e6f6f3;outline:none}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 4px 8px rgba(11,139,118,0.25)}
+
+    .knob{width:74px;height:74px;border-radius:50%;background:linear-gradient(180deg,#fff,#f1faf8);display:grid;place-items:center;box-shadow:0 8px 18px rgba(7,18,20,0.06);position:relative}
+    .knob input{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0}
+    .knob .mark{position:absolute;width:6px;height:18px;background:var(--accent);border-radius:3px;transform-origin:50% 60%;}
+    .knob .label{font-size:12px;color:var(--muted);margin-top:8px}
+
+    .instruments{display:flex;flex-wrap:wrap;gap:8px}
+    .instrument{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:#fff;border:1px solid #e9f4f0}
+    .instrument input{transform:scale(1.1)}
+
+    /* transport */
+    .transport{display:flex;align-items:center;gap:10px}
+    .play{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border:none;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer}
+    .secondary{background:#fff;border:1px solid #e6f0ee;padding:10px;border-radius:10px;cursor:pointer}
+
+    /* player */
+    .player{display:flex;align-items:center;gap:12px;margin-top:8px}
+    audio{width:100%}
+
+    /* social */
+    .social{display:flex;gap:8px}
+    .share{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:#fff;border:1px solid #eef7f3}
+
+    /* help steps */
+    .steps{display:flex;gap:8px;margin-top:12px}
+    .step{background:#fff;padding:10px;border-radius:10px;border:1px solid #eef7f3;flex:1}
+
+    /* blog */
+    .blog{margin-top:18px}
+
+    footer{grid-column:1/-1;margin-top:18px;text-align:center;color:var(--muted)}
+
+    /* responsive */
+    @media(max-width:1000px){main{grid-template-columns:1fr} .wrap{padding:10px}}
+
+    /* dark mode */
+    .dark{--card:#0b1113;color:#e6f9f6;background:linear-gradient(120deg,#081014 0%,#071017 100%)}
+    .dark header nav a{color:#cdeee7}
+    .dark .logo{background:linear-gradient(135deg,#2bb8a5,#0b8b76)}
+    .dark .panel{background:#071218;border:1px solid rgba(255,255,255,0.03)}
+    .dark input[type=range]::-webkit-slider-thumb{background:#19b59a}
+
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header>
+      <div class="brand">
+        <div class="logo">BG</div>
+        <div>
+          <div style="font-size:12px;color:#0b6b5a">ToolGenie</div>
+          <div style="font-weight:800">BeatBot</div>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <nav>
+          <!-- links inspired by your GitHub structure -->
+          <a href="/">Home</a>
+          <a href="/tools">Tools</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+
+        <div class="dark-toggle btn" id="darkToggle" title="Toggle dark mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="#0b8b76"></path></svg>
+          <span style="font-size:13px;color:var(--muted)">Dark</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h1>BeatBot — Make a beat in seconds</h1>
+        <div class="subtitle">Beginner friendly. Inspired by BeatBot & GarageBand — visual controls, draggable knobs, sliders and instant export.</div>
+
+        <div class="stage">
+          <div class="visual-card">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-size:13px;color:var(--muted)">Project</div>
+                <div style="font-weight:700">Session: QuickCompose</div>
+              </div>
+
+              <div style="text-align:right">
+                <div style="font-size:12px;color:var(--muted)">BPM</div>
+                <div style="font-weight:800;font-size:20px" id="bpmLabel">120</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px" class="controls-grid">
+              <div>
+                <label>Tempo</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <div class="knob" id="tempoKnob">
+                    <div class="mark" id="tempoMark" style="transform:rotate(0deg)"></div>
+                    <input type="range" id="tempo" min="60" max="200" value="120" />
+                  </div>
+                  <div style="flex:1">
+                    <input type="range" id="tempoSlider" min="60" max="200" value="120" />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label>Key</label>
+                <select id="key" class="small-input">
+                  <option>C</option><option>G</option><option>D</option><option>A</option><option>E</option>
+                  <option>F</option><option>B♭</option><option>B</option>
+                </select>
+
+                <label style="margin-top:8px">Scale</label>
+                <select id="scale" class="small-input"><option>major</option><option>minor</option><option>dorian</option><option>mixolydian</option></select>
+              </div>
+
+              <div>
+                <label>Bars</label>
+                <input type="number" id="length" value="8" min="1" max="64" class="small-input" />
+
+                <label style="margin-top:8px">Preset</label>
+                <select id="preset" class="small-input"><option>Cinematic (pads & lead)</option><option>Electronic (synth)</option><option>Hip‑Hop (drums & bass)</option><option>Lo‑Fi</option></select>
+              </div>
+
+              <div>
+                <label>Instruments</label>
+                <div class="instruments" id="instrumentList">
+                  <label class="instrument"><input type="checkbox" data-instr="kick" checked /> Kick</label>
+                  <label class="instrument"><input type="checkbox" data-instr="snare" checked /> Snare</label>
+                  <label class="instrument"><input type="checkbox" data-instr="hihat" checked /> Hi‑Hat</label>
+                  <label class="instrument"><input type="checkbox" data-instr="bass" checked /> Bass</label>
+                  <label class="instrument"><input type="checkbox" data-instr="pad" checked /> Pad</label>
+                  <label class="instrument"><input type="checkbox" data-instr="lead" checked /> Lead</label>
+                </div>
+
+                <label style="margin-top:8px">Master</label>
+                <input type="range" id="masterVol" min="-24" max="6" value="0" />
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+              <div class="transport">
+                <button id="generate" class="play">Generate</button>
+                <button id="playStop" class="secondary">Play</button>
+                <button id="export" class="secondary">Export</button>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:8px">
+                <div class="social">
+                  <div class="share" id="shareTwitter" title="Share on Twitter">Twitter</div>
+                  <div class="share" id="shareFacebook" title="Share on Facebook">Facebook</div>
+                  <div class="share" id="shareLinkedIn" title="Share on LinkedIn">LinkedIn</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="player">
+              <div style="min-width:110px"><strong>Preview</strong><div class="muted">Listen or download</div></div>
+              <audio id="preview" controls></audio>
+              <div style="min-width:120px;text-align:right"><div id="status" class="muted">Idle</div></div>
+            </div>
+
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <strong>1</strong> Set tempo & key. Use the knob or slider.
+            </div>
+            <div class="step">
+              <strong>2</strong> Pick instruments and length.
+            </div>
+            <div class="step">
+              <strong>3</strong> Generate → Play → Export MP3/WAV.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="blog">
+          <h3>Quick tips</h3>
+          <ul class="muted">
+            <li>Start with a preset (Cinematic or Electronic) for instant mood.</li>
+            <li>Use fewer instruments for a clean mix — add layers later.</li>
+            <li>Export WAV for stems and MP3 for quick sharing.</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <aside class="panel">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div>
+            <h4 style="margin:0">How to use BeatBot</h4>
+            <p class="muted" style="margin-top:6px">A visual step-by-step UI for beginners. The tool generates patterns, chords and a lead. You can tweak per-instrument levels and export.</p>
+          </div>
+
+          <div style="display:flex;gap:8px;flex-direction:column">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <label style="margin:0">Kick Volume</label>
+              <input type="range" id="vol_kick" min="-24" max="6" value="-2" />
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <label style="margin:0">Snare Volume</label>
+              <input type="range" id="vol_snare" min="-24" max="6" value="-4" />
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <label style="margin:0">Bass Volume</label>
+              <input type="range" id="vol_bass" min="-24" max="6" value="-1" />
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin:0">Export Options</h4>
+            <p class="muted" style="margin-top:6px">Choose MP3 quality and download stems.</p>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+              <select id="mp3quality" class="small-input"><option value="128">128 kbps</option><option value="192" selected>192 kbps</option><option value="320">320 kbps</option></select>
+              <button id="downloadStems" class="btn">Download Stems (ZIP)</button>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin:0">About</h4>
+            <p class="muted" style="margin-top:6px">BeatBot is a learning-first generator with visual controls inspired by BeatBot and GarageBand. Works offline in the browser and suitable for GitHub Pages.</p>
+          </div>
+        </div>
+      </aside>
+
+      <footer>
+        <div style="display:flex;justify-content:center;gap:12px;align-items:center;margin-bottom:8px">
+          • <a href="/tools">Tools</a> • <a href="/about.html">About</a> • <a href="/contact.html">Contact</a>
+        </div>
+        <div class="muted">© 2025 TOOLGENIE — Built with Tone.js.</div>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // --- UI behaviors and Tone.js music engine ---
+    (function(){
+      const app = document.getElementById('app');
+      const tempo = document.getElementById('tempo');
+      const tempoSlider = document.getElementById('tempoSlider');
+      const tempoMark = document.getElementById('tempoMark');
+      const bpmLabel = document.getElementById('bpmLabel');
+      const keySel = document.getElementById('key');
+      const scaleSel = document.getElementById('scale');
+      const lenInput = document.getElementById('length');
+      const preset = document.getElementById('preset');
+      const generateBtn = document.getElementById('generate');
+      const playBtn = document.getElementById('playStop');
+      const exportBtn = document.getElementById('export');
+      const preview = document.getElementById('preview');
+      const status = document.getElementById('status');
+      const mp3Quality = document.getElementById('mp3quality');
+      const instrumentChecks = Array.from(document.querySelectorAll('#instrumentList input[type=checkbox]'));
+      const volKick = document.getElementById('vol_kick');
+      const volSnare = document.getElementById('vol_snare');
+      const volBass = document.getElementById('vol_bass');
+      const masterVol = document.getElementById('masterVol');
+
+      // Share buttons
+      document.getElementById('shareTwitter').addEventListener('click', ()=>{
+        const u = encodeURIComponent(location.href); const t = encodeURIComponent('Check out BeatBot — instant music generator');
+        window.open(`https://twitter.com/intent/tweet?url=${u}&text=${t}`,'_blank');
+      });
+      document.getElementById('shareFacebook').addEventListener('click', ()=>{
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank');
+      });
+      document.getElementById('shareLinkedIn').addEventListener('click', ()=>{
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(location.href)}`,'_blank');
+      });
+
+      // Dark mode
+      const darkToggle = document.getElementById('darkToggle');
+      const applyDark = (on)=>{
+        if(on) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
+        localStorage.setItem('beatbot_dark', on? '1':'0');
+      }
+      darkToggle.addEventListener('click', ()=> applyDark(!document.documentElement.classList.contains('dark')));
+      if(localStorage.getItem('beatbot_dark')==='1') applyDark(true);
+
+      // Tempo syncing between knob and slider
+      function updateTempoUI(val){
+        bpmLabel.textContent = val;
+        tempo.value = val; tempoSlider.value = val;
+        // rotate mark in knob (range 60..200 -> -120..120 deg)
+        const ratio = (val - 60) / (200 - 60);
+        const deg = -120 + ratio*240; tempoMark.style.transform = `rotate(${deg}deg)`;
+        Tone.Transport.bpm.value = Number(val);
+      }
+      tempo.addEventListener('input', ()=> updateTempoUI(tempo.value));
+      tempoSlider.addEventListener('input', ()=> updateTempoUI(tempoSlider.value));
+      updateTempoUI(tempo.value);
+
+      // Tone setup
+      let synths = {}, part=null, recorder=null, isPlaying=false, renderedBlob=null;
+
+      const SCALES = { major:[0,2,4,5,7,9,11], minor:[0,2,3,5,7,8,10], dorian:[0,2,3,5,7,9,10], mixolydian:[0,2,4,5,7,9,10] };
+      const NOTE_BASE = { 'C':0,'G':7,'D':2,'A':9,'E':4,'F':5,'B':11, 'B♭':10 };
+      const NOTES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+
+      function buildScale(key,scale){ const root = NOTE_BASE[key.trim()] ?? 0; const pattern = SCALES[scale]||SCALES.major; return pattern.map(i=>NOTES[(root+i)%12]+'4'); }
+
+      function createInstruments(){
+        // dispose
+        Object.values(synths).forEach(s=>s.dispose && s.dispose()); synths={};
+        // mixer groups
+        const kick = new Tone.MembraneSynth({pitchDecay:0.02,octaves:10,envelope:{attack:0.001,decay:0.45,sustain:0}});
+        const snare = new Tone.NoiseSynth({noise:{type:'white'},envelope:{attack:0.001,decay:0.18}});
+        const hihat = new Tone.MetalSynth({frequency:400,envelope:{attack:0.001,decay:0.12},harmonicity:5,modulationIndex:64});
+        const bass = new Tone.MonoSynth({oscillator:{type:'square'},filter:{Q:2},envelope:{attack:0.01,decay:0.2,sustain:0.3,release:0.5}});
+        const pad = new Tone.PolySynth(Tone.Synth,{oscillator:{type:'sine'},envelope:{attack:0.6,decay:0.8,sustain:0.7,release:1.2}});
+        const lead = new Tone.Synth({oscillator:{type:'sawtooth'},envelope:{attack:0.02,decay:0.2,sustain:0.1,release:1}});
+
+        // volume controls
+        synths.kick = new Tone.Gain().toDestination(); kick.connect(synths.kick);
+        synths.snare = new Tone.Gain().toDestination(); snare.connect(synths.snare);
+        synths.hihat = new Tone.Gain().toDestination(); hihat.connect(synths.hihat);
+        synths.bass = new Tone.Gain().toDestination(); bass.connect(synths.bass);
+        synths.pad = new Tone.Gain().toDestination(); pad.connect(synths.pad);
+        synths.lead = new Tone.Gain().toDestination(); lead.connect(synths.lead);
+
+        // master
+        synths.master = new Tone.Gain().toDestination();
+        // route each to master (already connected to destination), but we can adjust overall via masterVol
+
+        // create recorder
+        recorder = new Tone.Recorder(); Tone.Destination.connect(recorder);
+
+        // store synth objects for triggering
+        synths._kickSynth = kick; synths._snareSynth = snare; synths._hihatSynth = hihat; synths._bassSynth = bass; synths._padSynth = pad; synths._leadSynth = lead;
+      }
+
+      function generatePattern(keyName,scaleName,bars){
+        const notes = buildScale(keyName,scaleName);
+        const events = [];
+
+        // Kick on downbeats
+        for(let b=0;b<bars;b++){ events.push({time:b+'m',type:'kick'}); }
+        // Kick extra offbeat for groove
+        for(let i=0;i<bars*2;i++){ if(Math.random()>0.7) events.push({time:(i*0.5)+'m',type:'kick'}); }
+        // Snare on 2 and 4
+        for(let b=0;b<bars;b++){ events.push({time:(b+0.5)+'m',type:'snare'}); events.push({time:(b+1.5)+'m',type:'snare'}); }
+        // Hihat 8th notes
+        for(let i=0;i<bars*8;i++) events.push({time:(i*0.125)+'m',type:'hihat'});
+
+        // Bass root notes
+        for(let b=0;b<bars;b++){ const n = notes[b%notes.length].replace('4','2'); events.push({time:b+'m',type:'bass',note:n,dur:'1m'}); }
+
+        // Pad chords
+        for(let b=0;b<bars;b++){ const r = b%notes.length; const c = [notes[r], notes[(r+2)%notes.length], notes[(r+4)%notes.length]]; events.push({time:b+'m',type:'pad',notes:c,dur:'1m'}); }
+
+        // Lead melody with small randomness
+        for(let i=0;i<bars*4;i++){ if(Math.random()>0.5) continue; const n = notes[Math.floor(Math.random()*notes.length)].replace('4','5'); events.push({time:(i*0.25)+'m',type:'lead',note:n,dur:'8n'}); }
+        return events;
+      }
+
+      function schedule(events){ if(part){ part.dispose(); part=null; }
+        const flat = events.slice().sort((a,b)=>timeToNumber(a.time)-timeToNumber(b.time));
+        part = new Tone.Part((time,ev)=>{
+          // check instrument enabled
+          const enabled = document.querySelector(`#instrumentList input[data-instr="${ev.type}"]` ) ? document.querySelector(`#instrumentList input[data-instr="${ev.type}"]`).checked : true;
+          if(ev.type==='kick' && enabled){ synths._kickSynth.triggerAttackRelease('C2','8n',time); }
+          if(ev.type==='snare' && enabled){ synths._snareSynth.triggerAttackRelease('8n',time); }
+          if(ev.type==='hihat' && enabled){ synths._hihatSynth.triggerAttackRelease('16n',time); }
+          if(ev.type==='bass' && enabled){ synths._bassSynth.triggerAttackRelease(ev.note||'C2', ev.dur||'1n', time); }
+          if(ev.type==='pad' && enabled){ synths._padSynth.triggerAttackRelease(ev.notes||['C4','E4','G4'], ev.dur||'1m', time); }
+          if(ev.type==='lead' && enabled){ synths._leadSynth.triggerAttackRelease(ev.note||'E5', ev.dur||'8n', time); }
+        }, flat.map(e=>[e.time, e]));
+        part.loop = true; part.loopEnd = lenInput.value + 'm';
+      }
+
+      function timeToNumber(t){ // crude: '1m' -> number of measures as float
+        if(typeof t==='number') return t; if(typeof t==='string' && t.endsWith('m')) return parseFloat(t.replace('m',''));
+        return 0;
+      }
+
+      // event handlers
+      generateBtn.addEventListener('click', async ()=>{
+        status.textContent='Generating...'; await Tone.start(); createInstruments();
+        const ev = generatePattern(keySel.value, scaleSel.value, Number(lenInput.value||8)); schedule(ev);
+        status.textContent='Generated — Ready to play';
+      });
+
+      playBtn.addEventListener('click', async ()=>{
+        if(!part){ status.textContent='Generate first'; return; }
+        await Tone.start(); if(!isPlaying){ Tone.Transport.position='0:0:0'; part.start(0); Tone.Transport.start(); isPlaying=true; playBtn.textContent='Stop'; status.textContent='Playing'; } else { Tone.Transport.stop(); isPlaying=false; playBtn.textContent='Play'; status.textContent='Stopped'; }
+      });
+
+      exportBtn.addEventListener('click', async ()=>{
+        if(!part){ status.textContent='Generate first'; return; }
+        status.textContent='Rendering...'; await Tone.start();
+        if(!recorder) recorder = new Tone.Recorder(); Tone.Destination.connect(recorder);
+        recorder.start(); Tone.Transport.stop(); Tone.Transport.position='0:0:0'; part.start(0); Tone.Transport.start();
+        const bars = Number(lenInput.value||8); const seconds = bars * (60/Number(tempo.value||120)) * 4;
+        setTimeout(async ()=>{
+          Tone.Transport.stop(); const recording = await recorder.stop(); renderedBlob = recording; preview.src = URL.createObjectURL(renderingToSuitableAudio(renderedBlob)); status.textContent='Rendered — ready';
+          // offer MP3 download
+          prepareMp3Download(renderedBlob, Number(mp3Quality.value||192)).then(mp3Blob=>{ const a = document.createElement('a'); a.href = URL.createObjectURL(mp3Blob); a.download = `beatbot_${Date.now()}.mp3`; a.click(); }).catch(e=>console.warn(e));
+        }, Math.max(1000, Math.round(seconds*1000)));
+      });
+
+      // simple mapping for knob visual
+      tempo.addEventListener('input', ()=> updateTempoUI(tempo.value));
+      function updateTempoUI(v){ tempoSlider.value = v; bpmLabel.textContent = v; const ratio = (v-60)/(200-60); const deg = -120 + ratio*240; tempoMark.style.transform = `rotate(${deg}deg)`; Tone.Transport.bpm.value = Number(v); }
+
+      // volume controls
+      function applyVolumes(){ if(!synths._kickSynth) return; synths.kick.gain.value = dbToGain(volKick.value); synths.snare.gain.value = dbToGain(volSnare.value); synths.bass.gain.value = dbToGain(volBass.value); Tone.Destination.volume.value = masterVol.value; }
+      volKick.addEventListener('input', applyVolumes); volSnare.addEventListener('input', applyVolumes); volBass.addEventListener('input', applyVolumes); masterVol.addEventListener('input', ()=> Tone.Destination.volume.value = masterVol.value);
+      function dbToGain(db){ return Math.pow(10, Number(db)/20); }
+
+      // minimal WAV to MP3 conversion using lamejs (assumes WAV PCM16)
+      async function prepareMp3Download(wavBlob, kbps){ const ab = await wavBlob.arrayBuffer(); const wav = parseWav(new Uint8Array(ab)); if(!wav) throw new Error('Invalid WAV'); const samples = wav.samples; const mp3encoder = new lamejs.Mp3Encoder(wav.channels || 1, wav.sampleRate, kbps); const mp3Data=[]; const blockSize=1152; for(let i=0;i<samples.length;i+=blockSize){ const chunk = samples.subarray(i, i+blockSize); const mp3buf = mp3encoder.encodeBuffer(chunk); if(mp3buf.length) mp3Data.push(mp3buf); } const mp3buf = mp3encoder.flush(); if(mp3buf.length) mp3Data.push(mp3buf); return new Blob(mp3Data,{type:'audio/mpeg'}); }
+
+      function renderingToSuitableAudio(blob){ return blob; }
+
+      // minimal WAV parser
+      function parseWav(bytes){ function readInt(i,bytesCount){ let val=0; for(let b=0;b<bytesCount;b++) val |= bytes[i+b] << (8*b); return val; } if(String.fromCharCode(...bytes.slice(0,4))!=='RIFF') return null; let i=12; let format=1, sampleRate=44100,bits=16,channels=1,dataOffset=0,dataSize=0; while(i<bytes.length){ const id=String.fromCharCode(...bytes.slice(i,i+4)); const size = readInt(i+4,4); if(id==='fmt '){ format=readInt(i+8,2); channels=readInt(i+10,2); sampleRate=readInt(i+12,4); bits=readInt(i+22,2); } if(id==='data'){ dataOffset = i+8; dataSize = size; break; } i += 8 + size; } if(!dataOffset) return null; const samples = new Int16Array(dataSize/2); for(let j=0,p=dataOffset;p<dataOffset+dataSize;p+=2,j++){ samples[j] = bytes[p] | (bytes[p+1]<<8); } return {samples, sampleRate, bits, channels}; }
+
+      // Download stems placeholder (would require separate recording per instrument)
+      document.getElementById('downloadStems').addEventListener('click', ()=>{ alert('Stem download: coming soon. For now use Export to get a full mix.'); });
+
+      // init
+      updateTempoUI(tempo.value);
+      createInstruments();
+      applyVolumes();
+
+      // Helpful: keyboard space to play/pause
+      window.addEventListener('keydown', e=>{ if(e.code==='Space'){ e.preventDefault(); playBtn.click(); } });
+
+    })();
+  </script>
+</body>
+</html>
